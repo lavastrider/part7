@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { 
   BrowserRouter as Router, 
-  Routes, Route, Link, useParams 
+  Routes, Route, Link, useParams,
+  useNavigate 
   } from 'react-router-dom'
 
 const Menu = (props) => {
@@ -67,19 +68,23 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
+  const navigate = useNavigate()
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = (event) => {
+    event.preventDefault()
     props.addNew({
       content,
       author,
       info,
       votes: 0
     })
+    navigate('/')
+    props.setNotif(`Success! You added "${content}" to the list of anecdotes`)
+    setTimeout(() => props.setNotif(''), 5000)
   }
 
   return (
@@ -149,10 +154,11 @@ const App = () => {
     <div>
       <h1>Software anecdotes</h1>
       <Menu anecdotes={anecdotes}/>
+      <p>{notification}</p>
       
       <Routes>
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
-        <Route path="/create" element={<CreateNew />} />
+        <Route path="/create" element={<CreateNew addNew={addNew} notif={notification} setNotif={setNotification}/>} />
         <Route path="/about" element={<About />} />
         <Route path="/anecdotes/:id" element={<AnecSingle anecdotes={anecdotes}/>} />
       </Routes>
