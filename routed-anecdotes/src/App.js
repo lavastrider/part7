@@ -4,6 +4,7 @@ import {
   Routes, Route, Link, useParams,
   useNavigate 
   } from 'react-router-dom'
+import { useField } from './hooks/index' 
 
 const Menu = (props) => {
   const padding = {
@@ -72,7 +73,11 @@ const CreateNew = (props) => {
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
-
+  const phrase = useField('anex')
+  const auth = useField('author')
+  const url = useField('url')
+  
+  console.log(phrase, 'is phrase in app')
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -93,17 +98,26 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input
+            type={phrase.type}
+            value={phrase.value}
+            placeholder='Enter the anecdote here'
+            onChange={phrase.onChange} />
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input 
+            name='author' 
+            value={author} 
+            placeholder='Enter the author here' 
+            onChange={(e) => setAuthor(e.target.value)} />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input name='info' value={info} placeholder='Enter the url here' onChange={(e)=> setInfo(e.target.value)} />
         </div>
         <button>create</button>
+        <button>reset</button>
       </form>
     </div>
   )
