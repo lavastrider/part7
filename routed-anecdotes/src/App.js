@@ -82,8 +82,14 @@ const CreateNew = (props) => {
   const authur = useField('author')
   const site = useField('url')
   
-  const { resetfield } = useField('clear')
-
+  const { reset } = useField('clear')
+  
+  console.log(phrase, 'is phrase in createnew')
+  
+  const initialState = {
+    type: '',
+    value: '',  
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -118,9 +124,9 @@ const CreateNew = (props) => {
         </div>
         <button type="submit">create</button>
         <button type="button" 
-          onClick={(event)=>{
-            event.preventDefault(); 
-            resetfield(phrase); 
+          onClick={() =>{ 
+            Array.from(document.querySelectorAll('input')).forEach((input)=>input.value='');  
+            reset(); 
             console.log('we want the form to clear by calling useField')
             }}>
          reset
@@ -128,7 +134,6 @@ const CreateNew = (props) => {
       </form>
     </div>
   )
-
 }
 
 const App = () => {
