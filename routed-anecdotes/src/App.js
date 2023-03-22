@@ -24,11 +24,14 @@ const Menu = (props) => {
 
 const AnecSingle = ({ anecdotes }) => {
   const id = useParams().id
-  const phrase = anecdotes.find((words) => words.id=== Number(id))
+  const phrases = anecdotes.find((words) => words.id=== Number(id))
   
   return (
     <div>
-      <h2>{phrase.content}</h2>
+      <h2>{phrases.content}</h2>
+      <h2>{phrases.phrase}</h2>
+      <p>{phrases.author}</p>
+      <p>{phrases.info}</p>
     </div>
   )
 
@@ -41,6 +44,7 @@ const AnecdoteList = ({ anecdotes }) => (
       {anecdotes.map(anecdote => 
         <li key={anecdote.id} >
           <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
+          <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.phrase}</Link>
         </li>)}
     </ul>
   </div>
@@ -73,24 +77,28 @@ const CreateNew = (props) => {
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
-  const phrase = useField('anex')
-  const auth = useField('author')
-  const url = useField('url')
   
-  console.log(phrase, 'is phrase in app')
+  const phrase = useField('anex')
+  const authur = useField('author')
+  const site = useField('url')
+  
+  const { resetfield } = useField('clear')
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
     props.addNew({
-      content,
-      author,
-      info,
+      content: phrase.value,
+      author: authur.value,
+      info: site.value,
       votes: 0
     })
     navigate('/')
-    props.setNotif(`Success! You added "${content}" to the list of anecdotes`)
-    setTimeout(() => props.setNotif(''), 5000)
+    props.setNotif(`Success! You added "${phrase.value}" to the list of anecdotes`)
+    setTimeout(()=> props.setNotif(''), 5000)
   }
+  
+  //document.querySelectorAll('input').removeAttribute('resetfield')
 
   return (
     <div>
@@ -98,26 +106,25 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input
-            type={phrase.type}
-            value={phrase.value}
-            placeholder='Enter the anecdote here'
-            onChange={phrase.onChange} />
+          <input {...phrase}/>
         </div>
         <div>
           author
-          <input 
-            name='author' 
-            value={author} 
-            placeholder='Enter the author here' 
-            onChange={(e) => setAuthor(e.target.value)} />
+          <input {...authur}/>
         </div>
         <div>
           url for more info
-          <input name='info' value={info} placeholder='Enter the url here' onChange={(e)=> setInfo(e.target.value)} />
+          <input {...site}/>
         </div>
-        <button>create</button>
-        <button>reset</button>
+        <button type="submit">create</button>
+        <button type="button" 
+          onClick={(event)=>{
+            event.preventDefault(); 
+            resetfield(phrase); 
+            console.log('we want the form to clear by calling useField')
+            }}>
+         reset
+        </button>
       </form>
     </div>
   )
@@ -147,6 +154,7 @@ const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000)
     setAnecdotes(anecdotes.concat(anecdote))
+    console.log(anecdote, 'is anecdote in create new')
   }
 
   const anecdoteById = (id) =>
