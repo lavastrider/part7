@@ -17,8 +17,12 @@ const useField = (type) => {
 
 const useResource = (baseUrl) => {
   const [resources, setResources] = useState([])
-
-  // ...
+  
+  const getAll = async () => {
+    const response = await axios.get(baseUrl)
+    //maybe setResourses(response.data.json())?
+    return response.data
+  }
 
   const create = (resource) => {
     // ...
@@ -56,7 +60,7 @@ const App = () => {
       <h2>notes</h2>
       <form onSubmit={handleNoteSubmit}>
         <input {...content} />
-        <button>create</button>
+        <button type="submit">create</button>
       </form>
       {notes.map(n => <p key={n.id}>{n.content}</p>)}
 
@@ -64,7 +68,7 @@ const App = () => {
       <form onSubmit={handlePersonSubmit}>
         name <input {...name} /> <br/>
         number <input {...number} />
-        <button>create</button>
+        <button type="submit">create</button>
       </form>
       {persons.map(n => <p key={n.id}>{n.name} {n.number}</p>)}
     </div>
