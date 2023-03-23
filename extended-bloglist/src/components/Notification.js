@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 const Notification = () => {
 
   const notific = useSelector(state => state.notification)
-  console.log(notific, 'is notific in notification component')
+  //console.log(notific, 'is notific in notification component')
 
   const errorStyle = {
     color: 'red',

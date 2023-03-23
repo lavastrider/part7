@@ -13,11 +13,14 @@ const blogSlice = createSlice({
       return state.concat(action.payload)
     },
     addVote(state, action){
-      console.log(action, 'is action in replace phrase')
+      console.log(action, 'is action in addVote reducer')
       const id = action.payload.id
+      console.log(id, 'is id in add vote')
       const phraseToReplace = state.find((word) => word.id === id)
-      console.log(phraseToReplace, 'is phrasetoreplace in add vote')
-      phraseToReplace.votes = action.payload.votes
+      console.log(phraseToReplace, 'is phrasetoreplace in add vote reducer')
+      console.log(phraseToReplace.likes, 'is pTR likes in add vote')
+      phraseToReplace.likes = action.payload.likes
+      console.log(phraseToReplace.likes, 'is pTR likes in add vote after made the same as action payload likes')
     }
   }
 })
@@ -38,12 +41,13 @@ export const newBlogs = (content) => {
   }
 }
 
-//export const addingVote = (id) => {
-//  return async dispatch => {
-//    const voted = await wordService.incVote(id)
-//    dispatch(replacePhrase(voted))
-//  }
-//}
+export const addingVote = (id, newObject) => {
+  return async dispatch => {
+    const voted = await blogService.update(id, newObject)
+    console.log(voted, 'is voted in adding vote in reducer')
+    dispatch(addVote(voted))
+  }
+}
 
 //export const deleteEntry = (id) => {
 //

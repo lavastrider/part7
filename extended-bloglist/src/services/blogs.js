@@ -22,9 +22,13 @@ const create = async newObject => {
 }
 
 const update = (id, newObject) => {
-  //this is used when increasing the votes
+  console.log(typeof id, 'is type of id in update')
+  console.log(id, 'is id in update')
+  console.log(typeof newObject, 'is type of new object')
+  console.log(newObject, 'is new object in update')
   const request = axios.put(`${baseUrl}/${id}`, newObject)
   console.log('we are in the update in service')
+  //console.log(request, 'is request in service')
   return request.then((response) => response.data)
 }
 
