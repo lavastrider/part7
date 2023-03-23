@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
+//import { useDispatch } from 'react-redux'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -20,6 +20,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
   //const [loginVisible, setLoginVisible] = useState(false)
 
+  //const dispatch = useDispatch()
   const blogFormRef= useRef()
 
   useEffect(() => {

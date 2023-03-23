@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
     "axios": "^1.2.3",
     "mongoose": "^7.0.2",
     "prop-types": "^15.8.1",
