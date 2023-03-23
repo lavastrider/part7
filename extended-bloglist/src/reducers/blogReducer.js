@@ -1,5 +1,3 @@
-//object will contain title, author, and url
-
 import { createSlice } from '@reduxjs/toolkit'
 import blogService from '../services/blogs'
 
@@ -21,11 +19,17 @@ const blogSlice = createSlice({
       console.log(phraseToReplace.likes, 'is pTR likes in add vote')
       phraseToReplace.likes = action.payload.likes + 1
       console.log(phraseToReplace.likes, 'is pTR likes in add vote after made the same as action payload likes')
+    },
+    removeBlog(state, action){
+      //console.log(action, 'is action in removeblog')
+      const id = action.payload
+      const blogWithoutDeleted = state.filter((diary) => diary.id !== id)
+      return blogWithoutDeleted
     }
   }
 })
 
-export const { addVote, appendBlogs } = blogSlice.actions
+export const { addVote, appendBlogs, removeBlog } = blogSlice.actions
 
 export const initializeBlogs = () => {
   return async dispatch => {
@@ -49,9 +53,13 @@ export const addingVote = (id, newObject) => {
   }
 }
 
-//export const deleteEntry = (id) => {
-//
-//
-//}
+export const removeEntry = (id) => {
+  console.log(id, 'is id in remove entry in reducer')
+  return async dispatch => {
+    const deletion = await blogService.deleteEntry(id)
+    console.log(deletion, 'is deletion in remove entry')
+    dispatch(removeBlog(id))
+  }
+}
 
 export default blogSlice.reducer
