@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   BrowserRouter as Router, 
   Routes, Route, Link, useParams,
@@ -66,33 +66,32 @@ const About = () => (
 
 const Footer = () => (
   <div>
-    Anecdote app for <a href='https://fullstackopen.com/'>Full Stack Open</a>.
+    Anecdote app for <a href='https://fullstackopen.com/'>Full Stack Open</a>, made by Amy Johnson.
 
-    See <a href='https://github.com/fullstack-hy2020/routed-anecdotes/blob/master/src/App.js'>https://github.com/fullstack-hy2020/routed-anecdotes/blob/master/src/App.js</a> for the source code.
+    See <a href='https://github.com/fullstack-hy2020/routed-anecdotes/blob/master/src/App.js'>https://github.com/fullstack-hy2020/routed-anecdotes/blob/master/src/App.js</a> for the unedited source code.
+    See <a href='https://github.com/lavastrider/part7/tree/main/routed-anecdotes'>https://github.com/lavastrider/part7/tree/main/routed-anecdotes</a> for the edited source code.
   </div>
 )
 
 const CreateNew = (props) => {
   const navigate = useNavigate()
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
   
-  const phrase = useField('anex')
-  const authur = useField('author')
-  const site = useField('url')
+  //const phrase = useField('anex')
+  //const authur = useField('author')
+  //const site = useField('url')
+  
+  const { reset: resetPhrase, ...phrase } = useField('anex')
+  const { reset: resetAuthur, ...authur } = useField('author')
+  const { reset: resetSite, ...site } = useField('url')  
   
   const { reset } = useField('clear')
   
   console.log(phrase, 'is phrase in createnew')
-  
-  const initialState = {
-    type: '',
-    value: '',  
-  }
+  //console.log(authur, 'is authur in createnew')
+  //console.log(site, 'is site in createnew')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = (event) => {
+    event.preventDefault()
     props.addNew({
       content: phrase.value,
       author: authur.value,
@@ -125,8 +124,10 @@ const CreateNew = (props) => {
         <button type="submit">create</button>
         <button type="button" 
           onClick={() =>{ 
-            Array.from(document.querySelectorAll('input')).forEach((input)=>input.value='');  
-            reset(); 
+            Array.from(document.querySelectorAll('input')).forEach((input)=>input.value='');
+            resetPhrase();
+            resetAuthur();
+            resetSite();
             console.log('we want the form to clear by calling useField')
             }}>
          reset
@@ -168,7 +169,7 @@ const App = () => {
   const vote = (id) => {
     const anecdote = anecdoteById(id)
 
-    const voted = {
+  const voted = {
       ...anecdote,
       votes: anecdote.votes + 1
     }
@@ -189,10 +190,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/anecdotes/:id" element={<AnecSingle anecdotes={anecdotes}/>} />
       </Routes>
-      
-      
-      
-      
+      	
       <Footer />
     </div>
    </Router>
