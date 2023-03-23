@@ -1,16 +1,7 @@
 //object will contain title, author, and url
 
 import { createSlice } from '@reduxjs/toolkit'
-
-//const getId = () => (100000 * Math.random()).toFixed(0)
-
-//const asObject = (anecdote) => {
-//  return {
-//    content: anecdote,
-//    id: getId(),
-//    votes: 0
-//  }
-//}
+import blogService from '../services/blogs'
 
 const initialState = []
 
@@ -18,50 +9,45 @@ const blogSlice = createSlice({
   name: 'diaries',
   initialState,
   reducers: {
-    addVote(state, action){
-      //console.log(JSON.parse(JSON.stringify(state)), 'is state in addVote in wordSlice')
-      const id = action.payload
-      //console.log(id, 'is action payload in add vote')
-      const phraseToVote = state.find((word) => word.id === id)
-      //console.log(phraseToVote, 'is phrase to vote') <- proxy junk
-      //console.log(JSON.parse(JSON.stringify(phraseToVote)), 'is pTV with json')
-      phraseToVote.votes += 1
-      //console.log(JSON.parse(JSON.stringify(state)), 'is state in addVote in wordSlice after voting')
-    },
     appendBlogs(state, action){
       return state.concat(action.payload)
     },
-    replacePhrase(state, action){
+    addVote(state, action){
       console.log(action, 'is action in replace phrase')
       const id = action.payload.id
       const phraseToReplace = state.find((word) => word.id === id)
-      console.log(phraseToReplace, 'is phrasetoreplace in replace phrase')
+      console.log(phraseToReplace, 'is phrasetoreplace in add vote')
       phraseToReplace.votes = action.payload.votes
     }
   }
 })
 
-export const { addVote, appendBlogs, replacePhrase } = blogSlice.actions
+export const { addVote, appendBlogs } = blogSlice.actions
 
-//export const initializeWords = () => {
-//  return async dispatch => {
-//    const words = await wordService.getAll()
-//    dispatch(appendAnex(words))
-//  }
-//}
+export const initializeBlogs = () => {
+  return async dispatch => {
+    const books = await blogService.getAll()
+    dispatch(appendBlogs(books))
+  }
+}
 
-//export const newWords = (content) => {
-//   return async dispatch => {
-//     const newWord = await wordService.createNew(content)
-//     dispatch(appendAnex(newWord))
-//   }
-//}
+export const newBlogs = (content) => {
+  return async dispatch => {
+    const newBlog = await blogService.create(content)
+    dispatch(appendBlogs(newBlog))
+  }
+}
 
 //export const addingVote = (id) => {
 //  return async dispatch => {
 //    const voted = await wordService.incVote(id)
 //    dispatch(replacePhrase(voted))
 //  }
+//}
+
+//export const deleteEntry = (id) => {
+//
+//
 //}
 
 export default blogSlice.reducer

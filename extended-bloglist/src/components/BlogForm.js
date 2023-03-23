@@ -16,8 +16,6 @@ const BlogForm = ({ createBlog }) => {
         url: blogUrl
       })
 
-      //so the blog's info is there. it exists. then why does it require a refresh?
-
       setBlogTitle('')
       setBlogAuthor('')
       setBlogUrl('')
