@@ -27,6 +27,7 @@ const update = (id, newObject) => {
   const request = axios.put(`${baseUrl}/${id}`, newObject)
   console.log('we are in the update in service')
   console.log(request, 'is request in service')
+  //console.log(request.then(response => response.data), 'is request then data')
   return request.then((response) => response.data)
 }
 

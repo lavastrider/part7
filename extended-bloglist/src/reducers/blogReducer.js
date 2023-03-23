@@ -19,7 +19,7 @@ const blogSlice = createSlice({
       const phraseToReplace = state.find((word) => word.id === id)
       console.log(JSON.parse(JSON.stringify(phraseToReplace)), 'is json json phrasetoreplace in add vote reducer')
       console.log(phraseToReplace.likes, 'is pTR likes in add vote')
-      phraseToReplace.likes = action.payload.likes
+      phraseToReplace.likes = action.payload.likes + 1
       console.log(phraseToReplace.likes, 'is pTR likes in add vote after made the same as action payload likes')
     }
   }
