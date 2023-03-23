@@ -17,7 +17,7 @@ const blogSlice = createSlice({
       const id = action.payload.id
       console.log(id, 'is id in add vote')
       const phraseToReplace = state.find((word) => word.id === id)
-      console.log(phraseToReplace, 'is phrasetoreplace in add vote reducer')
+      console.log(JSON.parse(JSON.stringify(phraseToReplace)), 'is json json phrasetoreplace in add vote reducer')
       console.log(phraseToReplace.likes, 'is pTR likes in add vote')
       phraseToReplace.likes = action.payload.likes
       console.log(phraseToReplace.likes, 'is pTR likes in add vote after made the same as action payload likes')
