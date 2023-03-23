@@ -1,4 +1,9 @@
-const Notification = ({ message }) => {
+import { useSelector } from 'react-redux'
+
+const Notification = () => {
+
+  const notific = useSelector(state => state.notification)
+  console.log(notific, 'is notific in notification component')
 
   const errorStyle = {
     color: 'red',
@@ -23,20 +28,20 @@ const Notification = ({ message }) => {
   }
 
 
-  if (!message) {
+  if (!notific) {
     return null
   }
 
-  if (message.toLowerCase().includes('error')) {
+  if (notific.toLowerCase().includes('error')) {
     return(
       <div style={errorStyle} className="errorStyle">
-        {message}
+        {notific}
       </div>
     )
   } else {
     return (
       <div style={passStyle} className="passStyle">
-        {message}
+        {notific}
       </div>
     )
   }

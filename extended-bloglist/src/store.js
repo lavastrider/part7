@@ -1,14 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
+import notifReducer from './reducers/notifReducer'
+import blogReducer from './reducers/blogReducer'
 
-const store = configureStore()
-
-//const store = configureStore({
-//  reducer: {
-//    anecdotes: anecdoteReducer,
-//    searchTerm: filterReducer,
-//    notification: notificationReducer
-//  }  
-//})
+const store = configureStore({
+  reducer: {
+    blogs: blogReducer,
+    notification: notifReducer
+  }
+})
 
 console.log(store.getState(), 'is store get state in store.js')
 

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-//import { useDispatch } from 'react-redux'
+//import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -7,11 +8,11 @@ import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
-import './App.css'
+//import { initializeWords } from './reducers/blogReducer'
+import { setNotif } from './reducers/notifReducer'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  //const [newBlog, setNewBlog] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -20,16 +21,18 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
   //const [loginVisible, setLoginVisible] = useState(false)
 
-  //const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const blogFormRef= useRef()
 
   useEffect(() => {
+    //here is where we dispatch initialize blogs
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
     )
   }, [updatedBlog])
 
   useEffect(() => {
+    //here is where we do login stuff
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
     //console.log(loggedUserJSON, 'is logged user')
     if (loggedUserJSON) {
@@ -39,9 +42,6 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
-
-  //console.log(user, 'is user outside of useeffect')
-  //console.log(loggedUserJSON, 'is logged user')
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -56,9 +56,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('Error: Wrong username or password')
-      setTimeout(() => {
-        setErrorMessage(null)}, 5000)
+      dispatch(setNotif('Error: Wrong username or password', 5))
     }
   }
 
@@ -72,11 +70,10 @@ const App = () => {
           setBlogs(blogs.concat(returnedBlog))
         })
 
-      setErrorMessage(`The blog post "${blogObject.title}" by ${blogObject.author} has been added`)
-      setTimeout(() => {
-        setErrorMessage(null)}, 5000)
+      dispatch(setNotif(`The blog post "${blogObject.title}" by ${blogObject.author} has been added`, 5))
       setUpdatedBlog(2000)
     } catch(exception) {
+      //here is where we dispatch message to notif
       setErrorMessage('There was an error when submitting the blog\'s information. Please try again.')
     }
   }
@@ -109,6 +106,7 @@ const App = () => {
     if (agree) {
       await blogService.deleteEntry(blog.id)
       console.log('we deleted the blog inside of deleteblog in app')
+      //here is where we {maybe} dispatch message to notif
       setUpdatedBlog(1)
     }
   }
