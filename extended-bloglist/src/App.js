@@ -9,6 +9,17 @@ import BlogsList from './components/BlogsList'
 import { initializeBlogs, newBlogs } from './reducers/blogReducer'
 import { setNotif } from './reducers/notifReducer'
 import { userData, userToken } from './reducers/userReducer'
+import { 
+  BrowserRouter as Router, 
+  Routes, Route, Link, useParams,
+  useNavigate 
+  } from 'react-router-dom'
+
+const Users = () => {
+  return(
+    <p>popo</p>
+  )
+}
 
 const App = () => {
   const [username, setUsername] = useState('')
