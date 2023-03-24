@@ -1,13 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import blogService from '../services/blogs'
+import userService from '../services/user'
 //import { setNotif } from './notifReducer'
 
-const initialState = {
-  token: localStorage.getItem('token'),
-  isAuthenticated: localStorage.getItem('token') ? true : false,
-  isLoading: false,
-  isRegistered: false
-}
+const initialState = []
 
 const userSlice = createSlice({
   name: 'user',
@@ -23,11 +19,19 @@ const userSlice = createSlice({
       console.log(JSON.parse(JSON.stringify(state)), 'is json json state in set token')
       console.log(action, 'is action in set token')
       return action.payload
+    },
+    appendUsers(state, action) {
+      console.log(action, 'is action in append users')
+      console.log(JSON.parse(JSON.stringify(state)), 'is json json state in append users')
+      const copyState = { ...state }
+      copyState.appendUsers = action.payload
+      return copyState
+      //return state.concat(action.payload)
     }
   }
 })
 
-export const { saveUser, setToken } = userSlice.actions
+export const { saveUser, setToken, appendUsers } = userSlice.actions
 
 export const userData = (user) => {
   //will use save user reducer
@@ -42,6 +46,14 @@ export const userToken = (user) => {
   return async dispatch => {
     const useToke = await blogService.setToken(user.token)
     dispatch(setToken(useToke))
+  }
+}
+
+export const initializeUsers = () => {
+  return async dispatch => {
+    const userList = await userService.getAll()
+    console.log(userList, 'is userList in get users')
+    dispatch(appendUsers(userList))
   }
 }
 

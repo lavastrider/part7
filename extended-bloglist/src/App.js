@@ -11,7 +11,7 @@ import BlogsList from './components/BlogsList'
 //import { initializeBlogs, newBlogs } from './reducers/blogReducer'
 import { initializeBlogs } from './reducers/blogReducer'
 import { setNotif } from './reducers/notifReducer'
-import { userData, userToken } from './reducers/userReducer'
+import { userData, userToken, initializeUsers } from './reducers/userReducer'
 //import {
 //  BrowserRouter as Router,
 //  Routes, Route, Link, useParams,
@@ -45,10 +45,10 @@ const UsersBlogs = () => {
   const id = useParams().id
   console.log(id, 'is id in usersblogs')
 
-  const bloggiest = useSelector(state => state.blogs)
-  console.log(bloggiest, 'is bloggiest')
+  const bloggies = useSelector(state => state.blogs)
+  console.log(bloggies, 'is bloggies')
 
-  if (bloggiest.length > 0) {
+  if (bloggies.length > 0) {
     //find user that has same id as id
     //save that user info to nomen
 
@@ -56,15 +56,15 @@ const UsersBlogs = () => {
     const posterBlogs = []
 
     //put blogs the user has posted into array
-    for (let j = 0; j < bloggiest.length; j++) {
+    for (let j = 0; j < bloggies.length; j++) {
       //if the user of the blog isn't null
-      if (bloggiest[j].user){
-        //console.log(bloggiest[j].user, 'is bloggiest j user when making sure it isn not null')
+      if (bloggies[j].user){
+        //console.log(bloggies[j].user, 'is bloggies j user when making sure it isn not null')
         //if the id of the blog poster is the same as the id from saved user
-        if (bloggiest[j].user.id === id) {
-          //console.log(bloggiest[j].user, 'is bloggiest j user when the user id equals id from params')
-          nomen = bloggiest[j].user.personName
-          posterBlogs.push(bloggiest[j].title)
+        if (bloggies[j].user.id === id) {
+          //console.log(bloggies[j].user, 'is bloggies j user when the user id equals id from params')
+          nomen = bloggies[j].user.personName
+          posterBlogs.push(bloggies[j].title)
         }
       }
     }
@@ -96,81 +96,80 @@ const UsersBlogs = () => {
 }
 
 const Users = () => {
-  const bloggies = useSelector(state => state.blogs)
-  console.log(bloggies, 'is bloggies')
 
-  if (bloggies.length > 0) {
-    const blogPosters = []
-    const blogInfo = {
-      poster: '',
-      posterId: '',
-      posted: 0
-    }
+  const dispatch = useDispatch()
 
-    //put authors of blogs in author array, no duplicates
-    for (let j = 0; j<bloggies.length; j++) {
-      //if the array is not empty
-      if (blogPosters.length !== 0){
-        //if the user isn't null
-        if (bloggies[j].user) {
-        //if the user isn't already there
-          if (!(Object.values(blogPosters).map((creditor) => creditor.poster.includes(bloggies[j].user.personName)).includes(true))) {
-            const newBlogInfo = Object.create(blogInfo)
-            newBlogInfo.poster = bloggies[j].user.personName
-            newBlogInfo.posterId = bloggies[j].user.id
-            newBlogInfo.posted = 1
-            blogPosters.push(newBlogInfo)
-            //console.log(blogPosters, 'is blogPosters in if statement')
-          } //else the user is already in the list
-          else {
-            //console.log(`We found a match! ${blogs[j].author} already is in the list`)
-            const index = blogPosters.map((pencil) => pencil.poster).indexOf(bloggies[j].user.personName)
-            //console.log(index, 'is index')
-            //console.log(blogPosters[index].likes, 'should be the amount of likes that', blogPosters[index].author, 'has')
-            if (blogPosters[index].poster === bloggies[j].user.personName) {
-              blogPosters[index].posted += 1
-            }
-          //console.log(blogPosters[index].likes, 'is the new amount')
+  useEffect(() => {
+    dispatch(initializeUsers())
+  }, [])
+
+  const setup = useSelector(state => state.userInfo)
+  console.log(setup, 'is setup')
+
+  if (setup) {
+    const bloggiesUsers = useSelector(state => state.userInfo.appendUsers)
+    //console.log(bloggiesUsers, 'is bloggies users')
+
+    if (bloggiesUsers) {
+      //console.log(bloggiesUsers.length, 'is bloggies users length')
+
+      const blogPosters = []
+      const userInfo = {
+        poster: '',
+        posterUser: '',
+        posterId: '',
+        posted: 0
+      }
+
+      for (let j = 0; j < bloggiesUsers.length; j++) {
+        //if array isn't empty
+        if (blogPosters.length !== 0) {
+          const newUserInfo = Object.create(userInfo)
+          newUserInfo.poster = bloggiesUsers[j].personName
+          newUserInfo.posterUser = bloggiesUsers[j].username
+          newUserInfo.poserId = bloggiesUsers[j].id
+          newUserInfo.posted = Object.values(bloggiesUsers[j].blogs).length
+          blogPosters.push(newUserInfo)
+        }
+        else { //the array is empty
+          //if the person has a name
+          if (bloggiesUsers[j].personName) {
+            const newUserInfo = Object.create(userInfo)
+            newUserInfo.poster = bloggiesUsers[j].personName
+            newUserInfo.posterUser = bloggiesUsers[j].username
+            newUserInfo.poserId = bloggiesUsers[j].id
+            newUserInfo.posted = Object.values(bloggiesUsers[j].blogs).length
+            blogPosters.push(newUserInfo)
           }
         }
       }
-      else { //the array is empty
-        if (bloggies[j].user) {
-          //console.log('the array is length zero')
-          //console.log(bloggies[j].user, 'is bloggies j user')
-          const newBlogInfo = Object.create(blogInfo)
-          newBlogInfo.poster = bloggies[j].user.personName
-          newBlogInfo.posterId = bloggies[j].user.id
-          newBlogInfo.posted = 1
-          blogPosters.push(newBlogInfo)
-        }
-      }
-    }
-    console.log(blogPosters, 'is blogPosters')
 
-    return (
-      <div>
-        <h1>Users</h1>
-        <table>
-          <thead>
-            <tr>
-              <td></td>
-              <td><strong>blogs created</strong></td>
-            </tr>
-          </thead>
-          <tbody>
-            {blogPosters.map((posting, ind) => {
-              return (
-                <tr key={ind}>
-                  <td><Link to={`/users/${posting.posterId}`}>{posting.poster}</Link></td>
-                  <td>{posting.posted}</td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
-    )
+      //console.log(blogPosters, 'is blog posters')
+
+      return (
+        <div>
+          <h1>Users</h1>
+          <table>
+            <thead>
+              <tr>
+                <td></td>
+                <td><strong>blogs created</strong></td>
+              </tr>
+            </thead>
+            <tbody>
+              {blogPosters.map((posting, ind) => {
+                return (
+                  <tr key={ind}>
+                    <td><Link to={`/users/${posting.posterId}`}>{posting.poster}</Link></td>
+                    <td>{posting.posted}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      )
+    }
   }
 
   return(
