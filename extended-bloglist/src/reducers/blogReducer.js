@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import blogService from '../services/blogs'
+import { setNotif } from './notifReducer'
 
 const initialState = []
 
@@ -40,8 +41,10 @@ export const initializeBlogs = () => {
 
 export const newBlogs = (content) => {
   return async dispatch => {
-    const newBlog = await blogService.create(content)
-    dispatch(appendBlogs(newBlog))
+    const newBlog = await blogService.create(content).catch(() => dispatch(setNotif('There was an error when submitting the blog\'s information. Please try again.', 5)))
+    if (newBlog){
+      dispatch(appendBlogs(newBlog))
+    }
   }
 }
 

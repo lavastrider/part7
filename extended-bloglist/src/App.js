@@ -1,8 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-//import { useSelector, useDispatch } from 'react-redux'
-import { useDispatch } from 'react-redux'
-//import Blog from './components/Blog'
-import blogService from './services/blogs'
+import { useSelector, useDispatch } from 'react-redux'
 import loginService from './services/login'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
@@ -11,14 +8,11 @@ import BlogForm from './components/BlogForm'
 import BlogsList from './components/BlogsList'
 import { initializeBlogs, newBlogs } from './reducers/blogReducer'
 import { setNotif } from './reducers/notifReducer'
+import { userData, userToken } from './reducers/userReducer'
 
 const App = () => {
-  //const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useState(null)
-  const [updatedBlog, setUpdatedBlog] = useState('')
-  console.log(updatedBlog, 'is updated blog console to use for eslint error')
 
   const dispatch = useDispatch()
   const blogFormRef= useRef()
@@ -32,10 +26,10 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
     //console.log(loggedUserJSON, 'is logged user')
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
+      const usered = JSON.parse(loggedUserJSON)
+      dispatch(userData(usered))
       //console.log(user, 'is user in useeffect')
-      blogService.setToken(user.token)
+      dispatch(userToken(usered))
     }
   }, [])
 
@@ -43,12 +37,10 @@ const App = () => {
     event.preventDefault()
 
     try {
-      const user = await loginService.login({ username, password })
-
-      window.localStorage.setItem( 'loggedBlogAppUser', JSON.stringify(user) )
-
-      blogService.setToken(user.token)
-      setUser(user)
+      const usering = await loginService.login({ username, password })
+      window.localStorage.setItem( 'loggedBlogAppUser', JSON.stringify(usering) )
+      dispatch(userData(usering))
+      dispatch(userToken(user))
       setUsername('')
       setPassword('')
     } catch (exception) {
@@ -59,18 +51,7 @@ const App = () => {
   const addBlog = (blogObject) => {
     blogFormRef.current.toggleVisib()
     dispatch(newBlogs(blogObject))
-    //blogService
-    //  .create(blogObject)
-    //  .then((returnedBlog) => {
-    //    console.log(returnedBlog, 'is the obj that is returned blog')
-    //    setBlogs(blogs.concat(returnedBlog))
-    // })
-    //  .catch((error) => {
-    //    dispatch(setNotif('There was an error when submitting the blog\'s information. Please try again.', 5))
-    //    console.log(error, 'is error in blog service when adding blog')
-    //  })
     dispatch(setNotif(`The blog post "${blogObject.title}" by ${blogObject.author} has been added`, 5))
-    setUpdatedBlog(2000)
   }
 
 
@@ -112,6 +93,8 @@ const App = () => {
   //const sortVal = Object.values(blogs)
   //console.log(sortVal, 'is sort val')
 
+  const user = useSelector(state => state.userInfo)
+
 
   return (
     <div>
@@ -125,7 +108,7 @@ const App = () => {
           <BlogForm createBlog={addBlog}/>
         </Togglable>
         <h2>Blog List</h2>
-        <BlogsList user={user}/>
+        <BlogsList />
       </div>
       }
     </div>

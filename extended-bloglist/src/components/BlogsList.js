@@ -3,10 +3,12 @@ import { setNotif } from '../reducers/notifReducer'
 import { addingVote, removeEntry } from '../reducers/blogReducer'
 import Blog from './Blog'
 
-const BlogList = (props) => {
+const BlogList = () => {
 
   const blogs = useSelector(state => state.blogs)
-  console.log(blogs, 'is blogs from useSelector')
+  //console.log(blogs, 'is blogs from useSelector')
+
+  const users = useSelector(state => state.userInfo)
 
   const dispatch = useDispatch()
 
@@ -40,16 +42,20 @@ const BlogList = (props) => {
     dispatch(setNotif(`You added a like to "${blog.title}"`, 5))
   }
 
+  //would somehow like to have diaries be sorted
+
   const diaries = useSelector((state) =>
     state.blogs.map((blog) =>
       <Blog
         key={blog.id}
         blog={blog}
-        userInfo={props.user}
+        userInfo={users}
         increaseLikes={() => increaseLikes(blog.id)}
         deleteEntry={() => deleteBlog(blog.id)}
       />
-    ))
+    ).sort((a, b) => {b.props.blog.likes - a.props.blog.likes})
+  )
+  console.log(diaries, 'is diaries')
 
   return diaries
 }
