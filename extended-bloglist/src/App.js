@@ -45,11 +45,80 @@ const Users = () => {
   const bloggies = useSelector(state => state.blogs)
   console.log(bloggies, 'is bloggies')
 
-  console.log(bloggies[116], 'is bloggies 116')
-  console.log(bloggies[116].user, 'is bloggies 116 user')
+  if (bloggies.length > 0) {
+    const blogPosters = []
+    const blogInfo = {
+      poster: '',
+      posted: 0
+    }
 
-  const users = bloggies.filter((user) => user.user.personName.includes('root'))
-  console.log(users, 'is users')
+    //put authors of blogs in author array, no duplicates
+    for (let j = 0; j<bloggies.length; j++) {
+      //if the array is not empty
+      if (blogPosters.length !== 0){
+        //if the user isn't null
+        if (bloggies[j].user) {
+        //if the user isn't already there
+          if (!(Object.values(blogPosters).map((creditor) => creditor.poster.includes(bloggies[j].user.personName)).includes(true))) {
+            const newBlogInfo = Object.create(blogInfo)
+            newBlogInfo.poster = bloggies[j].user.personName
+            newBlogInfo.posted = 1
+            blogPosters.push(newBlogInfo)
+            //console.log(blogPosters, 'is blogPosters in if statement')
+          } //else the user is already in the list
+          else {
+            //console.log(`We found a match! ${blogs[j].author} already is in the list`)
+            const index = blogPosters.map((pencil) => pencil.poster).indexOf(bloggies[j].user.personName)
+            //console.log(index, 'is index')
+            //console.log(blogPosters[index].likes, 'should be the amount of likes that', blogPosters[index].author, 'has')
+            if (blogPosters[index].poster === bloggies[j].user.personName) {
+              blogPosters[index].posted += 1
+            }
+          //console.log(blogPosters[index].likes, 'is the new amount')
+          }
+        }
+      }
+      else { //the array is empty
+        if (bloggies[j].user) {
+          console.log('the array is length zero')
+          console.log(bloggies[j].user, 'is bloggies j user')
+          const newBlogInfo = Object.create(blogInfo)
+          newBlogInfo.poster = bloggies[j].user.personName
+          newBlogInfo.posted = 1
+          blogPosters.push(newBlogInfo)
+        }
+      }
+    }
+    console.log(blogPosters, 'is blogPosters')
+
+    const blogPostersObj = { blogPosters }
+    console.log(blogPostersObj, 'is blog poster obj')
+
+    const blogPostObjMa = blogPostersObj.blogPosters.map( (usernomen) => {
+      <tr>
+        <td>{usernomen.poster}</td>
+        <td>{usernomen.posted}</td>
+      </tr>
+    })
+    console.log(blogPostObjMa, 'is bPOM')
+
+    return (
+      <div>
+        <h1>Users</h1>
+        <table>
+          <thead>
+            <tr>
+              <td></td>
+              <td><strong>blogs created</strong></td>
+            </tr>
+          </thead>
+          <tbody>
+            {blogPostObjMa}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 
   return(
     <div>
