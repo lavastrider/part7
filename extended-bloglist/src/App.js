@@ -17,7 +17,7 @@ import { userData, userToken } from './reducers/userReducer'
 //  Routes, Route, Link, useParams,
 //  useNavigate
 //} from 'react-router-dom'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom'
 
 const Menu = () => {
   const padding = {
@@ -39,6 +39,57 @@ const Home = () => {
   return(
     <p>this exercise is hard</p>
   )
+}
+
+const UsersBlogs = () => {
+  const id = useParams().id
+  console.log(id, 'is id in usersblogs')
+
+  const bloggiest = useSelector(state => state.blogs)
+  console.log(bloggiest, 'is bloggiest')
+
+  if (bloggiest.length > 0) {
+    //find user that has same id as id
+    //save that user info to nomen
+
+    const nomen = 'Amelia'
+
+    const posterBlogs = []
+
+    //put blogs the user has posted into array
+    for (let j = 0; j < bloggiest.length; j++) {
+      //if the user of the blog isn't null
+      if (bloggiest[j].user){
+        //console.log(bloggiest[j].user, 'is bloggiest j user when making sure it isn not null')
+        //if the id of the blog poster is the same as the id from saved user
+        if (bloggiest[j].user.id === id) {
+          //console.log(bloggiest[j].user, 'is bloggiest j user when the user id equals id from params')
+          posterBlogs.push(bloggiest[j].title)
+        }
+      }
+    }
+
+    //console.log(posterBlogs, 'is poster blogs')
+
+    return (
+      <div>
+        <h1>{nomen}</h1>
+        <h2>added blogs</h2>
+        {posterBlogs.map((posting, ind) => {
+          return (
+            <ul key={ind}>
+              <li>{posting}</li>
+            </ul>
+          )
+        })}
+      </div>
+    )
+  }
+
+  return (
+    <p>loading...</p>
+  )
+
 }
 
 const Users = () => {
@@ -80,8 +131,8 @@ const Users = () => {
       }
       else { //the array is empty
         if (bloggies[j].user) {
-          console.log('the array is length zero')
-          console.log(bloggies[j].user, 'is bloggies j user')
+          //console.log('the array is length zero')
+          //console.log(bloggies[j].user, 'is bloggies j user')
           const newBlogInfo = Object.create(blogInfo)
           newBlogInfo.poster = bloggies[j].user.personName
           newBlogInfo.posted = 1
@@ -90,17 +141,6 @@ const Users = () => {
       }
     }
     console.log(blogPosters, 'is blogPosters')
-
-    const blogPostersObj = { blogPosters }
-    console.log(blogPostersObj, 'is blog poster obj')
-
-    const blogPostObjMa = blogPostersObj.blogPosters.map( (usernomen) => {
-      <tr>
-        <td>{usernomen.poster}</td>
-        <td>{usernomen.posted}</td>
-      </tr>
-    })
-    console.log(blogPostObjMa, 'is bPOM')
 
     return (
       <div>
@@ -113,7 +153,14 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {blogPostObjMa}
+            {blogPosters.map((posting, ind) => {
+              return (
+                <tr key={ind}>
+                  <td>{posting.poster}</td>
+                  <td>{posting.posted}</td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>
@@ -121,9 +168,7 @@ const Users = () => {
   }
 
   return(
-    <div>
-      <h1>Users</h1>
-    </div>
+    <p>loading...</p>
   )
 
 }
@@ -231,6 +276,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/users" element={<Users />} />
           <Route path="/blogs" element={BlogsList} />
+          <Route path="/users/:id" element={<UsersBlogs />} />
         </Routes>
       </div>
     </Router>
