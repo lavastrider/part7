@@ -1,24 +1,62 @@
-import { useState, useEffect, useRef } from 'react'
+//import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+//import { useDispatch } from 'react-redux'
 import loginService from './services/login'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
-import BlogForm from './components/BlogForm'
+//import BlogForm from './components/BlogForm'
 import BlogsList from './components/BlogsList'
-import { initializeBlogs, newBlogs } from './reducers/blogReducer'
+//import { initializeBlogs, newBlogs } from './reducers/blogReducer'
+import { initializeBlogs } from './reducers/blogReducer'
 import { setNotif } from './reducers/notifReducer'
 import { userData, userToken } from './reducers/userReducer'
-import { 
-  BrowserRouter as Router, 
-  Routes, Route, Link, useParams,
-  useNavigate 
-  } from 'react-router-dom'
+//import {
+//  BrowserRouter as Router,
+//  Routes, Route, Link, useParams,
+//  useNavigate
+//} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+
+const Menu = () => {
+  const padding = {
+    paddingRight: 5
+  }
+
+  return (
+    <div>
+      <div>
+        <Link style={padding} to="/">home</Link>
+        <Link style={padding} to="/users">users</Link>
+        <Link style={padding} to="/blogs">blogs</Link>
+      </div>
+    </div>
+  )
+}
+
+const Home = () => {
+  return(
+    <p>this exercise is hard</p>
+  )
+}
 
 const Users = () => {
+  const bloggies = useSelector(state => state.blogs)
+  console.log(bloggies, 'is bloggies')
+
+  console.log(bloggies[116], 'is bloggies 116')
+  console.log(bloggies[116].user, 'is bloggies 116 user')
+
+  const users = bloggies.filter((user) => user.user.personName.includes('root'))
+  console.log(users, 'is users')
+
   return(
-    <p>popo</p>
+    <div>
+      <h1>Users</h1>
+    </div>
   )
+
 }
 
 const App = () => {
@@ -26,7 +64,7 @@ const App = () => {
   const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
-  const blogFormRef= useRef()
+  //const blogFormRef= useRef()
 
   useEffect(() => {
     dispatch(initializeBlogs())
@@ -59,11 +97,11 @@ const App = () => {
     }
   }
 
-  const addBlog = (blogObject) => {
-    blogFormRef.current.toggleVisib()
-    dispatch(newBlogs(blogObject))
-    dispatch(setNotif(`The blog post "${blogObject.title}" by ${blogObject.author} has been added`, 5))
-  }
+  //const addBlog = (blogObject) => {
+  //  blogFormRef.current.toggleVisib()
+  //  dispatch(newBlogs(blogObject))
+  //  dispatch(setNotif(`The blog post "${blogObject.title}" by ${blogObject.author} has been added`, 5))
+  //}
 
 
   const loginForm = () => {
@@ -108,21 +146,25 @@ const App = () => {
 
 
   return (
-    <div>
-      <h2>Blogs</h2>
-      <Notification />
-      {!user && loginForm()}
-      {user && <div>
-        <p>{user.personName} is logged in</p>
-        <button onClick={logOut}>logout</button>
-        <Togglable buttonLabel="New Blog" ref={blogFormRef}>
-          <BlogForm createBlog={addBlog}/>
-        </Togglable>
-        <h2>Blog List</h2>
-        <BlogsList />
+    <Router>
+      <div>
+        <Menu />
+        <h2>Blogs</h2>
+        <Notification />
+        {!user && loginForm()}
+        {user && <div>
+          <p>{user.personName} is logged in</p>
+          <button onClick={logOut}>logout</button>
+        </div>
+        }
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/blogs" element={BlogsList} />
+        </Routes>
       </div>
-      }
-    </div>
+    </Router>
   )
 }
 
