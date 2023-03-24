@@ -52,8 +52,7 @@ const UsersBlogs = () => {
     //find user that has same id as id
     //save that user info to nomen
 
-    const nomen = 'Amelia'
-
+    var nomen = ''
     const posterBlogs = []
 
     //put blogs the user has posted into array
@@ -64,12 +63,16 @@ const UsersBlogs = () => {
         //if the id of the blog poster is the same as the id from saved user
         if (bloggiest[j].user.id === id) {
           //console.log(bloggiest[j].user, 'is bloggiest j user when the user id equals id from params')
+          nomen = bloggiest[j].user.personName
           posterBlogs.push(bloggiest[j].title)
         }
       }
     }
 
     //console.log(posterBlogs, 'is poster blogs')
+    //const phrases = anecdotes.find((words) => words.id=== Number(id))
+    //could do above for posterBlogs
+    //will decide later
 
     return (
       <div>
@@ -100,6 +103,7 @@ const Users = () => {
     const blogPosters = []
     const blogInfo = {
       poster: '',
+      posterId: '',
       posted: 0
     }
 
@@ -113,6 +117,7 @@ const Users = () => {
           if (!(Object.values(blogPosters).map((creditor) => creditor.poster.includes(bloggies[j].user.personName)).includes(true))) {
             const newBlogInfo = Object.create(blogInfo)
             newBlogInfo.poster = bloggies[j].user.personName
+            newBlogInfo.posterId = bloggies[j].user.id
             newBlogInfo.posted = 1
             blogPosters.push(newBlogInfo)
             //console.log(blogPosters, 'is blogPosters in if statement')
@@ -135,6 +140,7 @@ const Users = () => {
           //console.log(bloggies[j].user, 'is bloggies j user')
           const newBlogInfo = Object.create(blogInfo)
           newBlogInfo.poster = bloggies[j].user.personName
+          newBlogInfo.posterId = bloggies[j].user.id
           newBlogInfo.posted = 1
           blogPosters.push(newBlogInfo)
         }
@@ -156,7 +162,7 @@ const Users = () => {
             {blogPosters.map((posting, ind) => {
               return (
                 <tr key={ind}>
-                  <td>{posting.poster}</td>
+                  <td><Link to={`/users/${posting.posterId}`}>{posting.poster}</Link></td>
                   <td>{posting.posted}</td>
                 </tr>
               )
