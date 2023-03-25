@@ -1,78 +1,71 @@
-import { useState } from 'react'
+//import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { setNotif } from '../reducers/notifReducer'
+import { addingVote } from '../reducers/blogReducer'
 
-const Blog = ({ blog, increaseLikes, userInfo, deleteEntry }) => {
+//do we want to add ability to delete?
 
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-  }
+const Blog = () => {
+  const id = useParams().id
+  console.log(id, 'is id in blog component')
 
-  if (!userInfo){
-    userInfo = {
-      username: 'sjensson'
+  const dispatch = useDispatch()
+
+  const blog = useSelector(state => state.blogs)
+  console.log(blog, 'is blog in Blog component')
+
+
+  if (blog) {
+    const displayBlog = blog.find((diary) => diary.id === id)
+    console.log(displayBlog, 'is displayblog')
+
+    const increaseLikes = async (id) => {
+
+      const updatedBlogInfo = {
+        likes: displayBlog.likes+1,
+        author: displayBlog.author,
+        title: displayBlog.title,
+        url: displayBlog.url
+      }
+
+      console.log(updatedBlogInfo, 'is updated blog info')
+      dispatch(addingVote(id, updatedBlogInfo))
+      dispatch(setNotif(`You added a like to "${displayBlog.title}"`, 5))
     }
-  }
 
-  //the above coding is only for test purposes
-
-  const [shown, setShown] = useState(false)
-
-  const toggleDetail = () => {
-    //console.log(showing, 'is showing')
-    setShown((shown) => !shown)
-  }
-
-  const label = shown
-    ? 'hide'
-    : 'view'
-
-  //the user wants to see detailed view
-  if (shown) {
-    //the blog contains info on the user
-    if (blog.user){
-      return (
-        <div style={blogStyle} className="detail-view">
+    if (displayBlog) {
+      if (displayBlog.user) {
+        return (
           <div>
-            <p>{blog.title} by {blog.author} <button id='toggle-detail' onClick={toggleDetail}>{label}</button></p>
-            <p>{blog.url}</p>
-            <p>likes: {blog.likes} <button id='increase-likes' onClick={increaseLikes}>like</button></p>
-            <p>{blog.user.personName}</p>
-            {userInfo.username === blog.user.username && <div>
-              <button id="deletion" onClick={deleteEntry}>delete</button>
-            </div>
-            }
+            <h1>{displayBlog.title}</h1>
+            <p>{displayBlog.url}</p>
+            <p>{displayBlog.likes} likes <button onClick={() => increaseLikes(displayBlog.id)}>like</button></p>
+            <p>added by {displayBlog.user.personName}</p>
+            <p></p>
+            <h3>comments</h3>
           </div>
-        </div>
-      )
-    }
-    //the blog info must come from user token
-    else if (userInfo) {
-      return (
-        <div style={blogStyle} className="detail-view">
+        )
+      }
+      else {
+        return (
           <div>
-            <p>{blog.title} by {blog.author} <button id='toggle-detail' onClick={toggleDetail}>{label}</button></p>
-            <p>{blog.url}</p>
-            <p>likes: {blog.likes} <button id='increase-likes' onClick={increaseLikes}>like</button></p>
-            <p>{userInfo.personName}</p>
-            <button id="deletion" onClick={deleteEntry}>delete</button>
+            <h1>{displayBlog.title}</h1>
+            <p>{displayBlog.url}</p>
+            <p>{displayBlog.likes} likes</p>
+            <p>added by {displayBlog.user}</p>
+            <p></p>
+            <h3>comments</h3>
           </div>
-        </div>
-      )
+        )
+      }
     }
   }
-  //the user does not want to see detailed view
   else {
-    return(
-      <div style={blogStyle} className="default-view">
-        <div>
-          <p>{blog.title} by {blog.author} <button onClick={toggleDetail}>{label}</button></p>
-        </div>
-      </div>
-
+    return (
+      <p>loading...</p>
     )
   }
+
 }
 export default Blog
