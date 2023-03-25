@@ -36,6 +36,11 @@ const Blog = () => {
 
     if (displayBlog) {
       if (displayBlog.user) {
+        const comments = displayBlog.comments.map((notes) => notes)
+        console.log(comments, 'is comments')
+        const comBl = displayBlog.comments
+        console.log(comBl, 'is comBl')
+
         return (
           <div>
             <h1>{displayBlog.title}</h1>
@@ -44,10 +49,17 @@ const Blog = () => {
             <p>added by {displayBlog.user.personName}</p>
             <p></p>
             <h3>comments</h3>
+            {displayBlog.comments.map((notes, ind) => {
+              <div key={ind}>
+                <li>{notes}</li>
+              </div>
+            })}
           </div>
         )
       }
       else {
+        const comments = displayBlog.comments.map((notes) => notes)
+        console.log(comments, 'is comments')
         return (
           <div>
             <h1>{displayBlog.title}</h1>
@@ -56,6 +68,9 @@ const Blog = () => {
             <p>added by {displayBlog.user}</p>
             <p></p>
             <h3>comments</h3>
+            <ul>
+              <li>{comments[0]}</li>
+            </ul>
           </div>
         )
       }

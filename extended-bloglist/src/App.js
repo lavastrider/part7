@@ -60,7 +60,6 @@ const Menu = () => {
         </div>
       </div>
     )
-
   }
 }
 
@@ -253,6 +252,12 @@ const App = () => {
   //}
 
   //sign up form?
+  
+  const signUpForm = (props) => {
+    console.log(props, is value passed to sign up form for eslint')
+  }
+  
+  signUpForm('new user')
 
   const loginForm = () => {
     return (
