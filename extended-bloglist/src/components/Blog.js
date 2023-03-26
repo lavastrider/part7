@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { setNotif } from '../reducers/notifReducer'
 import { addingVote } from '../reducers/blogReducer'
-import { initializeComms } from '../reducers/commentReducer'
+import { initializeComms, newComment } from '../reducers/commentReducer'
+//import { newComment } from '../reducers/commentReducer'
 
 //do we want to add ability to delete?
 
@@ -55,15 +56,20 @@ const Blog = () => {
       dispatch(setNotif(`You added a like to "${displayBlog.title}"`, 5))
     }
 
+    const postComment = (event) => {
+      event.preventDefault()
+      const content = event.target.comment.value
+      console.log(content, 'is content of text file')
+      dispatch(newComment(content, id))
+    }
+
     if (displayBlog) {
       const commentBlog = commSelectMapDef.filter((quip) => quip.blog.id === id)
       console.log(commentBlog, 'is blog with comments that match blog id in blog component')
 
       if (displayBlog.user) {
         const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
-        console.log(comments, 'is comments in display blog notes to notes')
-        //const comBl = displayBlog.comments
-        //console.log(comBl, 'is comBl')
+        console.log(comments, 'is comments in display blog notes to notes in display blog user')
 
         return (
           <div>
@@ -79,16 +85,20 @@ const Blog = () => {
       }
       else {
         const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
-        console.log(comments, 'is comments in display blog notes to notes')
+        console.log(comments, 'is comments in display blog notes to notes without display blog user')
 
         return (
           <div>
             <h1>{displayBlog.title}</h1>
             <p>{displayBlog.url}</p>
-            <p>{displayBlog.likes} likes</p>
+            <p>{displayBlog.likes} likes <button onClick={() => increaseLikes(displayBlog.id)}>like</button></p>
             <p>added by {displayBlog.user}</p>
             <p></p>
+            <p>peep</p>
             <h3>comments</h3>
+            <form onSubmit={postComment}>
+              <input type="text" name="comment"/> <button type="submit">add comment</button>
+            </form>
             {comments}
           </div>
         )

@@ -79,7 +79,6 @@ const UsersBlogs = () => {
   return (
     <p>loading...</p>
   )
-
 }
 
 

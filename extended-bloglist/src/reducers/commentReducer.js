@@ -40,9 +40,11 @@ export const initializeComms = (id) => {
   }
 }
 
-export const newComment = (content) => {
+export const newComment = (content, id) => {
   return async dispatch => {
-    const newComm = await commentService.create(content).catch(() => dispatch(setNotif('There was an error when submitting the blog\'s information. Please try again.', 5)))
+    const commObj = { comment: content }
+    const newComm = await commentService.create(id, commObj).catch(() => dispatch(setNotif('There was an error when submitting your comment. Please wait a few moments and then try again.', 5)))
+    console.log(newComm, 'is new comm in new comment in reducer')
     if (newComm){
       dispatch(appendComments(newComm))
     }
