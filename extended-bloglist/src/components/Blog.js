@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { setNotif } from '../reducers/notifReducer'
 import { addingVote } from '../reducers/blogReducer'
-import { initializeComms, newComment } from '../reducers/commentReducer'
-//import { newComment } from '../reducers/commentReducer'
+import { newComment } from '../reducers/commentReducer'
 
 //do we want to add ability to delete?
 
@@ -13,10 +12,6 @@ const Blog = () => {
   console.log(id, 'is id in blog component')
 
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(initializeComms(id))
-  }, [dispatch])
 
   const blog = useSelector(state => state.blogs)
   console.log(blog, 'is blog in Blog component')
@@ -40,7 +35,12 @@ const Blog = () => {
       }
     }
 
-    console.log(commSelectMapDef, 'is cSM after loop')
+    console.log(commSelectMapDef, 'is cSM after loop so it is select map def')
+
+    useEffect(() => {
+      console.log('peep')
+      //want to re-run filter maybe, every time map def is updated
+    }, [commSelectMapDef])
 
     const increaseLikes = async (id) => {
 

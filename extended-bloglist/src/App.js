@@ -15,6 +15,7 @@ import Users from './components/Users'
 import { initializeBlogs } from './reducers/blogReducer'
 import { setNotif } from './reducers/notifReducer'
 import { userData, userToken } from './reducers/userReducer'
+import { initializeComms } from './reducers/commentReducer'
 //import {
 //  BrowserRouter as Router,
 //  Routes, Route, Link, useParams,
@@ -91,6 +92,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(initializeBlogs())
+    dispatch(initializeComms())
   }, [dispatch])
 
   useEffect(() => {
