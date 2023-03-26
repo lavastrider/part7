@@ -9,59 +9,18 @@ import Togglable from './components/Togglable'
 //import BlogForm from './components/BlogForm'
 import BlogsList from './components/BlogsList'
 import Blog from './components/Blog'
+import Menu from './components/Menu'
+import Users from './components/Users'
 //import { initializeBlogs, newBlogs } from './reducers/blogReducer'
 import { initializeBlogs } from './reducers/blogReducer'
 import { setNotif } from './reducers/notifReducer'
-import { userData, userToken, initializeUsers } from './reducers/userReducer'
+import { userData, userToken } from './reducers/userReducer'
 //import {
 //  BrowserRouter as Router,
 //  Routes, Route, Link, useParams,
 //  useNavigate
 //} from 'react-router-dom'
-import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom'
-
-const Menu = () => {
-
-  const user = useSelector(state => state.userInfo)
-  console.log(user, 'is user use selector userinfo')
-
-  const logOut = () => {
-    try {
-      window.localStorage.removeItem('loggedBlogAppUser')
-      if (!(window.localStorage.getItem('loggedBlogAppUser'))) {
-        window.location.reload(true)
-      }
-    } catch (exception) {
-      console.log('we have an error')
-    }
-  }
-
-  const padding = {
-    paddingRight: 5
-  }
-
-  if (user.length === 0) {
-    return (
-      <div>
-        <div>
-          <Link style={padding} to="/users">users</Link>
-          <Link style={padding} to="/blogs">blogs</Link>
-        </div>
-      </div>
-    )
-  }
-  else {
-    return (
-      <div>
-        <div>
-          <Link style={padding} to="/users">users</Link>
-          <Link style={padding} to="/blogs">blogs</Link>
-          <p>{user.personName} is logged in <button onClick={logOut}>logout</button></p>
-        </div>
-      </div>
-    )
-  }
-}
+import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom'
 
 const Home = () => {
   return(
@@ -123,88 +82,6 @@ const UsersBlogs = () => {
 
 }
 
-const Users = () => {
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(initializeUsers())
-  }, [])
-
-  const setup = useSelector(state => state.userInfo)
-  console.log(setup, 'is setup')
-
-  if (setup) {
-    const bloggiesUsers = useSelector(state => state.userInfo.appendUsers)
-    //console.log(bloggiesUsers, 'is bloggies users')
-
-    if (bloggiesUsers) {
-      //console.log(bloggiesUsers.length, 'is bloggies users length')
-
-      const blogPosters = []
-      const userInfo = {
-        poster: '',
-        posterUser: '',
-        posterId: '',
-        posted: 0
-      }
-
-      for (let j = 0; j < bloggiesUsers.length; j++) {
-        //if array isn't empty
-        if (blogPosters.length !== 0) {
-          const newUserInfo = Object.create(userInfo)
-          newUserInfo.poster = bloggiesUsers[j].personName
-          newUserInfo.posterUser = bloggiesUsers[j].username
-          newUserInfo.posterId = bloggiesUsers[j].id
-          newUserInfo.posted = Object.values(bloggiesUsers[j].blogs).length
-          blogPosters.push(newUserInfo)
-        }
-        else { //the array is empty
-          //if the person has a name
-          if (bloggiesUsers[j].personName) {
-            const newUserInfo = Object.create(userInfo)
-            newUserInfo.poster = bloggiesUsers[j].personName
-            newUserInfo.posterUser = bloggiesUsers[j].username
-            newUserInfo.posterId = bloggiesUsers[j].id
-            newUserInfo.posted = Object.values(bloggiesUsers[j].blogs).length
-            blogPosters.push(newUserInfo)
-          }
-        }
-      }
-
-      //console.log(blogPosters, 'is blog posters')
-
-      return (
-        <div>
-          <h1>Users</h1>
-          <table>
-            <thead>
-              <tr>
-                <td></td>
-                <td><strong>blogs created</strong></td>
-              </tr>
-            </thead>
-            <tbody>
-              {blogPosters.map((posting, ind) => {
-                return (
-                  <tr key={ind}>
-                    <td><Link to={`/users/${posting.posterId}`}>{posting.poster}</Link></td>
-                    <td>{posting.posted}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
-      )
-    }
-  }
-
-  return(
-    <p>loading...</p>
-  )
-
-}
 
 const App = () => {
   const [username, setUsername] = useState('')
@@ -252,11 +129,11 @@ const App = () => {
   //}
 
   //sign up form?
-  
+
   const signUpForm = (props) => {
-    console.log(props, is value passed to sign up form for eslint')
+    console.log(props, 'is value passed to sign up form for eslint')
   }
-  
+
   signUpForm('new user')
 
   const loginForm = () => {

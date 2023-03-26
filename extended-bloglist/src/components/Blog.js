@@ -1,8 +1,9 @@
-//import { useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { setNotif } from '../reducers/notifReducer'
 import { addingVote } from '../reducers/blogReducer'
+import { initializeComms } from '../reducers/commentReducer'
 
 //do we want to add ability to delete?
 
@@ -12,13 +13,33 @@ const Blog = () => {
 
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(initializeComms(id))
+  }, [dispatch])
+
   const blog = useSelector(state => state.blogs)
   console.log(blog, 'is blog in Blog component')
 
+  const commentsSelect = useSelector(state => state.comments)
+  console.log(commentsSelect, 'is commentsSelect in blog component')
 
-  if (blog) {
+
+  if (blog && commentsSelect) {
     const displayBlog = blog.find((diary) => diary.id === id)
     console.log(displayBlog, 'is displayblog')
+
+    const commentsSelectMap = commentsSelect.map((thought) => thought.blog ? thought : null)
+    console.log(commentsSelectMap, 'is comm select map with thought if thought blog exist')
+
+    const commSelectMapDef = []
+
+    for (let i=0; i<commentsSelectMap.length; i++){
+      if (commentsSelectMap[i]){
+        commSelectMapDef.push(commentsSelectMap[i])
+      }
+    }
+
+    console.log(commSelectMapDef, 'is cSM after loop')
 
     const increaseLikes = async (id) => {
 
@@ -35,11 +56,14 @@ const Blog = () => {
     }
 
     if (displayBlog) {
+      const commentBlog = commSelectMapDef.filter((quip) => quip.blog.id === id)
+      console.log(commentBlog, 'is blog with comments that match blog id in blog component')
+
       if (displayBlog.user) {
-        const comments = displayBlog.comments.map((notes) => notes)
-        console.log(comments, 'is comments')
-        const comBl = displayBlog.comments
-        console.log(comBl, 'is comBl')
+        const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
+        console.log(comments, 'is comments in display blog notes to notes')
+        //const comBl = displayBlog.comments
+        //console.log(comBl, 'is comBl')
 
         return (
           <div>
@@ -49,17 +73,14 @@ const Blog = () => {
             <p>added by {displayBlog.user.personName}</p>
             <p></p>
             <h3>comments</h3>
-            {displayBlog.comments.map((notes, ind) => {
-              <div key={ind}>
-                <li>{notes}</li>
-              </div>
-            })}
+            {comments}
           </div>
         )
       }
       else {
-        const comments = displayBlog.comments.map((notes) => notes)
-        console.log(comments, 'is comments')
+        const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
+        console.log(comments, 'is comments in display blog notes to notes')
+
         return (
           <div>
             <h1>{displayBlog.title}</h1>
@@ -68,9 +89,7 @@ const Blog = () => {
             <p>added by {displayBlog.user}</p>
             <p></p>
             <h3>comments</h3>
-            <ul>
-              <li>{comments[0]}</li>
-            </ul>
+            {comments}
           </div>
         )
       }
