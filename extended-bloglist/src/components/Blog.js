@@ -95,9 +95,7 @@ const Blog = () => {
             <p>by {displayBlog.author}</p>
             <p>{displayBlog.url}</p>
             <p>{displayBlog.likes} likes <button onClick={() => increaseLikes(displayBlog.id)}>like</button></p>
-            <p>added by {displayBlog.user}</p>
             <p></p>
-            <p>peep</p>
             <h3>comments</h3>
             <form onSubmit={postComment}>
               <input type="text" name="comment"/> <button type="submit">add comment</button>

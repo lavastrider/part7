@@ -28,6 +28,7 @@ const Menu = () => {
           <Link style={padding} to="/create">post a link</Link>
           <Link style={padding} to="/users">users</Link>
           <Link style={padding} to="/blogs">blogs</Link>
+          <Link style={padding} to="/signup">register</Link>
         </div>
       </div>
     )

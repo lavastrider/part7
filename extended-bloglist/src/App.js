@@ -15,7 +15,7 @@ import { useField } from './hooks/index'
 import { initializeBlogs, newBlogs } from './reducers/blogReducer'
 //import { initializeBlogs } from './reducers/blogReducer'
 import { setNotif } from './reducers/notifReducer'
-import { userData, userToken } from './reducers/userReducer'
+import { userData, userToken, newUser } from './reducers/userReducer'
 import { initializeComms } from './reducers/commentReducer'
 //import {
 //  BrowserRouter as Router,
@@ -29,13 +29,10 @@ const Create = () => {
   const author = useField('author')
   const site = useField('url')
 
-  //const
   const dispatch = useDispatch()
-  //const blogFormRef= useRef()
   const navigate = useNavigate()
 
   const addBlog = (blogObject) => {
-    //blogFormRef.current.toggleVisib()
     dispatch(newBlogs(blogObject))
     navigate('/blogs')
     dispatch(setNotif(`The blog post "${blogObject.title}" by ${blogObject.author} has been added`, 5))
@@ -74,26 +71,65 @@ const Create = () => {
 }
 
 const Home = () => {
-  const message = 'You are here because you tried to perform an action that only registered users can perform. Sign up below!'
+
+  const navigate = useNavigate()
+
+  const message = 'You are here because you tried to perform an action that only registered users can perform. Log in or click the button to register an account!'
   return(
     <div>
       <p>{message}</p>
-      <form>
+      <button onClick={() => navigate('/signup')}>register</button>
+    </div>
+  )
+}
+
+const SignUpPage = () => {
+
+  const usernomen = useField('username')
+  const passing = useField('password')
+  const personNomen = useField('personName')
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const addAcct = (acctObj) => {
+    dispatch(newUser(acctObj))
+    navigate('/create')
+    dispatch(setNotif('Success! Your account has been created.', 5))
+  }
+
+  const makeAcct = (event) => {
+    event.preventDefault()
+    addAcct({
+      username: usernomen.value,
+      personName: personNomen.value,
+      password: passing.value
+    })
+    console.log('we fired the makeacct function')
+  }
+
+  const message = 'Register below to post a blog to the list of blogs!'
+  return(
+    <div>
+      <p>{message}</p>
+      <form onSubmit={makeAcct}>
         <div>
           Username:
-          <input />
+          <input {...usernomen} />
         </div>
         <div>
           Name:
-          <input />
+          <input {...personNomen} />
         </div>
         <div>
           Password:
-          <input />
+          <input {...passing}/>
         </div>
+        <button type="submit">create account</button>
       </form>
     </div>
   )
+
 }
 
 const UsersBlogs = () => {
@@ -230,6 +266,7 @@ const App = () => {
             <Route path="/blogs" element={<BlogsList />} />
             <Route path="/blogs/:id" element={<Blog />} />
             <Route path="/create" element={<Home />} />
+            <Route path="/signup" element={<SignUpPage />}/>
           </Routes>
         </div>
       </Router>

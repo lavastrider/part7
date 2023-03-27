@@ -59,7 +59,7 @@ export const initializeUsers = () => {
 
 export const newUser = (user) => {
   return async dispatch => {
-    const newUserData = await userService.post(user)
+    const newUserData = await userService.create(user)
     dispatch(appendUsers(newUserData))
   }
 }
