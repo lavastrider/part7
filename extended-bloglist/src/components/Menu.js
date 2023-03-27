@@ -25,6 +25,7 @@ const Menu = () => {
     return (
       <div>
         <div>
+          <Link style={padding} to="/create">post a link</Link>
           <Link style={padding} to="/users">users</Link>
           <Link style={padding} to="/blogs">blogs</Link>
         </div>
@@ -35,6 +36,7 @@ const Menu = () => {
     return (
       <div>
         <div>
+          <Link style={padding} to="/create">post a link</Link>
           <Link style={padding} to="/users">users</Link>
           <Link style={padding} to="/blogs">blogs</Link>
           <p>{user.personName} is logged in <button onClick={logOut}>logout</button></p>

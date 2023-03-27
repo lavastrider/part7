@@ -57,4 +57,11 @@ export const initializeUsers = () => {
   }
 }
 
+export const newUser = (user) => {
+  return async dispatch => {
+    const newUserData = await userService.post(user)
+    dispatch(appendUsers(newUserData))
+  }
+}
+
 export default userSlice.reducer

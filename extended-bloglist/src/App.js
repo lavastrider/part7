@@ -11,21 +11,88 @@ import BlogsList from './components/BlogsList'
 import Blog from './components/Blog'
 import Menu from './components/Menu'
 import Users from './components/Users'
-//import { initializeBlogs, newBlogs } from './reducers/blogReducer'
-import { initializeBlogs } from './reducers/blogReducer'
+import { useField } from './hooks/index'
+import { initializeBlogs, newBlogs } from './reducers/blogReducer'
+//import { initializeBlogs } from './reducers/blogReducer'
 import { setNotif } from './reducers/notifReducer'
 import { userData, userToken } from './reducers/userReducer'
-//import { initializeComms } from './reducers/commentReducer'
+import { initializeComms } from './reducers/commentReducer'
 //import {
 //  BrowserRouter as Router,
 //  Routes, Route, Link, useParams,
 //  useNavigate
 //} from 'react-router-dom'
-import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useParams, useNavigate } from 'react-router-dom'
+
+const Create = () => {
+  const title = useField('title')
+  const author = useField('author')
+  const site = useField('url')
+
+  //const
+  const dispatch = useDispatch()
+  //const blogFormRef= useRef()
+  const navigate = useNavigate()
+
+  const addBlog = (blogObject) => {
+    //blogFormRef.current.toggleVisib()
+    dispatch(newBlogs(blogObject))
+    navigate('/blogs')
+    dispatch(setNotif(`The blog post "${blogObject.title}" by ${blogObject.author} has been added`, 5))
+  }
+
+  const createBlogObj = (event) => {
+    event.preventDefault()
+    addBlog({
+      title: title.value,
+      author: author.value,
+      url: site.value,
+      likes: 0
+    })
+    console.log('we are in create blog object')
+  }
+
+  return(
+    <div>
+      <form onSubmit={createBlogObj}>
+        <div>
+          Title:
+          <input {...title} />
+        </div>
+        <div>
+          Author:
+          <input {...author} />
+        </div>
+        <div>
+          Link:
+          <input {...site} />
+        </div>
+        <button type="submit">submit</button>
+      </form>
+    </div>
+  )
+}
 
 const Home = () => {
+  const message = 'You are here because you tried to perform an action that only registered users can perform. Sign up below!'
   return(
-    <p>this exercise is hard</p>
+    <div>
+      <p>{message}</p>
+      <form>
+        <div>
+          Username:
+          <input />
+        </div>
+        <div>
+          Name:
+          <input />
+        </div>
+        <div>
+          Password:
+          <input />
+        </div>
+      </form>
+    </div>
   )
 }
 
@@ -88,11 +155,10 @@ const App = () => {
   const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
-  //const blogFormRef= useRef()
 
   useEffect(() => {
     dispatch(initializeBlogs())
-    //dispatch(initializeComms())
+    dispatch(initializeComms())
   }, [dispatch])
 
   useEffect(() => {
@@ -122,12 +188,6 @@ const App = () => {
     }
     //navigate('/blogs')
   }
-
-  //const addBlog = (blogObject) => {
-  //  blogFormRef.current.toggleVisib()
-  //  dispatch(newBlogs(blogObject))
-  //  dispatch(setNotif(`The blog post "${blogObject.title}" by ${blogObject.author} has been added`, 5))
-  //}
 
   //sign up form?
 
@@ -169,6 +229,7 @@ const App = () => {
             <Route path="/users/:id" element={<UsersBlogs />} />
             <Route path="/blogs" element={<BlogsList />} />
             <Route path="/blogs/:id" element={<Blog />} />
+            <Route path="/create" element={<Home />} />
           </Routes>
         </div>
       </Router>
@@ -189,6 +250,7 @@ const App = () => {
           <Route path="/users/:id" element={<UsersBlogs />} />
           <Route path="/blogs" element={<BlogsList />} />
           <Route path="/blogs/:id" element={<Blog />} />
+          <Route path="/create" element={<Create />} />
         </Routes>
       </div>
     </Router>

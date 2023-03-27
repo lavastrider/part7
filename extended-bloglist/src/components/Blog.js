@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { setNotif } from '../reducers/notifReducer'
 import { addingVote } from '../reducers/blogReducer'
-//import { newComment } from '../reducers/commentReducer'
-import { newComment, initializeComms } from '../reducers/commentReducer'
+import { newComment } from '../reducers/commentReducer'
+//import { newComment, initializeComms } from '../reducers/commentReducer'
 
 //do we want to add ability to delete?
 
@@ -31,7 +31,7 @@ const Blog = () => {
     useEffect(() => {
       console.log('peep')
       //want to re-run filter maybe, every time map def is updated
-      dispatch(initializeComms(id))
+      //dispatch(initializeComms(id))
     }, [dispatch])
 
     const increaseLikes = async (id) => {
