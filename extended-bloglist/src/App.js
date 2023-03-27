@@ -206,6 +206,7 @@ const App = () => {
       dispatch(userData(usered))
       //console.log(user, 'is user in useeffect')
       dispatch(userToken(usered))
+      dispatch(setNotif(`Welcome ${user.personName}!`), 5)
     }
   }, [])
 
@@ -224,14 +225,6 @@ const App = () => {
     }
     //navigate('/blogs')
   }
-
-  //sign up form?
-
-  const signUpForm = (props) => {
-    console.log(props, 'is value passed to sign up form for eslint')
-  }
-
-  signUpForm('new user')
 
   const loginForm = () => {
     return (
@@ -276,9 +269,9 @@ const App = () => {
 
   return (
     <Router>
-      <div>
+      <div className="container">
         <Menu />
-        <h2>Blogs</h2>
+        <h2>Poster List</h2>
         <Notification />
 
         <Routes>

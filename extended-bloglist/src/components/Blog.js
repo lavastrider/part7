@@ -5,6 +5,7 @@ import { setNotif } from '../reducers/notifReducer'
 import { addingVote } from '../reducers/blogReducer'
 import { newComment } from '../reducers/commentReducer'
 //import { newComment, initializeComms } from '../reducers/commentReducer'
+import Button from 'react-bootstrap/Button'
 
 //do we want to add ability to delete?
 
@@ -72,16 +73,16 @@ const Blog = () => {
 
       if (displayBlog.user) {
         return (
-          <div>
+          <div className="container">
             <h1>{displayBlog.title}</h1>
             <p>by {displayBlog.author}</p>
             <p>{displayBlog.url}</p>
-            <p>{displayBlog.likes} likes <button onClick={() => increaseLikes(displayBlog.id)}>like</button></p>
+            <p>{displayBlog.likes} likes <Button onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
             <p>added by {displayBlog.user.personName}</p>
             <p></p>
             <h3>comments</h3>
             <form onSubmit={postComment}>
-              <input type="text" name="comment"/> <button type="submit">add comment</button>
+              <input type="text" name="comment"/> <Button type="submit">add comment</Button>
             </form>
             {comments}
           </div>
@@ -90,15 +91,15 @@ const Blog = () => {
       else {
 
         return (
-          <div>
+          <div className="container">
             <h1>{displayBlog.title}</h1>
             <p>by {displayBlog.author}</p>
             <p>{displayBlog.url}</p>
-            <p>{displayBlog.likes} likes <button onClick={() => increaseLikes(displayBlog.id)}>like</button></p>
+            <p>{displayBlog.likes} likes <Button onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
             <p></p>
             <h3>comments</h3>
             <form onSubmit={postComment}>
-              <input type="text" name="comment"/> <button type="submit">add comment</button>
+              <input type="text" name="comment"/> <Button type="submit">add comment</Button>
             </form>
             {comments}
           </div>
