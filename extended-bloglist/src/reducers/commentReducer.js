@@ -10,6 +10,8 @@ const commSlice = createSlice({
   reducers: {
     appendComments(state, action){
       console.log(action, 'is action in append comments in comment reducer')
+      console.log(JSON.parse(JSON.stringify(state)), 'is json json state in comment reducer')
+      //const newComms = [
       return state.concat(action.payload)
     },
     addVote(state, action){

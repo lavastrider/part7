@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { setNotif } from '../reducers/notifReducer'
 import { addingVote } from '../reducers/blogReducer'
-import { newComment } from '../reducers/commentReducer'
+//import { newComment } from '../reducers/commentReducer'
+import { newComment, initializeComms } from '../reducers/commentReducer'
 
 //do we want to add ability to delete?
 
@@ -27,20 +28,11 @@ const Blog = () => {
     const commentsSelectMap = commentsSelect.map((thought) => thought.blog ? thought : null)
     console.log(commentsSelectMap, 'is comm select map with thought if thought blog exist')
 
-    const commSelectMapDef = []
-
-    for (let i=0; i<commentsSelectMap.length; i++){
-      if (commentsSelectMap[i]){
-        commSelectMapDef.push(commentsSelectMap[i])
-      }
-    }
-
-    console.log(commSelectMapDef, 'is cSM after loop so it is select map def')
-
     useEffect(() => {
       console.log('peep')
       //want to re-run filter maybe, every time map def is updated
-    }, [commSelectMapDef])
+      dispatch(initializeComms(id))
+    }, [dispatch])
 
     const increaseLikes = async (id) => {
 
@@ -61,35 +53,46 @@ const Blog = () => {
       const content = event.target.comment.value
       console.log(content, 'is content of text file')
       dispatch(newComment(content, id))
+      event.target.comment.value = ''
     }
 
     if (displayBlog) {
-      const commentBlog = commSelectMapDef.filter((quip) => quip.blog.id === id)
+      const cSMCopy = [...commentsSelectMap]
+      const commentBlog = cSMCopy.filter((quip) => quip.blog.id ? quip.blog.id === id : quip.blog === id)
       console.log(commentBlog, 'is blog with comments that match blog id in blog component')
 
-      if (displayBlog.user) {
-        const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
-        console.log(comments, 'is comments in display blog notes to notes in display blog user')
+      //const commentBlog = commentsSelectMap.filter((quip) => quip.blog.id.toLowerCase().includes(id.toLowerCase()))
+      //console.log(commentBlog, 'is blog with comments that match blog id in blog component')
 
+      //const comments = commentsSelectMap.filter((quip) => quip.blog.id === id).map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
+      //console.log(comments, 'is blog with comments that match blog id in blog component and is map')
+
+      const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
+      console.log(comments, 'is comments in display blog notes to notes without display blog user')
+
+      if (displayBlog.user) {
         return (
           <div>
             <h1>{displayBlog.title}</h1>
+            <p>by {displayBlog.author}</p>
             <p>{displayBlog.url}</p>
             <p>{displayBlog.likes} likes <button onClick={() => increaseLikes(displayBlog.id)}>like</button></p>
             <p>added by {displayBlog.user.personName}</p>
             <p></p>
             <h3>comments</h3>
+            <form onSubmit={postComment}>
+              <input type="text" name="comment"/> <button type="submit">add comment</button>
+            </form>
             {comments}
           </div>
         )
       }
       else {
-        const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
-        console.log(comments, 'is comments in display blog notes to notes without display blog user')
 
         return (
           <div>
             <h1>{displayBlog.title}</h1>
+            <p>by {displayBlog.author}</p>
             <p>{displayBlog.url}</p>
             <p>{displayBlog.likes} likes <button onClick={() => increaseLikes(displayBlog.id)}>like</button></p>
             <p>added by {displayBlog.user}</p>
