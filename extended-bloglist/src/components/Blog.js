@@ -5,8 +5,10 @@ import { setNotif } from '../reducers/notifReducer'
 import { addingVote } from '../reducers/blogReducer'
 import { newComment } from '../reducers/commentReducer'
 //import { newComment, initializeComms } from '../reducers/commentReducer'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import Spinner from 'react-bootstrap/Spinner'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 //do we want to add ability to delete?
 
@@ -64,13 +66,10 @@ const Blog = () => {
       const commentBlog = cSMCopy.filter((quip) => quip.blog.id ? quip.blog.id === id : quip.blog === id)
       console.log(commentBlog, 'is blog with comments that match blog id in blog component')
 
-      //const commentBlog = commentsSelectMap.filter((quip) => quip.blog.id.toLowerCase().includes(id.toLowerCase()))
-      //console.log(commentBlog, 'is blog with comments that match blog id in blog component')
+      //const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
+      //console.log(comments, 'is comments in display blog notes to notes without display blog user')
 
-      //const comments = commentsSelectMap.filter((quip) => quip.blog.id === id).map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
-      //console.log(comments, 'is blog with comments that match blog id in blog component and is map')
-
-      const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
+      const comments = commentBlog.map((notes, i) => <ListGroup key={i}><ListGroup.Item>{notes.comment}</ListGroup.Item></ListGroup>)
       console.log(comments, 'is comments in display blog notes to notes without display blog user')
 
       const label = displayBlog.likes === 1
@@ -84,7 +83,7 @@ const Blog = () => {
             <p>by {displayBlog.author}</p>
             <p>{displayBlog.url}</p>
             <p>{displayBlog.likes} {label} <Button onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
-            <p>added by {displayBlog.user.personName}</p>
+            <p>added by <Link to={`/users/${displayBlog.user.id}`}>{displayBlog.user.personName}</Link></p>
             <p><Button onClick={() => navigate('/blogs')}>return to the list</Button></p>
             <p></p>
             <h3>comments</h3>
@@ -117,7 +116,9 @@ const Blog = () => {
   }
   else {
     return (
-      <p>loading...</p>
+      <Spinner animation="border" variant="primary">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
     )
   }
 

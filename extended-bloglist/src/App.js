@@ -17,12 +17,8 @@ import { initializeBlogs, newBlogs } from './reducers/blogReducer'
 import { setNotif } from './reducers/notifReducer'
 import { userData, userToken, newUser } from './reducers/userReducer'
 import { initializeComms } from './reducers/commentReducer'
-//import {
-//  BrowserRouter as Router,
-//  Routes, Route, Link, useParams,
-//  useNavigate
-//} from 'react-router-dom'
-import { BrowserRouter as Router, Routes, Route, useParams, useNavigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, Link } from 'react-router-dom'
+import Spinner from 'react-bootstrap/Spinner'
 
 const Create = () => {
   const title = useField('title')
@@ -145,6 +141,10 @@ const UsersBlogs = () => {
 
     var nomen = ''
     const posterBlogs = []
+    const blogObj = {
+      title: '',
+      id: ''
+    }
 
     //put blogs the user has posted into array
     for (let j = 0; j < bloggies.length; j++) {
@@ -155,7 +155,10 @@ const UsersBlogs = () => {
         if (bloggies[j].user.id === id) {
           //console.log(bloggies[j].user, 'is bloggies j user when the user id equals id from params')
           nomen = bloggies[j].user.personName
-          posterBlogs.push(bloggies[j].title)
+          const newBlogEntry = Object.create(blogObj)
+          newBlogEntry.title = bloggies[j].title
+          newBlogEntry.id = bloggies[j].id
+          posterBlogs.push(newBlogEntry)
         }
       }
     }
@@ -165,14 +168,16 @@ const UsersBlogs = () => {
     //could do above for posterBlogs
     //will decide later
 
+    //maybe use a href
+
     return (
       <div className="container">
         <h1>{nomen}</h1>
-        <h2>added blogs</h2>
+        <h3>Here is the list of blogs {nomen} has posted:</h3>
         {posterBlogs.map((posting, ind) => {
           return (
             <ul key={ind}>
-              <li>{posting}</li>
+              <li><Link to={`/blogs/${posting.id}`}>{posting.title}</Link></li>
             </ul>
           )
         })}
@@ -181,9 +186,17 @@ const UsersBlogs = () => {
   }
 
   return (
-    <p>loading...</p>
+    <Spinner animation="border" variant="primary">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
   )
 }
+
+//const Footer = () => {
+//  return(
+//    <footer><p>insert image of a yellow boxfish</p></footer>
+//  )
+//}
 
 
 const App = () => {

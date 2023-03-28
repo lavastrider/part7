@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { initializeUsers } from '../reducers/userReducer'
 import { Table } from 'react-bootstrap'
+import Spinner from 'react-bootstrap/Spinner'
 
 const Users = () => {
 
@@ -82,7 +83,9 @@ const Users = () => {
   }
 
   return(
-    <p>loading...</p>
+    <Spinner animation="border" variant="primary">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
   )
 }
 
