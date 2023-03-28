@@ -44,7 +44,10 @@ export const userData = (user) => {
 
 export const userToken = (user) => {
   return async dispatch => {
+    console.log(user, 'is user arg in user token in user reducer')
     const useToke = await blogService.setToken(user.token)
+    console.log(user.token, 'is user dot token in usertoken in user reducer')
+    console.log(useToke, 'is usetoke in usertoken in user reducer')
     dispatch(setToken(useToke))
   }
 }

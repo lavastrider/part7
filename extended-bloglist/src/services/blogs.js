@@ -5,6 +5,7 @@ let token = null
 
 const setToken = newToken => {
   token = `Bearer ${newToken}`
+  console.log(token, 'is token in blogs service')
 }
 
 const getAll = () => {

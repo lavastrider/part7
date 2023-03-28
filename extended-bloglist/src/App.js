@@ -50,19 +50,19 @@ const Create = () => {
   }
 
   return(
-    <div>
+    <div className="container">
       <form onSubmit={createBlogObj}>
         <div>
           Title:
-          <input {...title} />
+          <input {...title} placeholder="What's the title?"/>
         </div>
         <div>
           Author:
-          <input {...author} />
+          <input {...author} placeholder="Who wrote it?"/>
         </div>
         <div>
           Link:
-          <input {...site} />
+          <input {...site} placeholder="https://..."/>
         </div>
         <button type="submit">submit</button>
       </form>
@@ -166,7 +166,7 @@ const UsersBlogs = () => {
     //will decide later
 
     return (
-      <div>
+      <div className="container">
         <h1>{nomen}</h1>
         <h2>added blogs</h2>
         {posterBlogs.map((posting, ind) => {
@@ -203,6 +203,7 @@ const App = () => {
     //console.log(loggedUserJSON, 'is logged user')
     if (loggedUserJSON) {
       const usered = JSON.parse(loggedUserJSON)
+      console.log(usered, 'is usered in useeffect in app')
       dispatch(userData(usered))
       //console.log(user, 'is user in useeffect')
       dispatch(userToken(usered))
@@ -216,10 +217,12 @@ const App = () => {
     try {
       const usering = await loginService.login({ username, password })
       window.localStorage.setItem( 'loggedBlogAppUser', JSON.stringify(usering) )
+      //console.log(usering, 'is usering in handlelogin') <- this has value
       dispatch(userData(usering))
-      dispatch(userToken(user))
+      dispatch(userToken(usering))
       setUsername('')
       setPassword('')
+      dispatch(setNotif(`Welcome ${user.personName}!`), 5)
     } catch (exception) {
       dispatch(setNotif('Error: Wrong username or password', 5))
     }
@@ -243,14 +246,15 @@ const App = () => {
   const user = useSelector(state => state.userInfo)
   console.log(user, 'is user use selector userinfo')
 
-  if (user.length === 0) {
-    return (
-      <Router>
-        <div>
-          <Menu />
+  //if (user.length === 0) {
+  return (
+    <Router>
+      <div>
+        <Menu />
+        <div className="container">
           <h2>Blogs</h2>
           <Notification />
-          {loginForm()}
+          {user.length === 0 && loginForm()}
 
           <Routes>
             <Route path="/" element={<Home />} />
@@ -258,30 +262,10 @@ const App = () => {
             <Route path="/users/:id" element={<UsersBlogs />} />
             <Route path="/blogs" element={<BlogsList />} />
             <Route path="/blogs/:id" element={<Blog />} />
-            <Route path="/create" element={<Home />} />
+            <Route path="/create" element={<Create />} />
             <Route path="/signup" element={<SignUpPage />}/>
           </Routes>
         </div>
-      </Router>
-    )
-  }
-
-
-  return (
-    <Router>
-      <div className="container">
-        <Menu />
-        <h2>Poster List</h2>
-        <Notification />
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/users/:id" element={<UsersBlogs />} />
-          <Route path="/blogs" element={<BlogsList />} />
-          <Route path="/blogs/:id" element={<Blog />} />
-          <Route path="/create" element={<Create />} />
-        </Routes>
       </div>
     </Router>
   )

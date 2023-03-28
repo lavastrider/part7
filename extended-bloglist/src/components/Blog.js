@@ -5,6 +5,7 @@ import { setNotif } from '../reducers/notifReducer'
 import { addingVote } from '../reducers/blogReducer'
 import { newComment } from '../reducers/commentReducer'
 //import { newComment, initializeComms } from '../reducers/commentReducer'
+import { useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
 //do we want to add ability to delete?
@@ -14,6 +15,7 @@ const Blog = () => {
   console.log(id, 'is id in blog component')
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const blog = useSelector(state => state.blogs)
   console.log(blog, 'is blog in Blog component')
@@ -71,14 +73,19 @@ const Blog = () => {
       const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
       console.log(comments, 'is comments in display blog notes to notes without display blog user')
 
+      const label = displayBlog.likes === 1
+        ? 'like'
+        : 'likes'
+
       if (displayBlog.user) {
         return (
           <div className="container">
             <h1>{displayBlog.title}</h1>
             <p>by {displayBlog.author}</p>
             <p>{displayBlog.url}</p>
-            <p>{displayBlog.likes} likes <Button onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
+            <p>{displayBlog.likes} {label} <Button onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
             <p>added by {displayBlog.user.personName}</p>
+            <p><Button onClick={() => navigate('/blogs')}>return to the list</Button></p>
             <p></p>
             <h3>comments</h3>
             <form onSubmit={postComment}>
@@ -95,7 +102,8 @@ const Blog = () => {
             <h1>{displayBlog.title}</h1>
             <p>by {displayBlog.author}</p>
             <p>{displayBlog.url}</p>
-            <p>{displayBlog.likes} likes <Button onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
+            <p>{displayBlog.likes} {label} <Button onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
+            <p><Button onClick={() => navigate('/blogs')}>return to the list</Button></p>
             <p></p>
             <h3>comments</h3>
             <form onSubmit={postComment}>

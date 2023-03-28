@@ -16,7 +16,7 @@ const BlogList = () => {
 
   const diaries = useSelector((state) =>
     state.blogs.map((blog) =>
-      <div style={blogStyle} key={blog.id}>
+      <div style={blogStyle} className="container" key={blog.id}>
         <Link to={`/blogs/${blog.id}`}>{blog.title} by {blog.author}</Link>
       </div>
     )
