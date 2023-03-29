@@ -6,65 +6,20 @@ import loginService from './services/login'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
-//import BlogForm from './components/BlogForm'
 import BlogsList from './components/BlogsList'
 import Blog from './components/Blog'
 import Menu from './components/Menu'
 import Users from './components/Users'
-import { useField } from './hooks/index'
-import { initializeBlogs, newBlogs } from './reducers/blogReducer'
-//import { initializeBlogs } from './reducers/blogReducer'
+import Create from './components/Create'
+import SignUpPage from './components/SignUpPage'
+import UserBlogs from './components/UserBlogs'
+//import { initializeBlogs, newBlogs } from './reducers/blogReducer'
+import { initializeBlogs } from './reducers/blogReducer'
 import { setNotif } from './reducers/notifReducer'
-import { userData, userToken, newUser } from './reducers/userReducer'
+//import { userData, userToken, newUser } from './reducers/userReducer'
+import { userData, userToken } from './reducers/userReducer'
 import { initializeComms } from './reducers/commentReducer'
-import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, Link } from 'react-router-dom'
-import Spinner from 'react-bootstrap/Spinner'
-
-const Create = () => {
-  const title = useField('title')
-  const author = useField('author')
-  const site = useField('url')
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
-  const addBlog = (blogObject) => {
-    dispatch(newBlogs(blogObject))
-    navigate('/blogs')
-    dispatch(setNotif(`The blog post "${blogObject.title}" by ${blogObject.author} has been added`, 5))
-  }
-
-  const createBlogObj = (event) => {
-    event.preventDefault()
-    addBlog({
-      title: title.value,
-      author: author.value,
-      url: site.value,
-      likes: 0
-    })
-    console.log('we are in create blog object')
-  }
-
-  return(
-    <div className="container">
-      <form onSubmit={createBlogObj}>
-        <div>
-          Title:
-          <input {...title} placeholder="What's the title?"/>
-        </div>
-        <div>
-          Author:
-          <input {...author} placeholder="Who wrote it?"/>
-        </div>
-        <div>
-          Link:
-          <input {...site} placeholder="https://..."/>
-        </div>
-        <button type="submit">submit</button>
-      </form>
-    </div>
-  )
-}
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 
 const Home = () => {
 
@@ -76,119 +31,6 @@ const Home = () => {
       <p>{message}</p>
       <button onClick={() => navigate('/signup')}>register</button>
     </div>
-  )
-}
-
-const SignUpPage = () => {
-
-  const usernomen = useField('username')
-  const passing = useField('password')
-  const personNomen = useField('personName')
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
-  const addAcct = (acctObj) => {
-    dispatch(newUser(acctObj))
-    navigate('/create')
-    dispatch(setNotif('Success! Your account has been created.', 5))
-  }
-
-  const makeAcct = (event) => {
-    event.preventDefault()
-    addAcct({
-      username: usernomen.value,
-      personName: personNomen.value,
-      password: passing.value
-    })
-    console.log('we fired the makeacct function')
-  }
-
-  const message = 'Register below to post a blog to the list of blogs!'
-  return(
-    <div>
-      <p>{message}</p>
-      <form onSubmit={makeAcct}>
-        <div>
-          Username:
-          <input {...usernomen} />
-        </div>
-        <div>
-          Name:
-          <input {...personNomen} />
-        </div>
-        <div>
-          Password:
-          <input {...passing}/>
-        </div>
-        <button type="submit">create account</button>
-      </form>
-    </div>
-  )
-
-}
-
-const UsersBlogs = () => {
-  const id = useParams().id
-  console.log(id, 'is id in usersblogs')
-
-  const bloggies = useSelector(state => state.blogs)
-  console.log(bloggies, 'is bloggies')
-
-  if (bloggies.length > 0) {
-    //find user that has same id as id
-    //save that user info to nomen
-
-    var nomen = ''
-    const posterBlogs = []
-    const blogObj = {
-      title: '',
-      id: ''
-    }
-
-    //put blogs the user has posted into array
-    for (let j = 0; j < bloggies.length; j++) {
-      //if the user of the blog isn't null
-      if (bloggies[j].user){
-        //console.log(bloggies[j].user, 'is bloggies j user when making sure it isn not null')
-        //if the id of the blog poster is the same as the id from saved user
-        if (bloggies[j].user.id === id) {
-          //console.log(bloggies[j].user, 'is bloggies j user when the user id equals id from params')
-          nomen = bloggies[j].user.personName
-          const newBlogEntry = Object.create(blogObj)
-          newBlogEntry.title = bloggies[j].title
-          newBlogEntry.id = bloggies[j].id
-          posterBlogs.push(newBlogEntry)
-        }
-      }
-    }
-
-    //console.log(posterBlogs, 'is poster blogs')
-    //const phrases = anecdotes.find((words) => words.id=== Number(id))
-    //could do above for posterBlogs
-    //will decide later
-
-    //maybe use a href
-
-    return (
-      <div className="container">
-        <h1>{nomen}</h1>
-        <h3>Here is the list of blogs {nomen} has posted:</h3>
-        {posterBlogs.map((posting, ind) => {
-          return (
-            <ul key={ind}>
-              <li><Link to={`/blogs/${posting.id}`}>{posting.title}</Link></li>
-            </ul>
-          )
-        })}
-      </div>
-    )
-  }
-
-  return (
-    <Spinner animation="border" variant="primary">
-      <span className="visually-hidden">Loading...</span>
-    </Spinner>
   )
 }
 
@@ -272,7 +114,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/users" element={<Users />} />
-            <Route path="/users/:id" element={<UsersBlogs />} />
+            <Route path="/users/:id" element={<UserBlogs />} />
             <Route path="/blogs" element={<BlogsList />} />
             <Route path="/blogs/:id" element={<Blog />} />
             <Route path="/create" element={<Create />} />

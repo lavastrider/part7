@@ -16,7 +16,7 @@ const Menu = () => {
       if (!(window.localStorage.getItem('loggedBlogAppUser'))) {
         window.location.reload(true)
       }
-      navigate('/login')
+      navigate('/signup')
     } catch (exception) {
       console.log('we have an error')
     }

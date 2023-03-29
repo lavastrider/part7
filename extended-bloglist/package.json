@@ -5,6 +5,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "axios": "^1.2.3",
+    "css": "^3.0.0",
     "mongoose": "^7.0.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
