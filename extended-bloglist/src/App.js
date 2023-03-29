@@ -1,4 +1,5 @@
 //import { useState, useEffect, useRef } from 'react'
+//import { useEffect } from 'react'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 //import { useDispatch } from 'react-redux'
@@ -20,19 +21,6 @@ import { setNotif } from './reducers/notifReducer'
 import { userData, userToken } from './reducers/userReducer'
 import { initializeComms } from './reducers/commentReducer'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-
-//const Home = () => {
-
-//const navigate = useNavigate()
-
-//const message = 'You are here because you tried to perform an action that only registered users can perform. Log in or click the button to register an account!'
-//return(
-//  <div>
-//    <p>{message}</p>
-//    <button onClick={() => navigate('/signup')}>register</button>
-//  </div>
-//)
-//}
 
 //const Footer = () => {
 //  return(
@@ -62,7 +50,7 @@ const App = () => {
       dispatch(userData(usered))
       //console.log(user, 'is user in useeffect')
       dispatch(userToken(usered))
-      dispatch(setNotif(`Welcome ${user.personName}!`), 5)
+      //dispatch(setNotif(`Welcome ${usered.personName}!`), 5)
     }
   }, [])
 
@@ -77,9 +65,10 @@ const App = () => {
       dispatch(userToken(usering))
       setUsername('')
       setPassword('')
-      dispatch(setNotif(`Welcome ${user.personName}!`), 5)
+      dispatch(setNotif(`Welcome ${usering.personName}!`), 5)
     } catch (exception) {
       dispatch(setNotif('Error: Wrong username or password', 5))
+      console.log(exception, 'is exception')
     }
     //navigate('/blogs')
   }
@@ -120,7 +109,7 @@ const App = () => {
   }
 
   const user = useSelector(state => state.userInfo)
-  console.log(user, 'is user use selector userinfo')
+  console.log(user, 'is user use selector userinfo in app')
 
   //if (user.length === 0) {
   return (
@@ -130,7 +119,7 @@ const App = () => {
           <Menu />
           <div className="container">
             <div style={titleStyle}>
-              <h2>{girly1} <img src={titleImg} width='30' height='30'></img>{girly} Blogs {girly} <img src={titleImg} width='30' height='30' style={imgFlipStyle}></img> {girly1}</h2>
+              <h1>{girly1} <img src={titleImg} width='30' height='30'></img>{girly} Blogs {girly} <img src={titleImg} width='30' height='30' style={imgFlipStyle}></img> {girly1}</h1>
             </div>
             <Notification />
             {(user.length === 0 || typeof user.token === 'undefined') && loginForm()}

@@ -13,17 +13,26 @@ const userSlice = createSlice({
       console.log(JSON.parse(JSON.stringify(state)), 'is json json state in save user')
       console.log(state, 'is state in save user')
       console.log(action, 'is action in save user')
-      return action.payload
+      const copyStateLogin = { ...state }
+      copyStateLogin.loggedUser = action.payload
+      return copyStateLogin
+      //return state.concat(action.payload)
     },
     setToken(state, action) {
       console.log(JSON.parse(JSON.stringify(state)), 'is json json state in set token')
       console.log(action, 'is action in set token')
-      return action.payload
+      const copyStateToken = { ...state }
+      copyStateToken.token = action.payload
+      return copyStateToken
+      //return action.payload
     },
     appendUsers(state, action) {
       console.log(action, 'is action in append users')
       console.log(JSON.parse(JSON.stringify(state)), 'is json json state in append users')
+      //const copyState = [ ...state ]
       const copyState = { ...state }
+      console.log(copyState, 'is copy state in append users')
+      //copyState.concat(action.payload)
       copyState.appendUsers = action.payload
       return copyState
       //return state.concat(action.payload)
@@ -35,7 +44,7 @@ export const { saveUser, setToken, appendUsers } = userSlice.actions
 
 export const userData = (user) => {
   //will use save user reducer
-  //console.log(user, 'is user in userdata')
+  console.log(user, 'is user in userdata')
   return async dispatch => {
     const userInfo = user
     dispatch(saveUser(userInfo))

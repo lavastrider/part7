@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+//import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { setNotif } from '../reducers/notifReducer'
@@ -20,13 +20,13 @@ const Blog = () => {
   const navigate = useNavigate()
 
   const blog = useSelector(state => state.blogs)
-  console.log(blog, 'is blog in Blog component')
+  //console.log(blog, 'is blog in Blog component')
 
   const commentsSelect = useSelector(state => state.comments)
-  console.log(commentsSelect, 'is commentsSelect in blog component')
+  //console.log(commentsSelect, 'is commentsSelect in blog component')
 
   const userInfo = useSelector(state => state.userInfo)
-  console.log(userInfo, 'is userInfo in blog component')
+  //console.log(userInfo, 'is userInfo in blog component')
 
   const userLocalStorage = window.localStorage.getItem('loggedBlogAppUser')
   console.log(userLocalStorage, 'is user local storage')
@@ -34,16 +34,10 @@ const Blog = () => {
 
   if (blog && commentsSelect && userInfo) {
     const displayBlog = blog.find((diary) => diary.id === id)
-    console.log(displayBlog, 'is displayblog')
+    //console.log(displayBlog, 'is displayblog')
 
     const commentsSelectMap = commentsSelect.map((thought) => thought.blog ? thought : null)
-    console.log(commentsSelectMap, 'is comm select map with thought if thought blog exist')
-
-    useEffect(() => {
-      console.log('peep')
-      //want to re-run filter maybe, every time map def is updated
-      //dispatch(initializeComms(id))
-    }, [dispatch])
+    //console.log(commentsSelectMap, 'is comm select map with thought if thought blog exist')
 
     const increaseLikes = async (id) => {
 
@@ -54,7 +48,7 @@ const Blog = () => {
         url: displayBlog.url
       }
 
-      console.log(updatedBlogInfo, 'is updated blog info')
+      //console.log(updatedBlogInfo, 'is updated blog info')
       dispatch(addingVote(id, updatedBlogInfo))
       dispatch(setNotif(`You added a like to "${displayBlog.title}"`, 5))
     }
@@ -71,7 +65,7 @@ const Blog = () => {
     const postComment = (event) => {
       event.preventDefault()
       const content = event.target.comment.value
-      console.log(content, 'is content of text file')
+      //console.log(content, 'is content of text file')
       dispatch(newComment(content, id))
       event.target.comment.value = ''
     }
@@ -79,13 +73,13 @@ const Blog = () => {
     if (displayBlog) {
       const cSMCopy = [...commentsSelectMap]
       const commentBlog = cSMCopy.filter((quip) => quip.blog.id ? quip.blog.id === id : quip.blog === id)
-      console.log(commentBlog, 'is blog with comments that match blog id in blog component')
+      //console.log(commentBlog, 'is blog with comments that match blog id in blog component')
 
       //const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
       //console.log(comments, 'is comments in display blog notes to notes without display blog user')
 
       const comments = commentBlog.map((notes, i) => <ListGroup key={i}><ListGroup.Item>{notes.comment}</ListGroup.Item></ListGroup>)
-      console.log(comments, 'is comments in display blog notes to notes without display blog user')
+      //console.log(comments, 'is comments in display blog notes to notes without display blog user')
 
       const label = displayBlog.likes === 1
         ? 'like'

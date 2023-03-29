@@ -14,7 +14,7 @@ const Users = () => {
   }, [])
 
   const setup = useSelector(state => state.userInfo)
-  console.log(setup, 'is setup')
+  console.log(setup, 'is setup in users')
 
   const userHeadStyle = {
     textAlign: 'center'
@@ -26,7 +26,7 @@ const Users = () => {
 
   if (setup) {
     const bloggiesUsers = useSelector(state => state.userInfo.appendUsers)
-    //console.log(bloggiesUsers, 'is bloggies users')
+    console.log(bloggiesUsers, 'is bloggies users')
 
     if (bloggiesUsers) {
       //console.log(bloggiesUsers.length, 'is bloggies users length')
@@ -65,11 +65,12 @@ const Users = () => {
       //console.log(blogPosters, 'is blog posters')
 
       const kbImg = 'https://c8.alamy.com/comp/AY7NJT/close-up-of-persons-fingers-pressing-laptop-keyboard-with-english-AY7NJT.jpg'
+      const avatar = 'https://static.vecteezy.com/system/resources/thumbnails/008/844/878/small/arrow-icon-design-free-png.png'
 
       return (
         <div>
           <div style={userHeadStyle}>
-            <h1><img src={kbImg} width='20' height='20'></img> Users <img src={kbImg} width='20' height='20' style={imgFlipStyle}></img></h1>
+            <h2><img src={kbImg} width='20' height='20'></img> Users <img src={kbImg} width='20' height='20' style={imgFlipStyle}></img></h2>
           </div>
           <Table bordered>
             <thead>
@@ -82,7 +83,7 @@ const Users = () => {
               {blogPosters.map((posting, ind) => {
                 return (
                   <tr key={ind}>
-                    <td><img src='pop.com' alt='user avatar'></img> <Link to={`/users/${posting.posterId}`}>{posting.poster}</Link></td>
+                    <td><img src={avatar} alt='user avatar' width='20' height='20'></img> <Link to={`/users/${posting.posterId}`}>{posting.poster}</Link></td>
                     <td>{posting.posted}</td>
                   </tr>
                 )

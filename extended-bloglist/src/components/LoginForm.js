@@ -10,11 +10,11 @@ const LoginForm = ({
 }) => {
 
   const newButtStyle = {
-    backgroundColor: 'green',
-    borderColor: 'blue',
+    backgroundColor: 'white',
+    borderColor: 'green',
     borderRadius: 25,
     borderWidth: 3,
-    color: 'purple',
+    color: 'black',
     fontFamily: 'Consolas'
   }
 
