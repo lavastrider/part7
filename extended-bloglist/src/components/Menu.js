@@ -26,15 +26,21 @@ const Menu = () => {
     paddingRight: 5
   }
 
-  if (user.length === 0) {
+  const logOutStyle = {
+    backgroundColor: 'gray',
+    borderColor: 'white',
+    borderRadius: 25,
+    borderWidth: 3,
+    color: 'white',
+    fontFamily: 'Consolas'
+  }
+
+  if (user.length === 0 || typeof user.token === 'undefined') {
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
         <Navbar.Collapse id="repsonsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#" as='span'>
-              <Link style={padding} to="/create">post a link</Link>
-            </Nav.Link>
             <Nav.Link href="#" as='span'>
               <Link style={padding} to="/users">users</Link>
             </Nav.Link>
@@ -56,7 +62,7 @@ const Menu = () => {
         <Navbar.Collapse id="repsonsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="#" as='span'>
-              <em style={padding}>{user.personName} is logged in <Button onClick={() => logOut()}>log out</Button></em>
+              <em style={padding}>{user.personName} is logged in <Button onClick={() => logOut()} style={logOutStyle}>log out</Button></em>
             </Nav.Link>
             <Nav.Link href="#" as='span'>
               <Link style={padding} to="/create">post a link</Link>

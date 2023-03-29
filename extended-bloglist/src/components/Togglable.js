@@ -18,14 +18,32 @@ const Togglable = forwardRef((props, refs) => {
     }
   })
 
+  const buttonStyleCancel = {
+    backgroundColor: 'white',
+    borderColor: 'red',
+    borderRadius: 25,
+    borderWidth: 3,
+    color: 'black',
+    fontFamily: 'Consolas'
+  }
+
+  const buttonStyleLogIn = {
+    backgroundColor: 'white',
+    borderColor: 'green',
+    borderRadius: 25,
+    borderWidth: 3,
+    color: 'black',
+    fontFamily: 'Consolas',
+  }
+
   return (
     <div>
       <div style={hideWhenVisible}>
-        <Button onClick={toggleVisib}>{props.buttonLabel}</Button>
+        <Button onClick={toggleVisib} style={buttonStyleLogIn}>{props.buttonLabel}</Button>
       </div>
       <div style={showWhenVisible}>
         {props.children}
-        <Button onClick={toggleVisib}>cancel</Button>
+        <Button onClick={toggleVisib} style={buttonStyleCancel}>cancel</Button>
       </div>
     </div>
   )

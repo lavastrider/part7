@@ -65,3 +65,7 @@
     borderWidth: 1px;
     marginBottom: 5px;
   }
+
+.bg-image {
+      background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Yellow_boxfish_%28Ostracion_cubicus%29_%2846722836601%29.jpg/1280px-Yellow_boxfish_%28Ostracion_cubicus%29_%2846722836601%29.jpg")
+    }

@@ -8,12 +8,22 @@ const LoginForm = ({
   username,
   password
 }) => {
+
+  const newButtStyle = {
+    backgroundColor: 'green',
+    borderColor: 'blue',
+    borderRadius: 25,
+    borderWidth: 3,
+    color: 'purple',
+    fontFamily: 'Consolas'
+  }
+
   return (
     <div>
       <h2>Log in to the application</h2>
       <form onSubmit={handleSubmit}>
         <div>
-              username
+              username:
           <input
             id='username'
             value={username}
@@ -23,7 +33,7 @@ const LoginForm = ({
           />
         </div>
         <div>
-              password
+              password:
           <input
             id='password'
             value={password}
@@ -32,7 +42,7 @@ const LoginForm = ({
             placeholder='Enter password'
           />
         </div>
-        <Button id="login-button" type="submit">login</Button>
+        <Button id="login-button" type="submit" style={newButtStyle}>login</Button>
       </form>
     </div>
   )

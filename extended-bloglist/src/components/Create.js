@@ -30,6 +30,15 @@ const Create = () => {
     console.log('we are in create blog object')
   }
 
+  const submitBlogStyle = {
+    backgroundColor: 'blue',
+    borderColor: 'navy',
+    borderRadius: 25,
+    borderWidth: 3,
+    color: 'white',
+    fontFamily: 'Consolas'
+  }
+
   return(
     <div className="container">
       <form onSubmit={createBlogObj}>
@@ -45,7 +54,7 @@ const Create = () => {
           Link:
           <input {...site} placeholder="https://..."/>
         </div>
-        <Button type="submit">submit</Button>
+        <Button type="submit" style={submitBlogStyle}>submit</Button>
       </form>
     </div>
   )

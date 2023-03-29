@@ -30,6 +30,15 @@ const SignUpPage = () => {
     console.log('we fired the makeacct function')
   }
 
+  const submitStyle = {
+    backgroundColor: 'blue',
+    borderColor: 'navy',
+    borderRadius: 25,
+    borderWidth: 3,
+    color: 'white',
+    fontFamily: 'Consolas'
+  }
+
   const message = 'Register below to post a blog to the list of blogs!'
   return(
     <div>
@@ -47,7 +56,7 @@ const SignUpPage = () => {
           Password:
           <input {...passing}/>
         </div>
-        <Button type="submit">create account</Button>
+        <Button type="submit" style={submitStyle}>create account</Button>
       </form>
     </div>
   )

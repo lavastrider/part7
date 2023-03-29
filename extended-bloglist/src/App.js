@@ -98,6 +98,27 @@ const App = () => {
     )
   }
 
+  const imageStyle = {
+    width: '100%',
+    height: '100%',
+    backgroundImage: 'url("https://www.textures4photoshop.com/tex/thumbs/seamless-notebook-paper-texture-free-thumb36.jpg")',
+    //backgroundColor: 'lightblue'
+  }
+
+  const titleStyle = {
+    color: 'black',
+    textAlign: 'center',
+    textShadow: 'white'
+  }
+
+  const titleImg = 'https://png.pngtree.com/png-clipart/20210308/original/pngtree-red-pencil-and-notebook-clipart-png-image_5748128.jpg'
+  const girly = '*'
+  const girly1 = '~'
+
+  const imgFlipStyle = {
+    transform: 'scaleX(-1)'
+  }
+
   const user = useSelector(state => state.userInfo)
   console.log(user, 'is user use selector userinfo')
 
@@ -105,21 +126,25 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Menu />
-        <div className="container">
-          <h2>Blogs</h2>
-          <Notification />
-          {user.length === 0 && loginForm()}
+        <div style={imageStyle}>
+          <Menu />
+          <div className="container">
+            <div style={titleStyle}>
+              <h2>{girly1} <img src={titleImg} width='30' height='30'></img>{girly} Blogs {girly} <img src={titleImg} width='30' height='30' style={imgFlipStyle}></img> {girly1}</h2>
+            </div>
+            <Notification />
+            {(user.length === 0 || typeof user.token === 'undefined') && loginForm()}
 
-          <Routes>
-            <Route path="/" element={<BlogsList />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/users/:id" element={<UserBlogs />} />
-            <Route path="/blogs" element={<BlogsList />} />
-            <Route path="/blogs/:id" element={<Blog />} />
-            <Route path="/create" element={<Create />} />
-            <Route path="/signup" element={<SignUpPage />}/>
-          </Routes>
+            <Routes>
+              <Route path="/" element={<BlogsList />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/users/:id" element={<UserBlogs />} />
+              <Route path="/blogs" element={<BlogsList />} />
+              <Route path="/blogs/:id" element={<Blog />} />
+              <Route path="/create" element={<Create />} />
+              <Route path="/signup" element={<SignUpPage />}/>
+            </Routes>
+          </div>
         </div>
       </div>
     </Router>
