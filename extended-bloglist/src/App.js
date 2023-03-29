@@ -19,20 +19,20 @@ import { setNotif } from './reducers/notifReducer'
 //import { userData, userToken, newUser } from './reducers/userReducer'
 import { userData, userToken } from './reducers/userReducer'
 import { initializeComms } from './reducers/commentReducer'
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-const Home = () => {
+//const Home = () => {
 
-  const navigate = useNavigate()
+//const navigate = useNavigate()
 
-  const message = 'You are here because you tried to perform an action that only registered users can perform. Log in or click the button to register an account!'
-  return(
-    <div>
-      <p>{message}</p>
-      <button onClick={() => navigate('/signup')}>register</button>
-    </div>
-  )
-}
+//const message = 'You are here because you tried to perform an action that only registered users can perform. Log in or click the button to register an account!'
+//return(
+//  <div>
+//    <p>{message}</p>
+//    <button onClick={() => navigate('/signup')}>register</button>
+//  </div>
+//)
+//}
 
 //const Footer = () => {
 //  return(
@@ -112,7 +112,7 @@ const App = () => {
           {user.length === 0 && loginForm()}
 
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<BlogsList />} />
             <Route path="/users" element={<Users />} />
             <Route path="/users/:id" element={<UserBlogs />} />
             <Route path="/blogs" element={<BlogsList />} />

@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 import { newBlogs } from '../reducers/blogReducer'
 import { setNotif } from '../reducers/notifReducer'
 import { useField } from '../hooks/index'
@@ -44,7 +45,7 @@ const Create = () => {
           Link:
           <input {...site} placeholder="https://..."/>
         </div>
-        <button type="submit">submit</button>
+        <Button type="submit">submit</Button>
       </form>
     </div>
   )

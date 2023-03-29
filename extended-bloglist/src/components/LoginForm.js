@@ -1,4 +1,5 @@
 //import PropTypes from 'prop-types'
+import Button from 'react-bootstrap/Button'
 
 const LoginForm = ({
   handleSubmit,
@@ -31,7 +32,7 @@ const LoginForm = ({
             placeholder='Enter password'
           />
         </div>
-        <button id="login-button" type="submit">login</button>
+        <Button id="login-button" type="submit">login</Button>
       </form>
     </div>
   )

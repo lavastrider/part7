@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Navbar, Nav } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 const Menu = () => {
 
@@ -56,7 +56,7 @@ const Menu = () => {
         <Navbar.Collapse id="repsonsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="#" as='span'>
-              <em style={padding}>{user.personName} is logged in <button onClick={() => logOut()}>log out</button></em>
+              <em style={padding}>{user.personName} is logged in <Button onClick={() => logOut()}>log out</Button></em>
             </Nav.Link>
             <Nav.Link href="#" as='span'>
               <Link style={padding} to="/create">post a link</Link>

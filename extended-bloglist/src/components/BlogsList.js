@@ -27,6 +27,7 @@ const BlogList = () => {
 
   return (
     <div>
+      <p>check me out</p>
       {diaries}
     </div>
   )

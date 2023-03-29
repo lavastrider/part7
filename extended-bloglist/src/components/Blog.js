@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { setNotif } from '../reducers/notifReducer'
-import { addingVote } from '../reducers/blogReducer'
+import { addingVote, removeEntry } from '../reducers/blogReducer'
 import { newComment } from '../reducers/commentReducer'
 //import { newComment, initializeComms } from '../reducers/commentReducer'
 import { useNavigate, Link } from 'react-router-dom'
@@ -25,8 +25,14 @@ const Blog = () => {
   const commentsSelect = useSelector(state => state.comments)
   console.log(commentsSelect, 'is commentsSelect in blog component')
 
+  const userInfo = useSelector(state => state.userInfo)
+  console.log(userInfo, 'is userInfo in blog component')
 
-  if (blog && commentsSelect) {
+  const userLocalStorage = window.localStorage.getItem('loggedBlogAppUser')
+  console.log(userLocalStorage, 'is user local storage')
+
+
+  if (blog && commentsSelect && userInfo) {
     const displayBlog = blog.find((diary) => diary.id === id)
     console.log(displayBlog, 'is displayblog')
 
@@ -51,6 +57,15 @@ const Blog = () => {
       console.log(updatedBlogInfo, 'is updated blog info')
       dispatch(addingVote(id, updatedBlogInfo))
       dispatch(setNotif(`You added a like to "${displayBlog.title}"`, 5))
+    }
+
+    const deleteBlog = () => {
+      const agree = window.confirm(`Are you sure you want to delete ${displayBlog.title}?`)
+      if (agree) {
+        dispatch(removeEntry(displayBlog.id))
+        //console.log('we deleted the blog inside of deleteblog in app')
+        dispatch(setNotif(`"${displayBlog.title}" has successfully been deleted`, 5))
+      }
     }
 
     const postComment = (event) => {
@@ -84,7 +99,9 @@ const Blog = () => {
             <p>{displayBlog.url}</p>
             <p>{displayBlog.likes} {label} <Button onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
             <p>added by <Link to={`/users/${displayBlog.user.id}`}>{displayBlog.user.personName}</Link></p>
-            <p><Button onClick={() => navigate('/blogs')}>return to the list</Button></p>
+            <p>here is where the delete button will go if the user viewing the blog is same as poster</p>
+            <p><Button onClick={() => deleteBlog()}>delete blog</Button></p>
+            <p><Button onClick={() => navigate('/blogs')}>all blogs</Button></p>
             <p></p>
             <h3>comments</h3>
             <form onSubmit={postComment}>

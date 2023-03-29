@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Button from 'react-bootstrap/Button'
 
 const BlogForm = ({ createBlog }) => {
   const [blogTitle, setBlogTitle] = useState('')
@@ -69,7 +70,7 @@ const BlogForm = ({ createBlog }) => {
             placeholder='The URL of the blogpost'
           />
         </div>
-        <button id="createBlog" onClick={addBlog}>create</button>
+        <Button id="createBlog" onClick={addBlog}>create</Button>
       </form>
     </div>
   )

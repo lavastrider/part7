@@ -44,8 +44,6 @@ const UserBlogs = () => {
     //could do above for posterBlogs
     //will decide later
 
-    //maybe use a href
-
     return (
       <div className="container">
         <h1>{nomen}</h1>

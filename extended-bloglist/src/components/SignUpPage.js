@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 import { useField } from '../hooks/index'
 import { newUser } from '../reducers/userReducer'
 import { setNotif } from '../reducers/notifReducer'
@@ -46,7 +47,7 @@ const SignUpPage = () => {
           Password:
           <input {...passing}/>
         </div>
-        <button type="submit">create account</button>
+        <Button type="submit">create account</Button>
       </form>
     </div>
   )
