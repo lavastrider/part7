@@ -5,6 +5,21 @@ import { initializeUsers } from '../reducers/userReducer'
 import { Table } from 'react-bootstrap'
 import Spinner from 'react-bootstrap/Spinner'
 
+
+const userHeadStyle = {
+  textAlign: 'center',
+  color: 'magenta',
+  fontFamily: 'Consolas'
+}
+
+const imgFlipStyle = {
+  transform: 'scaleX(-1)'
+}
+
+const tableLineStyle = {
+  borderBottom: '1px solid #94B9F0',
+}
+
 const Users = () => {
 
   const dispatch = useDispatch()
@@ -15,14 +30,6 @@ const Users = () => {
 
   const setup = useSelector(state => state.userInfo)
   console.log(setup, 'is setup in users')
-
-  const userHeadStyle = {
-    textAlign: 'center'
-  }
-
-  const imgFlipStyle = {
-    transform: 'scaleX(-1)'
-  }
 
   if (setup) {
     const bloggiesUsers = useSelector(state => state.userInfo.appendUsers)
@@ -72,17 +79,17 @@ const Users = () => {
           <div style={userHeadStyle}>
             <h2><img src={kbImg} width='20' height='20'></img> Users <img src={kbImg} width='20' height='20' style={imgFlipStyle}></img></h2>
           </div>
-          <Table bordered>
+          <Table>
             <thead>
-              <tr>
-                <td></td>
-                <td><strong>blogs created</strong></td>
+              <tr style={tableLineStyle}>
+                <td><strong>Users</strong></td>
+                <td><strong>blogs posted</strong></td>
               </tr>
             </thead>
             <tbody>
               {blogPosters.map((posting, ind) => {
                 return (
-                  <tr key={ind}>
+                  <tr style={tableLineStyle} key={ind}>
                     <td><img src={avatar} alt='user avatar' width='20' height='20'></img> <Link to={`/users/${posting.posterId}`}>{posting.poster}</Link></td>
                     <td>{posting.posted}</td>
                   </tr>

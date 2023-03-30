@@ -14,6 +14,7 @@ import Users from './components/Users'
 import Create from './components/Create'
 import SignUpPage from './components/SignUpPage'
 import UserBlogs from './components/UserBlogs'
+import StrawPollTest from './components/StrawPollTest'
 //import { initializeBlogs, newBlogs } from './reducers/blogReducer'
 import { initializeBlogs } from './reducers/blogReducer'
 import { setNotif } from './reducers/notifReducer'
@@ -90,8 +91,21 @@ const App = () => {
   const imageStyle = {
     width: '100%',
     height: '100%',
-    backgroundImage: 'url("https://www.textures4photoshop.com/tex/thumbs/seamless-notebook-paper-texture-free-thumb36.jpg")',
-    //backgroundColor: 'lightblue'
+    //backgroundImage: 'url("https://www.textures4photoshop.com/tex/thumbs/seamless-notebook-paper-texture-free-thumb36.jpg")',
+    //backgroundColor: 'rgb(239,214,95)',
+    //backgroundColor: 'rgb(228,220,199)'
+    backgroundColor: '#DEDEDB',
+    display: 'block'
+  }
+
+  const vertLineStyle = {
+    borderLeft: '5px red double',
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    //float: 'left',
+    display: 'inline-block',
+    backgroundColor: '#DEDEDB'
   }
 
   const titleStyle = {
@@ -114,8 +128,8 @@ const App = () => {
   //if (user.length === 0) {
   return (
     <Router>
-      <div>
-        <div style={imageStyle}>
+      <div style={imageStyle}>
+        <div style={vertLineStyle} >
           <Menu />
           <div className="container">
             <div style={titleStyle}>
@@ -132,6 +146,7 @@ const App = () => {
               <Route path="/blogs/:id" element={<Blog />} />
               <Route path="/create" element={<Create />} />
               <Route path="/signup" element={<SignUpPage />}/>
+              <Route path="/strawpolltest" element={<StrawPollTest />}/>
             </Routes>
           </div>
         </div>

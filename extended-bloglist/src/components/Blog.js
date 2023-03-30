@@ -12,6 +12,22 @@ import ListGroup from 'react-bootstrap/ListGroup'
 
 //do we want to add ability to delete?
 
+const likeButtStyle = {
+  fontFamily: 'Consolas'
+}
+
+const delButtStyle = {
+  fontFamily: 'Consolas'
+}
+
+const allButtStyle = {
+  fontFamily: 'Consolas'
+}
+
+const commentButtStyle = {
+  fontFamily: 'Consolas'
+}
+
 const Blog = () => {
   const id = useParams().id
   console.log(id, 'is id in blog component')
@@ -91,15 +107,15 @@ const Blog = () => {
             <h1>{displayBlog.title}</h1>
             <p>by {displayBlog.author}</p>
             <p>{displayBlog.url}</p>
-            <p>{displayBlog.likes} {label} <Button onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
+            <p>{displayBlog.likes} {label} <Button style={likeButtStyle} onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
             <p>added by <Link to={`/users/${displayBlog.user.id}`}>{displayBlog.user.personName}</Link></p>
             <p>here is where the delete button will go if the user viewing the blog is same as poster</p>
-            <p><Button onClick={() => deleteBlog()}>delete blog</Button></p>
-            <p><Button onClick={() => navigate('/blogs')}>all blogs</Button></p>
+            <p><Button style={delButtStyle} onClick={() => deleteBlog()}>delete blog</Button></p>
+            <p><Button style={allButtStyle} onClick={() => navigate('/blogs')}>all blogs</Button></p>
             <p></p>
             <h3>comments</h3>
             <form onSubmit={postComment}>
-              <input type="text" name="comment"/> <Button type="submit">add comment</Button>
+              <input type="text" name="comment"/> <Button style={commentButtStyle} type="submit">add comment</Button>
             </form>
             {comments}
           </div>
@@ -112,7 +128,7 @@ const Blog = () => {
             <h1>{displayBlog.title}</h1>
             <p>by {displayBlog.author}</p>
             <p>{displayBlog.url}</p>
-            <p>{displayBlog.likes} {label} <Button onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
+            <p>{displayBlog.likes} {label} <Button style={likeButtStyle} onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
             <p><Button onClick={() => navigate('/blogs')}>return to the list</Button></p>
             <p></p>
             <h3>comments</h3>
