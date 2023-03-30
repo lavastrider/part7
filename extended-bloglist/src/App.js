@@ -46,7 +46,7 @@ const App = () => {
     //console.log(loggedUserJSON, 'is logged user')
     if (loggedUserJSON) {
       const usered = JSON.parse(loggedUserJSON)
-      console.log(usered, 'is usered in useeffect in app')
+      //console.log(usered, 'is usered in useeffect in app')
       dispatch(userData(usered))
       //console.log(user, 'is user in useeffect')
       dispatch(userToken(usered))
@@ -68,7 +68,7 @@ const App = () => {
       dispatch(setNotif(`Welcome ${usering.personName}!`), 5)
     } catch (exception) {
       dispatch(setNotif('Error: Wrong username or password', 5))
-      console.log(exception, 'is exception')
+      //console.log(exception, 'is exception')
     }
     //navigate('/blogs')
   }
@@ -109,7 +109,7 @@ const App = () => {
   }
 
   const user = useSelector(state => state.userInfo)
-  console.log(user, 'is user use selector userinfo in app')
+  //console.log(user, 'is user use selector userinfo in app')
 
   //if (user.length === 0) {
   return (

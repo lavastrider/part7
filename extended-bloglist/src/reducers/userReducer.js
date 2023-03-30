@@ -72,6 +72,7 @@ export const initializeUsers = () => {
 export const newUser = (user) => {
   return async dispatch => {
     const newUserData = await userService.create(user)
+    console.log(newUserData, 'is new user data')
     dispatch(appendUsers(newUserData))
   }
 }

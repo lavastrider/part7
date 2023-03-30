@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 const Menu = () => {
 
   const user = useSelector(state => state.userInfo)
-  console.log(user, 'is user use selector userinfo')
+  //console.log(user, 'is user use selector userinfo in menu')
 
   const navigate = useNavigate()
 
@@ -62,7 +62,7 @@ const Menu = () => {
         <Navbar.Collapse id="repsonsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="#" as='span'>
-              <em style={padding}>{user.personName} is logged in <Button onClick={() => logOut()} style={logOutStyle}>log out</Button></em>
+              <em style={padding}>{user.loggedUser.personName} is logged in <Button onClick={() => logOut()} style={logOutStyle}>log out</Button></em>
             </Nav.Link>
             <Nav.Link href="#" as='span'>
               <Link style={padding} to="/create">post a link</Link>

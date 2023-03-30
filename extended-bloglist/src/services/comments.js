@@ -9,16 +9,16 @@ const getAll = (id) => {
 
 const create = async (id, newObject) => {
   const response = await axios.post(`${baseUrl}/${id}/comments`, newObject)
-  console.log(response, 'is response in create')
+  //console.log(response, 'is response in create')
   return response.data
 }
 
 const update = (id, newObject) => {
-  console.log(id, 'is id in update')
-  console.log(newObject, 'is new object in update')
+  //console.log(id, 'is id in update')
+  //console.log(newObject, 'is new object in update')
   const request = axios.put(`${baseUrl}/${id}`, newObject)
-  console.log('we are in the update in service')
-  console.log(request, 'is request in service')
+  //console.log('we are in the update in service')
+  //console.log(request, 'is request in service')
   //console.log(request.then(response => response.data), 'is request then data')
   return request.then((response) => response.data)
 }

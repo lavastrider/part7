@@ -5,7 +5,7 @@ let token = null
 
 const setToken = newToken => {
   token = `Bearer ${newToken}`
-  console.log(token, 'is token in blogs service')
+  //console.log(token, 'is token in blogs service')
   return token
 }
 

@@ -42,7 +42,7 @@ const LoginForm = ({
             placeholder='Enter password'
           />
         </div>
-        <Button id="login-button" type="submit" style={newButtStyle}>login</Button>
+        <Button id="login-button" type="submit" style={newButtStyle}>login</Button> <button>sign up</button>
       </form>
     </div>
   )

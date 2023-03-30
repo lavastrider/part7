@@ -9,18 +9,18 @@ const commSlice = createSlice({
   initialState,
   reducers: {
     appendComments(state, action){
-      console.log(action, 'is action in append comments in comment reducer')
-      console.log(JSON.parse(JSON.stringify(state)), 'is json json state in comment reducer')
+      //console.log(action, 'is action in append comments in comment reducer')
+      //console.log(JSON.parse(JSON.stringify(state)), 'is json json state in comment reducer')
       //const newComms = [
       return state.concat(action.payload)
     },
     addVote(state, action){
-      console.log(action, 'is action in addVote reducer')
+      //console.log(action, 'is action in addVote reducer')
       const id = action.payload.id
-      console.log(id, 'is id in add vote')
+      //console.log(id, 'is id in add vote')
       const phraseToReplace = state.find((word) => word.id === id)
-      console.log(JSON.parse(JSON.stringify(phraseToReplace)), 'is json json phrasetoreplace in add vote reducer')
-      console.log(phraseToReplace.likes, 'is pTR likes in add vote')
+      //console.log(JSON.parse(JSON.stringify(phraseToReplace)), 'is json json phrasetoreplace in add vote reducer')
+      //console.log(phraseToReplace.likes, 'is pTR likes in add vote')
       phraseToReplace.likes = action.payload.likes + 1
       console.log(phraseToReplace.likes, 'is pTR likes in add vote after made the same as action payload likes')
     },
@@ -46,7 +46,7 @@ export const newComment = (content, id) => {
   return async dispatch => {
     const commObj = { comment: content }
     const newComm = await commentService.create(id, commObj).catch(() => dispatch(setNotif('There was an error when submitting your comment. Please wait a few moments and then try again.', 5)))
-    console.log(newComm, 'is new comm in new comment in reducer')
+    //console.log(newComm, 'is new comm in new comment in reducer')
     if (newComm){
       dispatch(appendComments(newComm))
     }
