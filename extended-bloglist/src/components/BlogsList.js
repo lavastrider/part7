@@ -1,34 +1,18 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 //import { useField } from '../hooks/index'
-import ListGroup from 'react-bootstrap/ListGroup'
+//import ListGroup from 'react-bootstrap/ListGroup'
 //import Button from 'react-bootstrap/Button'
 
 const BlogList = () => {
 
   const blogStyle = {
     paddingTop: 10,
-    //paddingLeft: 2,
-    //border: 'solid',
-    //borderWidth: 2,
-    //borderColor: '#7CCAE4',
-    borderColor: 'rgb(137,169,166)',
-    //marginBottom: 5,
-    marginBottom: 3,
+    paddingBottom: '-20',
+    paddingLeft: 10,
     //backgroundColor: '#102B5C'
-    backgroundColor: 'rgb(239,214,95)'
-  }
-
-  const ClueLine = ({ color }) => {
-    return (
-      <hr
-        style={{
-          color: color,
-          backgroundColor: color,
-          height: 1
-        }}
-      />
-    )
+    backgroundColor: '#DEDEDB',
+    lineHeight: 0.1
   }
 
   //const searchButtStyle = {
@@ -41,7 +25,20 @@ const BlogList = () => {
   //}
 
   const linkStyle = {
-    color: 'black'
+    color: 'black',
+    //fontStyle: 'none'
+  }
+
+  const headStyle = {
+    fontFamily: 'Consolas',
+    paddingLeft: '10px',
+    lineHeight: 0.5
+  }
+
+  const hrStyle = {
+    padding: '-10',
+    color: '#94B9F0',
+    borderWidth: 2
   }
 
 
@@ -50,13 +47,23 @@ const BlogList = () => {
   //const titOrAuth = useField('tOA')
   //console.log(titOrAuth, 'is tit or auth')
 
+  //const diaries = useSelector((state) =>
+  //  state.blogs.map((blog) =>
+  //    //<div style={blogStyle} className="container" key={blog.id}>
+  //    <ListGroup className="container" key={blog.id}>
+  //      <ListGroup.Item style={blogStyle}><Link style={linkStyle} to={`/blogs/${blog.id}`}>{blog.title} by {blog.author}</Link></ListGroup.Item>
+  //      <hr></hr>
+  //    </ListGroup>
+  //  )
+  //)
+
   const diaries = useSelector((state) =>
     state.blogs.map((blog) =>
       //<div style={blogStyle} className="container" key={blog.id}>
-      <ListGroup className="container" key={blog.id}>
-        <ListGroup.Item style={blogStyle}><Link style={linkStyle} to={`/blogs/${blog.id}`}>{blog.title} by {blog.author}</Link></ListGroup.Item>
-        <ClueLine color='rgb(137,169,166)'/>
-      </ListGroup>
+      <div key={blog.id}>
+        <p style={blogStyle}><Link style={linkStyle} to={`/blogs/${blog.id}`}>{blog.title} by {blog.author}</Link></p>
+        <hr style={hrStyle}></hr>
+      </div>
     )
   )
   //console.log(diaries, 'is diaries')
@@ -74,7 +81,8 @@ const BlogList = () => {
 
   return (
     <div>
-      <p></p>
+      <h2 style={headStyle}>Click on a link to see information about a blog!</h2>
+      <hr style={hrStyle}></hr>
       {diaries}
     </div>
   )

@@ -19,7 +19,7 @@ const Togglable = forwardRef((props, refs) => {
   })
 
   const buttonStyleCancel = {
-    backgroundColor: 'white',
+    backgroundColor: '#858484',
     borderColor: 'red',
     borderRadius: 25,
     borderWidth: 3,
@@ -28,7 +28,7 @@ const Togglable = forwardRef((props, refs) => {
   }
 
   const buttonStyleLogIn = {
-    backgroundColor: 'white',
+    backgroundColor: '#858484',
     borderColor: 'green',
     borderRadius: 25,
     borderWidth: 3,

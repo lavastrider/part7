@@ -18,7 +18,18 @@ const imgFlipStyle = {
 
 const tableLineStyle = {
   borderBottom: '1px solid #94B9F0',
+  //lineHeight: '50px'
 }
+
+//const vertLineStyle = {
+//  borderLeft: '5px red double',
+//  //position: 'absolute',
+//  width: '100%',
+//  height: '100%',
+//  //float: 'left',
+//  display: 'inline-block',
+//  backgroundColor: '#DEDEDB'
+//}
 
 const Users = () => {
 
@@ -75,14 +86,14 @@ const Users = () => {
       const avatar = 'https://static.vecteezy.com/system/resources/thumbnails/008/844/878/small/arrow-icon-design-free-png.png'
 
       return (
-        <div>
+        <div className='container'>
           <div style={userHeadStyle}>
             <h2><img src={kbImg} width='20' height='20'></img> Users <img src={kbImg} width='20' height='20' style={imgFlipStyle}></img></h2>
           </div>
           <Table>
             <thead>
               <tr style={tableLineStyle}>
-                <td><strong>Users</strong></td>
+                <td></td>
                 <td><strong>blogs posted</strong></td>
               </tr>
             </thead>

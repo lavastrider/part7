@@ -8,24 +8,77 @@ import { newComment } from '../reducers/commentReducer'
 import { useNavigate, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
-import ListGroup from 'react-bootstrap/ListGroup'
+//import ListGroup from 'react-bootstrap/ListGroup'
 
 //do we want to add ability to delete?
 
 const likeButtStyle = {
-  fontFamily: 'Consolas'
+  fontFamily: 'Consolas',
+  color: 'black',
+  backgroundColor: '#858484',
+  borderColor: 'black',
+  borderRadius: 25
 }
 
 const delButtStyle = {
-  fontFamily: 'Consolas'
+  fontFamily: 'Consolas',
+  color: 'black',
+  backgroundColor: '#858484',
+  borderColor: 'black',
+  borderRadius: 25
 }
 
 const allButtStyle = {
-  fontFamily: 'Consolas'
+  fontFamily: 'Consolas',
+  color: 'black',
+  backgroundColor: '#858484',
+  borderColor: 'black',
+  borderRadius: 25
 }
 
 const commentButtStyle = {
-  fontFamily: 'Consolas'
+  fontFamily: 'Consolas',
+  color: 'black',
+  backgroundColor: '#858484',
+  borderColor: 'black',
+  borderRadius: 25
+}
+
+const hrStyle = {
+  padding: '-10',
+  color: '#94B9F0',
+  borderWidth: 2
+}
+
+const hrStyle1 = {
+  padding: '-10',
+  color: '#94B9F0',
+  borderWidth: 2,
+  marginLeft: -20
+}
+
+const lineHeightMargAdjStyle = {
+  lineHeight: 0.5,
+  margin: 5
+}
+
+const lineHeightMargAdjStyle1 = {
+  lineHeight: 0.5,
+  marginRight: 20,
+  textAlign: 'right'
+}
+
+const lineHeightAdjStyle = {
+  lineHeight: 0.5,
+}
+
+const margStyle = {
+  margin: 5
+}
+
+const margStyle1 = {
+  margin: 5,
+  textAlign: 'right'
 }
 
 const Blog = () => {
@@ -94,7 +147,10 @@ const Blog = () => {
       //const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
       //console.log(comments, 'is comments in display blog notes to notes without display blog user')
 
-      const comments = commentBlog.map((notes, i) => <ListGroup key={i}><ListGroup.Item>{notes.comment}</ListGroup.Item></ListGroup>)
+      //const comments = commentBlog.map((notes, i) => <ListGroup key={i}><ListGroup.Item>{notes.comment}</ListGroup.Item></ListGroup>)
+      //console.log(comments, 'is comments in display blog notes to notes without display blog user')
+
+      const comments = commentBlog.map((notes, i) => <div style={lineHeightMargAdjStyle1} key={i}><p>{notes.comment}</p><hr style={hrStyle1}></hr></div>)
       //console.log(comments, 'is comments in display blog notes to notes without display blog user')
 
       const label = displayBlog.likes === 1
@@ -103,20 +159,25 @@ const Blog = () => {
 
       if (displayBlog.user) {
         return (
-          <div className="container">
-            <h1>{displayBlog.title}</h1>
-            <p>by {displayBlog.author}</p>
-            <p>{displayBlog.url}</p>
-            <p>{displayBlog.likes} {label} <Button style={likeButtStyle} onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
-            <p>added by <Link to={`/users/${displayBlog.user.id}`}>{displayBlog.user.personName}</Link></p>
-            <p>here is where the delete button will go if the user viewing the blog is same as poster</p>
-            <p><Button style={delButtStyle} onClick={() => deleteBlog()}>delete blog</Button></p>
-            <p><Button style={allButtStyle} onClick={() => navigate('/blogs')}>all blogs</Button></p>
+          <div>
+            <h1 style={lineHeightAdjStyle}>{displayBlog.title}</h1>
+            <hr style={hrStyle}></hr>
+            <p style={lineHeightMargAdjStyle}>by {displayBlog.author}</p>
+            <hr style={hrStyle}></hr>
+            <p style={lineHeightMargAdjStyle}>{displayBlog.url}</p>
+            <hr style={hrStyle}></hr>
+            <p style={lineHeightMargAdjStyle}>{displayBlog.likes} {label} <Button style={likeButtStyle} onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
+            <hr style={hrStyle}></hr>
+            <p style={lineHeightMargAdjStyle}>added by <Link to={`/users/${displayBlog.user.id}`}>{displayBlog.user.personName}</Link> <Button style={delButtStyle} onClick={() => deleteBlog()}>delete blog</Button></p>
+            <hr style={hrStyle}></hr>
+            <p style={lineHeightMargAdjStyle}><Button style={allButtStyle} onClick={() => navigate('/blogs')}>all blogs</Button></p>
+            <hr style={hrStyle}></hr>
             <p></p>
-            <h3>comments</h3>
-            <form onSubmit={postComment}>
+            <h3 style={margStyle}>comments</h3>
+            <form style={margStyle1} onSubmit={postComment}>
               <input type="text" name="comment"/> <Button style={commentButtStyle} type="submit">add comment</Button>
             </form>
+            <hr style={hrStyle}></hr>
             {comments}
           </div>
         )
@@ -126,11 +187,12 @@ const Blog = () => {
         return (
           <div className="container">
             <h1>{displayBlog.title}</h1>
+            <hr style={hrStyle}></hr>
             <p>by {displayBlog.author}</p>
             <p>{displayBlog.url}</p>
             <p>{displayBlog.likes} {label} <Button style={likeButtStyle} onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
             <p><Button onClick={() => navigate('/blogs')}>return to the list</Button></p>
-            <p></p>
+            <p>pee</p>
             <h3>comments</h3>
             <form onSubmit={postComment}>
               <input type="text" name="comment"/> <Button type="submit">add comment</Button>

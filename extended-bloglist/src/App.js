@@ -9,12 +9,11 @@ import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import BlogsList from './components/BlogsList'
 import Blog from './components/Blog'
-import Menu from './components/Menu'
+//import Menu from './components/Menu'
 import Users from './components/Users'
 import Create from './components/Create'
 import SignUpPage from './components/SignUpPage'
 import UserBlogs from './components/UserBlogs'
-import StrawPollTest from './components/StrawPollTest'
 //import { initializeBlogs, newBlogs } from './reducers/blogReducer'
 import { initializeBlogs } from './reducers/blogReducer'
 import { setNotif } from './reducers/notifReducer'
@@ -88,53 +87,89 @@ const App = () => {
     )
   }
 
-  const imageStyle = {
-    width: '100%',
-    height: '100%',
-    //backgroundImage: 'url("https://www.textures4photoshop.com/tex/thumbs/seamless-notebook-paper-texture-free-thumb36.jpg")',
-    //backgroundColor: 'rgb(239,214,95)',
-    //backgroundColor: 'rgb(228,220,199)'
-    backgroundColor: '#DEDEDB',
-    display: 'block'
-  }
+  //const imageStyle = {
+  //width: '100%',
+  //height: '100%',
+  //backgroundImage: 'url("https://www.textures4photoshop.com/tex/thumbs/seamless-notebook-paper-texture-free-thumb36.jpg")',
+  //backgroundColor: 'rgb(239,214,95)',
+  //backgroundColor: 'rgb(228,220,199)'
+  //backgroundColor: '#DEDEDB',
+  //display: 'block'
+  //}
 
   const vertLineStyle = {
     borderLeft: '5px red double',
-    position: 'absolute',
+    //position: 'absolute',
+    //float: 'left',
     width: '100%',
     height: '100%',
-    //float: 'left',
-    display: 'inline-block',
+    marginLeft: '100px',
+    //paddingRight: '500px',
+    //display: 'inline-block',
     backgroundColor: '#DEDEDB'
+  }
+
+  const vertLineStyle1 = {
+    borderRight: '5px solid rgba(148,185,240,0.4)',
+    //position: 'absolute',
+    //float: 'left',
+    width: '100%',
+    height: '100%',
+    marginRight: '150px',
+    //paddingRight: '500px',
+    //display: 'inline-block',
+    backgroundColor: '#DEDEDB'
+  }
+
+  const mainBgStyle = {
+    backgroundColor: '#DEDEDB',
+    width: '100%',
+    height: '100%',
+    //position: 'absolute',
+    paddingRight: '200px',
+    //backgroundRepeat: 'repeatY'
+  }
+
+  const fontSizeStyle = {
+    fontSize: '45px'
+  }
+
+  const hrTopStyle = {
+    border: '2px solid #94B9F0',
+    width: '100%',
+    position: 'absolute',
+    marginLeft: '-100px',
+    //paddingRight: '100px'
   }
 
   const titleStyle = {
     color: 'black',
-    textAlign: 'center',
-    textShadow: 'white'
+    //textAlign: 'center',
+    marginLeft: '477px',
+    textShadow: 'white',
+  }
+
+  const imgFlipStyle = {
+    transform: 'scaleX(-1)'
   }
 
   const titleImg = 'https://png.pngtree.com/png-clipart/20210308/original/pngtree-red-pencil-and-notebook-clipart-png-image_5748128.jpg'
   const girly = '*'
   const girly1 = '~'
 
-  const imgFlipStyle = {
-    transform: 'scaleX(-1)'
-  }
-
   const user = useSelector(state => state.userInfo)
   //console.log(user, 'is user use selector userinfo in app')
 
-  //if (user.length === 0) {
   return (
     <Router>
-      <div style={imageStyle}>
-        <div style={vertLineStyle} >
-          <Menu />
-          <div className="container">
+      <div style={mainBgStyle}>
+        <div style={vertLineStyle}>
+          <div style={vertLineStyle1}>
             <div style={titleStyle}>
-              <h1>{girly1} <img src={titleImg} width='30' height='30'></img>{girly} Blogs {girly} <img src={titleImg} width='30' height='30' style={imgFlipStyle}></img> {girly1}</h1>
+              <h1 style={fontSizeStyle}>{girly1} <img src={titleImg} width='30' height='30'></img>{girly} Blogs {girly} <img src={titleImg} width='30' height='30' style={imgFlipStyle}></img> {girly1}</h1>
+              <br></br>
             </div>
+            <hr style={hrTopStyle}></hr>
             <Notification />
             {(user.length === 0 || typeof user.token === 'undefined') && loginForm()}
 
@@ -146,7 +181,6 @@ const App = () => {
               <Route path="/blogs/:id" element={<Blog />} />
               <Route path="/create" element={<Create />} />
               <Route path="/signup" element={<SignUpPage />}/>
-              <Route path="/strawpolltest" element={<StrawPollTest />}/>
             </Routes>
           </div>
         </div>
