@@ -106,7 +106,11 @@ const Blog = () => {
     //console.log(displayBlog, 'is displayblog')
 
     const commentsSelectMap = commentsSelect.map((thought) => thought.blog ? thought : null)
-    //console.log(commentsSelectMap, 'is comm select map with thought if thought blog exist')
+    console.log(commentsSelectMap, 'is comm select map with thought if thought blog exist')
+
+    const cSMCopy = [...commentsSelectMap]
+    const commSelectMapNull = cSMCopy.filter((comm) => comm)
+    console.log(commSelectMapNull, 'is commSelectMapNull')
 
     const increaseLikes = async (id) => {
 
@@ -140,8 +144,8 @@ const Blog = () => {
     }
 
     if (displayBlog) {
-      const cSMCopy = [...commentsSelectMap]
-      const commentBlog = cSMCopy.filter((quip) => quip.blog.id ? quip.blog.id === id : quip.blog === id)
+      const cSMCopy1 = [...commSelectMapNull]
+      const commentBlog = cSMCopy1.filter((quip) => quip.blog.id ? quip.blog.id === id : quip.blog === id)
       //console.log(commentBlog, 'is blog with comments that match blog id in blog component')
 
       //const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
