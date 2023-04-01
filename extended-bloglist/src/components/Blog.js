@@ -9,7 +9,6 @@ import { newComment } from '../reducers/commentReducer'
 import { useNavigate, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
-//import ListGroup from 'react-bootstrap/ListGroup'
 
 const likeButtStyle = {
   fontFamily: 'Tillana',
@@ -88,7 +87,7 @@ const margStyle1 = {
 
 const Blog = () => {
   const id = useParams().id
-  console.log(id, 'is id in blog component')
+  //console.log(id, 'is id in blog component')
 
   var sameUser = false
 
@@ -107,11 +106,13 @@ const Blog = () => {
 
   if (blog && commentsSelect) {
     const displayBlog = blog.find((diary) => diary.id === id)
-    console.log(displayBlog, 'is displayblog')
+    //console.log(displayBlog, 'is displayblog')
 
     const commentsSelectMap = commentsSelect.map((thought) => thought.blog ? thought : null)
     console.log(commentsSelectMap, 'is comm select map with thought if thought blog exist')
 
+    //the following is done because as a result of deleting blogs via database,
+    //some blogs in above map are null
     const cSMCopy = [...commentsSelectMap]
     const commSelectMapNull = cSMCopy.filter((comm) => comm)
     console.log(commSelectMapNull, 'is commSelectMapNull')
@@ -159,12 +160,6 @@ const Blog = () => {
       const cSMCopy1 = [...commSelectMapNull]
       const commentBlog = cSMCopy1.filter((quip) => quip.blog.id ? quip.blog.id === id : quip.blog === id)
       //console.log(commentBlog, 'is blog with comments that match blog id in blog component')
-
-      //const comments = commentBlog.map((notes, i) => <ul key={i}><li>{notes.comment}</li></ul>)
-      //console.log(comments, 'is comments in display blog notes to notes without display blog user')
-
-      //const comments = commentBlog.map((notes, i) => <ListGroup key={i}><ListGroup.Item>{notes.comment}</ListGroup.Item></ListGroup>)
-      //console.log(comments, 'is comments in display blog notes to notes without display blog user')
 
       const comments = commentBlog.map((notes, i) => <div style={lineHeightMargAdjStyle1} key={i}><p>{notes.comment}</p><hr style={hrStyle1}></hr></div>)
       //console.log(comments, 'is comments in display blog notes to notes without display blog user')

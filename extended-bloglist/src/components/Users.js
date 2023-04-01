@@ -31,6 +31,14 @@ const tableLineStyle = {
 //  backgroundColor: '#DEDEDB'
 //}
 
+const spinnerStyle = {
+  color: 'purple'
+}
+
+const textStyle = {
+  color: 'black'
+}
+
 const Users = () => {
 
   const dispatch = useDispatch()
@@ -101,7 +109,7 @@ const Users = () => {
               {blogPosters.map((posting, ind) => {
                 return (
                   <tr style={tableLineStyle} key={ind}>
-                    <td><img src={avatar} alt='user avatar' width='20' height='20'></img> <Link to={`/users/${posting.posterId}`}>{posting.poster}</Link></td>
+                    <td><img src={avatar} alt='user avatar' width='20' height='20'></img> <Link style={textStyle} to={`/users/${posting.posterId}`}>{posting.poster} ({posting.posterUser})</Link></td>
                     <td>{posting.posted}</td>
                   </tr>
                 )
@@ -114,7 +122,7 @@ const Users = () => {
   }
 
   return(
-    <Spinner animation="border" variant="primary">
+    <Spinner animation="border" style={spinnerStyle} variant="primary">
       <span className="visually-hidden">Loading...</span>
     </Spinner>
   )

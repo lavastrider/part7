@@ -51,6 +51,9 @@ const Menu = () => {
             <Nav.Link href="#" as='span'>
               <Link style={paddingTextStyle} to="/signup">sign up</Link>
             </Nav.Link>
+            <Nav.Link href="#" as='span'>
+              <Link style={paddingTextStyle} to="/login">login</Link>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

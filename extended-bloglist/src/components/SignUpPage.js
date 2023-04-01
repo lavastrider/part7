@@ -9,11 +9,26 @@ import { setNotif } from '../reducers/notifReducer'
 
 const submitStyle = {
   backgroundColor: '#DEDEDB',
-  borderColor: 'navy',
+  borderColor: '#6F7378',
+  //borderColor: '#5A5A5A',
   borderRadius: 25,
   borderWidth: 3,
-  color: 'black',
+  //color: '#6F7378',
+  color: '#5A5A5A',
   fontFamily: 'Tillana'
+}
+
+const textMarginStyle = {
+  //marginLeft: '1%',
+  fontFamily: 'Tillana',
+  textAlign: 'center',
+  lineHeight: 0.8
+}
+
+const hrStyle = {
+  //padding: '10',
+  color: '#94B9F0',
+  borderWidth: 2
 }
 
 const SignUpPage = () => {
@@ -40,7 +55,8 @@ const SignUpPage = () => {
   //}
 
   const addAcct = (acctObj) => {
-    dispatch(newUser(acctObj))
+    dispatch(newUser(acctObj)).catch((error) => dispatch(setNotif(`Error: ${error.response.data.error}`, 5)))
+    //dispatch(newUser(acctObj))
     //handleLogin(acctObj)
     navigate('/login')
     dispatch(setNotif('Success! Your account has been created.', 5))
@@ -59,22 +75,26 @@ const SignUpPage = () => {
   const message = 'Register below to post a blog to the list of blogs!'
   return(
     <div>
-      <p>{message}</p>
-      <form onSubmit={makeAcct}>
+      <p style={textMarginStyle}>{message}</p>
+      <hr style={hrStyle}></hr>
+      <form style={textMarginStyle} onSubmit={makeAcct}>
         <div>
-          Username:
-          <input {...usernomen} />
+          <input {...usernomen} placeholder='At least 3 characters'/>
         </div>
+        <hr style={hrStyle}></hr>
         <div>
-          Name:
-          <input {...personNomen} />
+          <input {...personNomen} placeholder='Your name'/>
         </div>
+        <hr style={hrStyle}></hr>
         <div>
-          Password:
-          <input {...passing}/>
+          <input {...passing} placeholder='At least 16 characters'/>
+          <p></p>
+          <p>Save your password! It cannot be reset or recovered!</p>
         </div>
+        <hr style={hrStyle}></hr>
         <Button type="submit" style={submitStyle}>create account</Button>
       </form>
+      <hr style={hrStyle}></hr>
     </div>
   )
 }

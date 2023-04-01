@@ -87,6 +87,7 @@ export const newUser = (user) => {
   //handleLogin(user)
 
   return async dispatch => {
+    //const newUserData = await userService.create(user).catch( (error) => console.log(error, 'is the error in new user in user reducer'))
     const newUserData = await userService.create(user)
     console.log(newUserData, 'is new user data')
     //can't use newUserData to sign in user because does not include password

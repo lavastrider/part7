@@ -29,25 +29,31 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 //}
 
 const vertLineStyle = {
+  // red line
   borderLeft: '5px red double',
   //position: 'absolute',
   //float: 'left',
   width: '100%',
   height: '100%',
-  marginLeft: '100px',
+  //marginLeft: '100px',
+  marginLeft: '11%',
   //paddingRight: '500px',
+  paddingRight: '10%',
   //display: 'inline-block',
   backgroundColor: '#DEDEDB'
 }
 
 const vertLineStyle1 = {
+  // blue line
   borderRight: '5px solid rgba(148,185,240,0.4)',
   //position: 'absolute',
   //float: 'left',
   width: '100%',
   height: '100%',
-  marginRight: '150px',
+  //marginRight: '20%',
   //paddingRight: '500px',
+  //paddingRight: '1%',
+  //paddingLeft: '10%',
   //display: 'inline-block',
   backgroundColor: '#DEDEDB'
 }
@@ -69,7 +75,8 @@ const hrTopStyle = {
   border: '2px solid #94B9F0',
   width: '100%',
   position: 'absolute',
-  marginLeft: '-100px',
+  //marginLeft: '-100px',
+  marginLeft: '-10%',
   //paddingRight: '100px'
 }
 
