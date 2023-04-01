@@ -1,6 +1,19 @@
 //import PropTypes from 'prop-types'
 import Button from 'react-bootstrap/Button'
 
+const newButtStyle = {
+  backgroundColor: '#DEDEDB',
+  borderColor: 'black',
+  borderRadius: 25,
+  borderWidth: 3,
+  color: 'black',
+  fontFamily: 'Tillana'
+}
+
+const textStyle = {
+  fontFamily: 'Tillana'
+}
+
 const LoginForm = ({
   handleSubmit,
   handleUsernameChange,
@@ -9,17 +22,8 @@ const LoginForm = ({
   password
 }) => {
 
-  const newButtStyle = {
-    backgroundColor: 'white',
-    borderColor: 'green',
-    borderRadius: 25,
-    borderWidth: 3,
-    color: 'black',
-    fontFamily: 'Consolas'
-  }
-
   return (
-    <div>
+    <div style={textStyle}>
       <h2>Log in to the application</h2>
       <form onSubmit={handleSubmit}>
         <div>

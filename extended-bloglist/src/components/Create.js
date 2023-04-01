@@ -5,6 +5,26 @@ import { newBlogs } from '../reducers/blogReducer'
 import { setNotif } from '../reducers/notifReducer'
 import { useField } from '../hooks/index'
 
+const submitBlogStyle = {
+  backgroundColor: '#DEDEDB',
+  borderColor: 'black',
+  borderRadius: 25,
+  borderWidth: 3,
+  color: 'black',
+  fontFamily: 'Tillana'
+}
+
+const textStyle = {
+  fontFamily: 'Tillana',
+  textAlign: 'center'
+}
+
+const hrStyle = {
+  padding: '-10',
+  color: '#94B9F0',
+  borderWidth: 2
+}
+
 const Create = () => {
   const title = useField('title')
   const author = useField('author')
@@ -30,31 +50,23 @@ const Create = () => {
     console.log('we are in create blog object')
   }
 
-  const submitBlogStyle = {
-    backgroundColor: 'blue',
-    borderColor: 'navy',
-    borderRadius: 25,
-    borderWidth: 3,
-    color: 'white',
-    fontFamily: 'Consolas'
-  }
-
   return(
-    <div className="container">
+    <div className="container" style={textStyle}>
       <form onSubmit={createBlogObj}>
         <div>
-          Title:
           <input {...title} placeholder="What's the title?"/>
         </div>
+        <hr style={hrStyle}></hr>
         <div>
-          Author:
           <input {...author} placeholder="Who wrote it?"/>
         </div>
+        <hr style={hrStyle}></hr>
         <div>
-          Link:
           <input {...site} placeholder="https://..."/>
         </div>
+        <hr style={hrStyle}></hr>
         <Button type="submit" style={submitBlogStyle}>submit</Button>
+        <hr style={hrStyle}></hr>
       </form>
     </div>
   )

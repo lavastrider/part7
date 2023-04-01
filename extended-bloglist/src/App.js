@@ -9,7 +9,7 @@ import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import BlogsList from './components/BlogsList'
 import Blog from './components/Blog'
-//import Menu from './components/Menu'
+import Menu from './components/Menu'
 import Users from './components/Users'
 import Create from './components/Create'
 import SignUpPage from './components/SignUpPage'
@@ -27,6 +27,63 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 //    <footer><p>insert image of a yellow boxfish</p></footer>
 //  )
 //}
+
+const vertLineStyle = {
+  borderLeft: '5px red double',
+  //position: 'absolute',
+  //float: 'left',
+  width: '100%',
+  height: '100%',
+  marginLeft: '100px',
+  //paddingRight: '500px',
+  //display: 'inline-block',
+  backgroundColor: '#DEDEDB'
+}
+
+const vertLineStyle1 = {
+  borderRight: '5px solid rgba(148,185,240,0.4)',
+  //position: 'absolute',
+  //float: 'left',
+  width: '100%',
+  height: '100%',
+  marginRight: '150px',
+  //paddingRight: '500px',
+  //display: 'inline-block',
+  backgroundColor: '#DEDEDB'
+}
+
+const mainBgStyle = {
+  backgroundColor: '#DEDEDB',
+  width: '100%',
+  height: '100%',
+  //position: 'absolute',
+  paddingRight: '200px',
+  //backgroundRepeat: 'repeatY'
+}
+
+const fontSizeStyle = {
+  fontSize: '45px'
+}
+
+const hrTopStyle = {
+  border: '2px solid #94B9F0',
+  width: '100%',
+  position: 'absolute',
+  marginLeft: '-100px',
+  //paddingRight: '100px'
+}
+
+const titleStyle = {
+  color: 'black',
+  textAlign: 'center',
+  //marginLeft: '477px',
+  textShadow: 'white',
+  fontFamily: 'Tillana'
+}
+
+const imgFlipStyle = {
+  transform: 'scaleX(-1)'
+}
 
 
 const App = () => {
@@ -50,7 +107,7 @@ const App = () => {
       dispatch(userData(usered))
       //console.log(user, 'is user in useeffect')
       dispatch(userToken(usered))
-      //dispatch(setNotif(`Welcome ${usered.personName}!`), 5)
+      dispatch(setNotif(`Welcome ${usered.personName}!`), 5)
     }
   }, [])
 
@@ -97,62 +154,6 @@ const App = () => {
   //display: 'block'
   //}
 
-  const vertLineStyle = {
-    borderLeft: '5px red double',
-    //position: 'absolute',
-    //float: 'left',
-    width: '100%',
-    height: '100%',
-    marginLeft: '100px',
-    //paddingRight: '500px',
-    //display: 'inline-block',
-    backgroundColor: '#DEDEDB'
-  }
-
-  const vertLineStyle1 = {
-    borderRight: '5px solid rgba(148,185,240,0.4)',
-    //position: 'absolute',
-    //float: 'left',
-    width: '100%',
-    height: '100%',
-    marginRight: '150px',
-    //paddingRight: '500px',
-    //display: 'inline-block',
-    backgroundColor: '#DEDEDB'
-  }
-
-  const mainBgStyle = {
-    backgroundColor: '#DEDEDB',
-    width: '100%',
-    height: '100%',
-    //position: 'absolute',
-    paddingRight: '200px',
-    //backgroundRepeat: 'repeatY'
-  }
-
-  const fontSizeStyle = {
-    fontSize: '45px'
-  }
-
-  const hrTopStyle = {
-    border: '2px solid #94B9F0',
-    width: '100%',
-    position: 'absolute',
-    marginLeft: '-100px',
-    //paddingRight: '100px'
-  }
-
-  const titleStyle = {
-    color: 'black',
-    //textAlign: 'center',
-    marginLeft: '477px',
-    textShadow: 'white',
-  }
-
-  const imgFlipStyle = {
-    transform: 'scaleX(-1)'
-  }
-
   const titleImg = 'https://png.pngtree.com/png-clipart/20210308/original/pngtree-red-pencil-and-notebook-clipart-png-image_5748128.jpg'
   const girly = '*'
   const girly1 = '~'
@@ -165,9 +166,9 @@ const App = () => {
       <div style={mainBgStyle}>
         <div style={vertLineStyle}>
           <div style={vertLineStyle1}>
+            <Menu />
             <div style={titleStyle}>
               <h1 style={fontSizeStyle}>{girly1} <img src={titleImg} width='30' height='30'></img>{girly} Blogs {girly} <img src={titleImg} width='30' height='30' style={imgFlipStyle}></img> {girly1}</h1>
-              <br></br>
             </div>
             <hr style={hrTopStyle}></hr>
             <Notification />

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import blogService from '../services/blogs'
 import userService from '../services/user'
+//import loginService from '../services/login'
 //import { setNotif } from './notifReducer'
 
 const initialState = []
@@ -69,10 +70,26 @@ export const initializeUsers = () => {
   }
 }
 
+//const handleLogin = (user) => {
+//  console.log('we are in the handlelogin in user reducer')
+//  return async dispatch => {
+//    const usering = await loginService.login({ username: user.username, password: user.password })
+//    console.log('we are in the return async dispatch in handlelogin')
+//    window.localStorage.setItem( 'loggedBlogAppUser', JSON.stringify(usering) )
+//    dispatch(userData(usering))
+//    dispatch(userToken(usering))
+//  }
+//}
+
 export const newUser = (user) => {
+
+  console.log(user, 'is user in newUser')
+  //handleLogin(user)
+
   return async dispatch => {
     const newUserData = await userService.create(user)
     console.log(newUserData, 'is new user data')
+    //can't use newUserData to sign in user because does not include password
     dispatch(appendUsers(newUserData))
   }
 }

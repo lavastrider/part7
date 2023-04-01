@@ -5,11 +5,10 @@ import { initializeUsers } from '../reducers/userReducer'
 import { Table } from 'react-bootstrap'
 import Spinner from 'react-bootstrap/Spinner'
 
-
 const userHeadStyle = {
   textAlign: 'center',
   color: 'magenta',
-  fontFamily: 'Consolas'
+  fontFamily: 'Tillana'
 }
 
 const imgFlipStyle = {
@@ -17,6 +16,7 @@ const imgFlipStyle = {
 }
 
 const tableLineStyle = {
+  fontFamily: 'Tillana',
   borderBottom: '1px solid #94B9F0',
   //lineHeight: '50px'
 }

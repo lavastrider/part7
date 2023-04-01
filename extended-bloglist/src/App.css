@@ -13,6 +13,8 @@
   }
 }
 
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

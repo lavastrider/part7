@@ -4,43 +4,43 @@ import { Link } from 'react-router-dom'
 //import ListGroup from 'react-bootstrap/ListGroup'
 //import Button from 'react-bootstrap/Button'
 
+const blogStyle = {
+  paddingTop: 10,
+  paddingBottom: '-20',
+  paddingLeft: 10,
+  //backgroundColor: '#102B5C'
+  backgroundColor: '#DEDEDB',
+  lineHeight: 0.1,
+  fontFamily: 'Tillana'
+}
+
+//const searchButtStyle = {
+//  backgroundColor: 'blue',
+//  borderColor: 'navy',
+//  borderRadius: 25,
+//  borderWidth: 3,
+//  color: 'white',
+//  fontFamily: 'Consolas'
+//}
+
+const linkStyle = {
+  color: 'black',
+  //fontStyle: 'none'
+}
+
+const headStyle = {
+  fontFamily: 'Tillana',
+  paddingLeft: '10px',
+  lineHeight: 0.5
+}
+
+const hrStyle = {
+  padding: '-10',
+  color: '#94B9F0',
+  borderWidth: 2
+}
+
 const BlogList = () => {
-
-  const blogStyle = {
-    paddingTop: 10,
-    paddingBottom: '-20',
-    paddingLeft: 10,
-    //backgroundColor: '#102B5C'
-    backgroundColor: '#DEDEDB',
-    lineHeight: 0.1
-  }
-
-  //const searchButtStyle = {
-  //  backgroundColor: 'blue',
-  //  borderColor: 'navy',
-  //  borderRadius: 25,
-  //  borderWidth: 3,
-  //  color: 'white',
-  //  fontFamily: 'Consolas'
-  //}
-
-  const linkStyle = {
-    color: 'black',
-    //fontStyle: 'none'
-  }
-
-  const headStyle = {
-    fontFamily: 'Consolas',
-    paddingLeft: '10px',
-    lineHeight: 0.5
-  }
-
-  const hrStyle = {
-    padding: '-10',
-    color: '#94B9F0',
-    borderWidth: 2
-  }
-
 
   //would somehow like to have diaries be sorted
 

@@ -1,4 +1,5 @@
 //import { useEffect } from 'react'
+//import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { setNotif } from '../reducers/notifReducer'
@@ -10,10 +11,8 @@ import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 //import ListGroup from 'react-bootstrap/ListGroup'
 
-//do we want to add ability to delete?
-
 const likeButtStyle = {
-  fontFamily: 'Consolas',
+  fontFamily: 'Tillana',
   color: 'black',
   backgroundColor: '#858484',
   borderColor: 'black',
@@ -21,7 +20,7 @@ const likeButtStyle = {
 }
 
 const delButtStyle = {
-  fontFamily: 'Consolas',
+  fontFamily: 'Tillana',
   color: 'black',
   backgroundColor: '#858484',
   borderColor: 'black',
@@ -29,7 +28,7 @@ const delButtStyle = {
 }
 
 const allButtStyle = {
-  fontFamily: 'Consolas',
+  fontFamily: 'Tillana',
   color: 'black',
   backgroundColor: '#858484',
   borderColor: 'black',
@@ -37,7 +36,7 @@ const allButtStyle = {
 }
 
 const commentButtStyle = {
-  fontFamily: 'Consolas',
+  fontFamily: 'Tillana',
   color: 'black',
   backgroundColor: '#858484',
   borderColor: 'black',
@@ -59,24 +58,30 @@ const hrStyle1 = {
 
 const lineHeightMargAdjStyle = {
   lineHeight: 0.5,
-  margin: 5
+  margin: 5,
+  //fontFamily: 'DeliciousHandrawn'
+  fontFamily: 'Tillana'
 }
 
 const lineHeightMargAdjStyle1 = {
+  fontFamily: 'Tillana',
   lineHeight: 0.5,
   marginRight: 20,
   textAlign: 'right'
 }
 
 const lineHeightAdjStyle = {
+  fontFamily: 'Tillana',
   lineHeight: 0.5,
 }
 
 const margStyle = {
+  fontFamily: 'Tillana',
   margin: 5
 }
 
 const margStyle1 = {
+  fontFamily: 'Tillana',
   margin: 5,
   textAlign: 'right'
 }
@@ -84,6 +89,8 @@ const margStyle1 = {
 const Blog = () => {
   const id = useParams().id
   console.log(id, 'is id in blog component')
+
+  var sameUser = false
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -94,16 +101,13 @@ const Blog = () => {
   const commentsSelect = useSelector(state => state.comments)
   //console.log(commentsSelect, 'is commentsSelect in blog component')
 
-  const userInfo = useSelector(state => state.userInfo)
-  //console.log(userInfo, 'is userInfo in blog component')
-
   const userLocalStorage = window.localStorage.getItem('loggedBlogAppUser')
-  console.log(userLocalStorage, 'is user local storage')
+  //console.log(userLocalStorage, 'is user local storage')
 
 
-  if (blog && commentsSelect && userInfo) {
+  if (blog && commentsSelect) {
     const displayBlog = blog.find((diary) => diary.id === id)
-    //console.log(displayBlog, 'is displayblog')
+    console.log(displayBlog, 'is displayblog')
 
     const commentsSelectMap = commentsSelect.map((thought) => thought.blog ? thought : null)
     console.log(commentsSelectMap, 'is comm select map with thought if thought blog exist')
@@ -131,6 +135,7 @@ const Blog = () => {
       if (agree) {
         dispatch(removeEntry(displayBlog.id))
         //console.log('we deleted the blog inside of deleteblog in app')
+        navigate('/blogs')
         dispatch(setNotif(`"${displayBlog.title}" has successfully been deleted`, 5))
       }
     }
@@ -144,6 +149,13 @@ const Blog = () => {
     }
 
     if (displayBlog) {
+
+      if (userLocalStorage) {
+        if (JSON.parse(userLocalStorage).username === displayBlog.user.username) {
+          sameUser = true
+        }
+      }
+
       const cSMCopy1 = [...commSelectMapNull]
       const commentBlog = cSMCopy1.filter((quip) => quip.blog.id ? quip.blog.id === id : quip.blog === id)
       //console.log(commentBlog, 'is blog with comments that match blog id in blog component')
@@ -164,7 +176,7 @@ const Blog = () => {
       if (displayBlog.user) {
         return (
           <div>
-            <h1 style={lineHeightAdjStyle}>{displayBlog.title}</h1>
+            <h1 style={lineHeightAdjStyle}><strong>{displayBlog.title}</strong></h1>
             <hr style={hrStyle}></hr>
             <p style={lineHeightMargAdjStyle}>by {displayBlog.author}</p>
             <hr style={hrStyle}></hr>
@@ -172,7 +184,7 @@ const Blog = () => {
             <hr style={hrStyle}></hr>
             <p style={lineHeightMargAdjStyle}>{displayBlog.likes} {label} <Button style={likeButtStyle} onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
             <hr style={hrStyle}></hr>
-            <p style={lineHeightMargAdjStyle}>added by <Link to={`/users/${displayBlog.user.id}`}>{displayBlog.user.personName}</Link> <Button style={delButtStyle} onClick={() => deleteBlog()}>delete blog</Button></p>
+            <p style={lineHeightMargAdjStyle}>added by <Link to={`/users/${displayBlog.user.id}`}>{displayBlog.user.personName}</Link> {sameUser && <Button style={delButtStyle} onClick={() => deleteBlog()}>delete blog</Button>}</p>
             <hr style={hrStyle}></hr>
             <p style={lineHeightMargAdjStyle}><Button style={allButtStyle} onClick={() => navigate('/blogs')}>all blogs</Button></p>
             <hr style={hrStyle}></hr>

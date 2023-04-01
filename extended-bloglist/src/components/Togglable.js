@@ -2,6 +2,24 @@
 import Button from 'react-bootstrap/Button'
 import { useState, forwardRef, useImperativeHandle } from 'react'
 
+const buttonStyleCancel = {
+  backgroundColor: '#858484',
+  borderColor: 'red',
+  borderRadius: 25,
+  borderWidth: 3,
+  color: 'black',
+  fontFamily: 'Tillana'
+}
+
+const buttonStyleLogIn = {
+  backgroundColor: '#858484',
+  borderColor: 'green',
+  borderRadius: 25,
+  borderWidth: 3,
+  color: 'black',
+  fontFamily: 'Tillana'
+}
+
 const Togglable = forwardRef((props, refs) => {
   const [visible, setVisible] = useState(false)
 
@@ -17,24 +35,6 @@ const Togglable = forwardRef((props, refs) => {
       toggleVisib
     }
   })
-
-  const buttonStyleCancel = {
-    backgroundColor: '#858484',
-    borderColor: 'red',
-    borderRadius: 25,
-    borderWidth: 3,
-    color: 'black',
-    fontFamily: 'Consolas'
-  }
-
-  const buttonStyleLogIn = {
-    backgroundColor: '#858484',
-    borderColor: 'green',
-    borderRadius: 25,
-    borderWidth: 3,
-    color: 'black',
-    fontFamily: 'Consolas',
-  }
 
   return (
     <div>

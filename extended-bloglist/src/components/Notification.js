@@ -1,6 +1,10 @@
 import { useSelector } from 'react-redux'
 import Alert from 'react-bootstrap/Alert'
 
+const textStyle = {
+  fontFamily: 'Tillana'
+}
+
 const Notification = () => {
 
   const notific = useSelector(state => state.notification)
@@ -13,7 +17,7 @@ const Notification = () => {
 
   if (notific.toLowerCase().includes('error')) {
     return(
-      <div className="container">
+      <div className="container" style={textStyle}>
         <Alert variant="danger">
           {notific}
         </Alert>
@@ -21,7 +25,7 @@ const Notification = () => {
     )
   } else {
     return (
-      <div className="container">
+      <div className="container" style={textStyle}>
         <Alert variant="success">
           {notific}
         </Alert>

@@ -5,9 +5,25 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+cursor: url('../public/cursor/quill_cursor1.png'), pointer;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@font-face {
+font-family: 'DeliciousHandrawn';
+src: local('DeliciousHandrawn'), url(./fonts/DeliciousHandrawn/DeliciousHandrawn-Regular.ttf) format('truetype');
+}
+
+@font-face {
+font-family: 'Fasthand';
+src: local('Fasthand'), url(./fonts/Fasthand/Fasthand-Regular.ttf) format('truetype');
+}
+
+@font-face {
+font-family: 'Tillana';
+src: local('Tillana'), url(./fonts/Tillana/Tillana-Regular.ttf) format('truetype');
 }
