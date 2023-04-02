@@ -7,13 +7,13 @@ import Spinner from 'react-bootstrap/Spinner'
 
 const userHeadStyle = {
   textAlign: 'center',
-  color: 'magenta',
+  color: 'black',
   fontFamily: 'Tillana'
 }
 
-const imgFlipStyle = {
-  transform: 'scaleX(-1)'
-}
+//const imgFlipStyle = {
+//  transform: 'scaleX(-1)'
+//}
 
 const tableLineStyle = {
   fontFamily: 'Tillana',
@@ -90,13 +90,13 @@ const Users = () => {
 
       //console.log(blogPosters, 'is blog posters')
 
-      const kbImg = 'https://c8.alamy.com/comp/AY7NJT/close-up-of-persons-fingers-pressing-laptop-keyboard-with-english-AY7NJT.jpg'
+      //const kbImg = 'https://c8.alamy.com/comp/AY7NJT/close-up-of-persons-fingers-pressing-laptop-keyboard-with-english-AY7NJT.jpg'
       const avatar = 'https://static.vecteezy.com/system/resources/thumbnails/008/844/878/small/arrow-icon-design-free-png.png'
 
       return (
         <div className='container'>
           <div style={userHeadStyle}>
-            <h2><img src={kbImg} width='20' height='20'></img> Users <img src={kbImg} width='20' height='20' style={imgFlipStyle}></img></h2>
+            <h2>Users</h2>
           </div>
           <Table>
             <thead>

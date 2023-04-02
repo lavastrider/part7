@@ -55,11 +55,15 @@ const SignUpPage = () => {
   //}
 
   const addAcct = (acctObj) => {
-    dispatch(newUser(acctObj)).catch((error) => dispatch(setNotif(`Error: ${error.response.data.error}`, 5)))
-    //dispatch(newUser(acctObj))
-    //handleLogin(acctObj)
-    navigate('/login')
-    dispatch(setNotif('Success! Your account has been created.', 5))
+    try {
+      //dispatch(newUser(acctObj)).catch((error) => dispatch(setNotif(`Error: ${error.response.data.error}`, 5)))
+      dispatch(newUser(acctObj))
+      //handleLogin(acctObj)
+      navigate('/login')
+      dispatch(setNotif('Success! Your account has been created.', 5))
+    } catch (error) {
+      dispatch(setNotif(`Error: ${error.response.data.error}`, 5))
+    }
   }
 
   const makeAcct = (event) => {
@@ -75,7 +79,7 @@ const SignUpPage = () => {
   const message = 'Register below to post a blog to the list of blogs!'
   return(
     <div>
-      <p style={textMarginStyle}>{message}</p>
+      <h3 style={textMarginStyle}>{message}</h3>
       <hr style={hrStyle}></hr>
       <form style={textMarginStyle} onSubmit={makeAcct}>
         <div>
