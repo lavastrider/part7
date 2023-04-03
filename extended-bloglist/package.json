@@ -6,8 +6,10 @@
     "@reduxjs/toolkit": "^1.9.3",
     "axios": "^1.2.3",
     "babel": "^6.23.0",
+    "cors": "^2.8.5",
     "css": "^3.0.0",
     "jest": "^27.5.1",
+    "md5": "^2.3.0",
     "mongoose": "^7.0.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -27,11 +29,11 @@
     "eslint": "eslint .",
     "cypress:open": "cypress open"
   },
-"jest": {
-"transform": {
-"^.+\\.[t|j]sx?$": "babel-jest"
-}
-},
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

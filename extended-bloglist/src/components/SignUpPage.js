@@ -36,6 +36,7 @@ const SignUpPage = () => {
   const usernomen = useField('username')
   const passing = useField('password')
   const personNomen = useField('personName')
+  const address = useField('address')
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -71,6 +72,7 @@ const SignUpPage = () => {
     addAcct({
       username: usernomen.value,
       personName: personNomen.value,
+      emailAddress: address.value,
       password: passing.value
     })
     console.log('we fired the makeacct function')
@@ -88,6 +90,10 @@ const SignUpPage = () => {
         <hr style={hrStyle}></hr>
         <div>
           <input {...personNomen} placeholder='Your name'/>
+        </div>
+        <hr style={hrStyle}></hr>
+        <div>
+          <input {...address} placeholder='Your email address'/>
         </div>
         <hr style={hrStyle}></hr>
         <div>
