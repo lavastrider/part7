@@ -1,18 +1,20 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useMediaQuery } from '../hooks/index'
 //import { useField } from '../hooks/index'
 //import ListGroup from 'react-bootstrap/ListGroup'
 //import Button from 'react-bootstrap/Button'
 
-const blogStyle = {
-  paddingTop: 10,
-  paddingBottom: '-20',
-  paddingLeft: 10,
-  //backgroundColor: '#102B5C'
-  backgroundColor: '#DEDEDB',
-  lineHeight: 0.1,
-  fontFamily: 'Tillana'
-}
+//const blogStyle = {
+//  paddingTop: 10,
+//  paddingBottom: '-20',
+//  paddingLeft: 10,
+//  //backgroundColor: '#102B5C'
+//  backgroundColor: '#DEDEDB',
+//  lineHeight: 0.1,
+//  fontFamily: 'Tillana',
+//  //fontSize: '1.1vw'
+//}
 
 //const searchButtStyle = {
 //  backgroundColor: 'blue',
@@ -28,11 +30,12 @@ const linkStyle = {
   //fontStyle: 'none'
 }
 
-const headStyle = {
-  fontFamily: 'Tillana',
-  paddingLeft: '10px',
-  lineHeight: 0.5
-}
+//const headStyle = {
+//  fontFamily: 'Tillana',
+//  paddingLeft: '10px',
+//  lineHeight: 0.5,
+//  //fontSize: '2.15vw'
+//}
 
 const hrStyle = {
   padding: '-10',
@@ -40,22 +43,37 @@ const hrStyle = {
   borderWidth: 2
 }
 
+//@media screen and (maxWidth: 500px) {
+//  blogStyle, headStyle {
+//    fontSize: '50px'
+//  }
+//}
+
 const BlogList = () => {
 
+  const isPhoneTablet = useMediaQuery('(max-width: 500px)')
+  //console.log(isPhoneTablet, 'is isphonetablet')
+
+  const blogStyle = {
+    paddingTop: 10,
+    paddingBottom: '-20',
+    paddingLeft: 10,
+    //backgroundColor: '#102B5C'
+    backgroundColor: '#DEDEDB',
+    lineHeight: 0.1,
+    fontFamily: 'Tillana',
+    fontSize: isPhoneTablet ? '1.2vw' : '2vw'
+  }
+
+  const headStyle = {
+    fontFamily: 'Tillana',
+    paddingLeft: '10px',
+    lineHeight: 0.5,
+    fontSize: isPhoneTablet ? '3vw' : '4vw'
+    //fontSize: '2.15vw'
+  }
+
   //would somehow like to have diaries be sorted
-
-  //const titOrAuth = useField('tOA')
-  //console.log(titOrAuth, 'is tit or auth')
-
-  //const diaries = useSelector((state) =>
-  //  state.blogs.map((blog) =>
-  //    //<div style={blogStyle} className="container" key={blog.id}>
-  //    <ListGroup className="container" key={blog.id}>
-  //      <ListGroup.Item style={blogStyle}><Link style={linkStyle} to={`/blogs/${blog.id}`}>{blog.title} by {blog.author}</Link></ListGroup.Item>
-  //      <hr></hr>
-  //    </ListGroup>
-  //  )
-  //)
 
   const diaries = useSelector((state) =>
     state.blogs.map((blog) =>
@@ -67,17 +85,6 @@ const BlogList = () => {
     )
   )
   //console.log(diaries, 'is diaries')
-
-  //  const blogsToShow = titOrAuth.value === ''
-  //    ? diaries
-  //    : 'hmm'
-  //  console.log(blogsToShow, 'is blogs to show')
-  //  <div style={searchBarStyle}>
-  //        <form>
-  //          <input {...titOrAuth} placeholder='Search by title or author'/>
-  //          <Button style={searchButtStyle}>search</Button>
-  //        </form>
-  //      </div>
 
   return (
     <div>

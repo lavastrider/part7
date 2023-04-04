@@ -7,6 +7,7 @@ import { addingVote, removeEntry } from '../reducers/blogReducer'
 import { newComment } from '../reducers/commentReducer'
 //import { newComment, initializeComms } from '../reducers/commentReducer'
 import { useNavigate, Link } from 'react-router-dom'
+import { useMediaQuery } from '../hooks/index'
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 
@@ -69,10 +70,7 @@ const lineHeightMargAdjStyle1 = {
   textAlign: 'right'
 }
 
-const lineHeightAdjStyle = {
-  fontFamily: 'Tillana',
-  lineHeight: 0.5,
-}
+//lineHeighAdjStyle
 
 const margStyle = {
   fontFamily: 'Tillana',
@@ -88,6 +86,16 @@ const margStyle1 = {
 const Blog = () => {
   const id = useParams().id
   //console.log(id, 'is id in blog component')
+  const isPhoneTablet = useMediaQuery('(max-width: 500px)')
+  //console.log(isPhoneTablet, 'is isphonetablet')
+
+
+  const lineHeightAdjStyle = {
+    fontFamily: 'Tillana',
+    //lineHeight: 0.5,
+    fontSize: isPhoneTablet ? '2vw' : '4vw'
+  }
+
 
   var sameUser = false
 
@@ -128,7 +136,7 @@ const Blog = () => {
 
       //console.log(updatedBlogInfo, 'is updated blog info')
       dispatch(addingVote(id, updatedBlogInfo))
-      dispatch(setNotif(`You added a like to "${displayBlog.title}"`, 5))
+      dispatch(setNotif({ msg: `You added a like to "${displayBlog.title}"`, variant: 'success' }, 5))
     }
 
     const deleteBlog = () => {
@@ -137,7 +145,7 @@ const Blog = () => {
         dispatch(removeEntry(displayBlog.id))
         //console.log('we deleted the blog inside of deleteblog in app')
         navigate('/blogs')
-        dispatch(setNotif(`"${displayBlog.title}" has successfully been deleted`, 5))
+        dispatch(setNotif({ msg: `"${displayBlog.title}" has successfully been deleted`, variant: 'success' }, 5))
       }
     }
 

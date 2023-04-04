@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export const useField = (type) => {
   const [value, setValue] = useState('')
@@ -14,4 +14,17 @@ export const useField = (type) => {
     value,
     onChange
   }
+}
+
+export const useMediaQuery = (query) => {
+  const mediaMatch = window.matchMedia(query)
+  const [matches, setMatches] = useState(mediaMatch.matches)
+
+  useEffect(() => {
+    const handler = (event) => setMatches(event.matches)
+    mediaMatch.addListener(handler)
+    return () => mediaMatch.removeListener(handler)
+  })
+
+  return matches
 }

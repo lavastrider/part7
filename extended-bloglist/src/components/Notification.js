@@ -8,18 +8,18 @@ const textStyle = {
 const Notification = () => {
 
   const notific = useSelector(state => state.notification)
-  //console.log(notific, 'is notific in notification component')
+  console.log(notific, 'is notific in notification component')
 
 
   if (!notific) {
     return null
   }
 
-  if (notific.toLowerCase().includes('error')) {
+  if (notific.variant === 'error') {
     return(
       <div className="container" style={textStyle}>
         <Alert variant="danger">
-          {notific}
+          {notific.msg}
         </Alert>
       </div>
     )
@@ -27,7 +27,7 @@ const Notification = () => {
     return (
       <div className="container" style={textStyle}>
         <Alert variant="success">
-          {notific}
+          {notific.msg}
         </Alert>
       </div>
     )

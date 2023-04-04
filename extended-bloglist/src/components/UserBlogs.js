@@ -33,6 +33,10 @@ const marginStyle1 = {
   marginLeft: '2%'
 }
 
+const imgStyle = {
+  borderRadius: 50
+}
+
 const UserBlogs = () => {
 
   const dispatch = useDispatch()
@@ -51,9 +55,6 @@ const UserBlogs = () => {
 
   const users= useSelector(state => state.userInfo.appendUsers)
   console.log(users, 'is users in userblogs')
-
-  //const nomen = User.findById(id)
-  //or useSelector for state.userInfo where id matches useparams id
 
   useEffect(() => {
     const getDataWrapper = async () => {
@@ -97,13 +98,17 @@ const UserBlogs = () => {
 
     return (
       <div style={textStyle}>
-        <h1 style={marginStyle}><img src={userImg}></img> {nomen[0].personName} <h3 style={smallerTextStyle}>aka {nomen[0].username}</h3></h1>
+        <h1 style={marginStyle}><img src={userImg} alt='avatar.png' width='10%' height='10%' style={imgStyle}></img> {nomen[0].personName}</h1>
         <hr style={hrStyle}></hr>
-        <h3 style={marginStyle}>About {nomen[0].personName}</h3>
+        <h3 style={smallerTextStyle}>{nomen[0].username}</h3>
         <hr style={hrStyle}></hr>
-        {posterBlogs.length === 0 && <h3 style={marginStyle}>{nomen[0].personName} has not posted a blog yet!</h3>}
+        {posterBlogs.length === 0 && <div>
+          <h3 style={marginStyle}>{nomen[0].personName} has not posted a blog yet!</h3>
+          <hr style={hrStyle}></hr>
+        </div>}
         {posterBlogs.length > 0 && <div>
           <h3 style={marginStyle} >Here is the list of blogs {nomen[0].personName} has posted:</h3>
+          <hr style={hrStyle}></hr>
           {posterBlogs.map((posting, ind) => {
             return (
               <div style={marginStyle1} key={ind}>

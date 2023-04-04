@@ -3,6 +3,7 @@ import axios from 'axios'
 //const cors = require('cors')
 
 const getImage = async ( id ) => {
+  //needs to be renamed to get all
   console.log(id, 'is id in gravatar getimg. it should be the same as the user id')
   const userImgData = await axios.get('/api/grav')
   //console.log(userImgData, 'is user img data')
@@ -14,6 +15,11 @@ const getImage = async ( id ) => {
   return userImgFilter
 }
 
+const getImageSingle = async (id ) => {
+  console.log(id, 'is id in single')
+}
+
 export default {
-  getImage
+  getImage,
+  getImageSingle
 }

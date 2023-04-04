@@ -61,9 +61,10 @@ const SignUpPage = () => {
       dispatch(newUser(acctObj))
       //handleLogin(acctObj)
       navigate('/login')
-      dispatch(setNotif('Success! Your account has been created.', 5))
+      dispatch(setNotif({ msg: 'Success! Your account has been created.', variant: 'success' }, 5))
     } catch (error) {
-      dispatch(setNotif(`Error: ${error.response.data.error}`, 5))
+      console.log(error, 'is error in add account')
+      dispatch(setNotif({ msg: 'There was an error when creating your account. Please try again.', variant: 'error' }, 5))
     }
   }
 
@@ -99,7 +100,8 @@ const SignUpPage = () => {
         <div>
           <input {...passing} placeholder='At least 16 characters'/>
           <p></p>
-          <p>Save your password! It cannot be reset or recovered!</p>
+          <p>Save your password!</p>
+          <p>It cannot be reset or recovered!</p>
         </div>
         <hr style={hrStyle}></hr>
         <Button type="submit" style={submitStyle}>create account</Button>

@@ -1,7 +1,9 @@
+//import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { initializeUsers } from '../reducers/userReducer'
+//import gravService from '../services/gravatar'
 import { Table } from 'react-bootstrap'
 import Spinner from 'react-bootstrap/Spinner'
 
@@ -42,83 +44,64 @@ const textStyle = {
 const Users = () => {
 
   const dispatch = useDispatch()
+  //const [userImg, setUserImg] = useState('')
+  //const [id, setId] = useState('')
 
   useEffect(() => {
     dispatch(initializeUsers())
   }, [])
 
-  const setup = useSelector(state => state.userInfo)
-  console.log(setup, 'is setup in users')
+  //useEffect(() => {
+  //  const getDataWrapper = async (id) => {
+  //    const response = await gravService.getImage(id)
+  //    console.log(response, 'is img in users')
+  //    setUserImg(response)
+  //  }
+  //  //getDataWrapper()
+  //}, [])
 
-  if (setup) {
-    const bloggiesUsers = useSelector(state => state.userInfo.appendUsers)
-    console.log(bloggiesUsers, 'is bloggies users')
+  const bloggiesUsers = useSelector(state => state.userInfo.appendUsers)
+  console.log(bloggiesUsers, 'is bloggies users')
 
-    if (bloggiesUsers) {
-      //console.log(bloggiesUsers.length, 'is bloggies users length')
+  //const userArray = []
+  //const userAvi = {
+  //}
 
-      const blogPosters = []
-      const userInfo = {
-        poster: '',
-        posterUser: '',
-        posterId: '',
-        posted: 0
-      }
+  if (bloggiesUsers) {
 
-      for (let j = 0; j < bloggiesUsers.length; j++) {
-        //if array isn't empty
-        if (blogPosters.length !== 0) {
-          const newUserInfo = Object.create(userInfo)
-          newUserInfo.poster = bloggiesUsers[j].personName
-          newUserInfo.posterUser = bloggiesUsers[j].username
-          newUserInfo.posterId = bloggiesUsers[j].id
-          newUserInfo.posted = Object.values(bloggiesUsers[j].blogs).length
-          blogPosters.push(newUserInfo)
-        }
-        else { //the array is empty
-          //if the person has a name
-          if (bloggiesUsers[j].personName) {
-            const newUserInfo = Object.create(userInfo)
-            newUserInfo.poster = bloggiesUsers[j].personName
-            newUserInfo.posterUser = bloggiesUsers[j].username
-            newUserInfo.posterId = bloggiesUsers[j].id
-            newUserInfo.posted = Object.values(bloggiesUsers[j].blogs).length
-            blogPosters.push(newUserInfo)
-          }
-        }
-      }
+    //console.log(blogPosters, 'is blog posters')
+    //const avatar = 'https://static.vecteezy.com/system/resources/thumbnails/008/844/878/small/arrow-icon-design-free-png.png'
+    //useEffect(() => {
 
-      //console.log(blogPosters, 'is blog posters')
+    //}, [blogPosters])
 
-      //const kbImg = 'https://c8.alamy.com/comp/AY7NJT/close-up-of-persons-fingers-pressing-laptop-keyboard-with-english-AY7NJT.jpg'
-      const avatar = 'https://static.vecteezy.com/system/resources/thumbnails/008/844/878/small/arrow-icon-design-free-png.png'
-
+    const bloggiesUserMap = bloggiesUsers.map((posting, ind) => {
       return (
-        <div className='container'>
-          <div style={userHeadStyle}>
-            <h2>Users</h2>
-          </div>
-          <Table>
-            <thead>
-              <tr style={tableLineStyle}>
-                <td></td>
-                <td><strong>blogs posted</strong></td>
-              </tr>
-            </thead>
-            <tbody>
-              {blogPosters.map((posting, ind) => {
-                return (
-                  <tr style={tableLineStyle} key={ind}>
-                    <td><img src={avatar} alt='user avatar' width='20' height='20'></img> <Link style={textStyle} to={`/users/${posting.posterId}`}>{posting.poster} ({posting.posterUser})</Link></td>
-                    <td>{posting.posted}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </Table>
-        </div>
+        <tr style={tableLineStyle} key={ind}>
+          <td><Link style={textStyle} to={`/users/${posting.posterId}`}>{posting.personName} ({posting.username})</Link></td>
+          <td>{posting.blogs.length}</td>
+        </tr>
       )
-    }
+    })
+
+    return (
+      <div className='container'>
+        <div style={userHeadStyle}>
+          <h2>Users</h2>
+        </div>
+        <Table>
+          <thead>
+            <tr style={tableLineStyle}>
+              <td></td>
+              <td><strong>blogs posted</strong></td>
+            </tr>
+          </thead>
+          <tbody>
+            {bloggiesUserMap}
+          </tbody>
+        </Table>
+      </div>
+    )
   }
 
   return(

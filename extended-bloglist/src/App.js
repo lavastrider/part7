@@ -1,12 +1,9 @@
 //import { useState, useEffect, useRef } from 'react'
-//import { useEffect } from 'react'
-import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-//import { useDispatch } from 'react-redux'
-import loginService from './services/login'
+import { useEffect } from 'react'
+//import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useMediaQuery } from './hooks/index'
 import Notification from './components/Notification'
-import LoginForm from './components/LoginForm'
-import Togglable from './components/Togglable'
 import BlogsList from './components/BlogsList'
 import Blog from './components/Blog'
 import Menu from './components/Menu'
@@ -53,7 +50,7 @@ const vertLineStyle1 = {
   //paddingLeft: '-10%',
   display: 'inline-block',
   backgroundColor: '#DEDEDB',
-  //overflow: 'auto'
+  overflow: 'auto'
 }
 
 const mainBgStyle = {
@@ -67,10 +64,6 @@ const mainBgStyle = {
   //backgroundRepeat: 'repeatY'
 }
 
-//const fontSizeStyle = {
-//  fontSize: '45px',
-//}
-
 const hrTopStyle = {
   border: '2px solid #94B9F0',
   width: '100%',
@@ -78,15 +71,6 @@ const hrTopStyle = {
   //marginLeft: '-100px',
   marginLeft: '-12%',
   //paddingRight: '100px'
-}
-
-const titleStyle = {
-  color: 'black',
-  textAlign: 'center',
-  //marginLeft: '477px',
-  textShadow: 'white',
-  fontFamily: 'Tillana',
-  fontSize: '45px'
 }
 
 //const imgFlipStyle = {
@@ -103,8 +87,6 @@ const containerStyle = {
 
 
 const App = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
 
@@ -127,60 +109,24 @@ const App = () => {
       dispatch(userData(usered))
       //console.log(user, 'is user in useeffect')
       dispatch(userToken(usered))
-      dispatch(setNotif(`Welcome ${usered.personName}!`), 5)
+      dispatch(setNotif({ msg: `Welcome ${usered.personName}!`, variant: 'success' }, 5))
     }
   }, [])
 
-  const handleLogin = async (event) => {
-    event.preventDefault()
+  const isPhoneTablet = useMediaQuery('(max-width: 500px)')
+  //console.log(isPhoneTablet, 'is isphonetablet')
 
-    try {
-      const usering = await loginService.login({ username, password })
-      window.localStorage.setItem( 'loggedBlogAppUser', JSON.stringify(usering) )
-      //console.log(usering, 'is usering in handlelogin') <- this has value
-      dispatch(userData(usering))
-      dispatch(userToken(usering))
-      setUsername('')
-      setPassword('')
-      dispatch(setNotif(`Welcome ${usering.personName}!`), 5)
-    } catch (exception) {
-      dispatch(setNotif('Error: Wrong username or password', 5))
-      //console.log(exception, 'is exception')
-    }
-    //navigate('/blogs')
+  const titleStyle = {
+    color: 'black',
+    textAlign: 'center',
+    //marginLeft: '477px',
+    //textShadow: '2px 2px 8px #FF0000',
+    textShadow: '2px 2px 8px #94B9F0',
+    //textShadow: '0 0 3px #FF0000, 0 0 5px #0000FF',
+    fontFamily: 'Tillana',
+    //fontSize: '45px'
+    fontSize: isPhoneTablet ? '6vw' : '8vw'
   }
-
-  const loginForm = () => {
-    return (
-      <Togglable buttonLabel='login'>
-        <LoginForm
-          username={username}
-          password={password}
-          handleUsernameChange={({ target }) => setUsername(target.value)}
-          handlePasswordChange={({ target }) => setPassword(target.value)}
-          handleSubmit={handleLogin}
-        />
-      </Togglable>
-    )
-  }
-
-  //const imageStyle = {
-  //width: '100%',
-  //height: '100%',
-  //backgroundImage: 'url("https://www.textures4photoshop.com/tex/thumbs/seamless-notebook-paper-texture-free-thumb36.jpg")',
-  //backgroundColor: 'rgb(239,214,95)',
-  //backgroundColor: 'rgb(228,220,199)'
-  //backgroundColor: '#DEDEDB',
-  //display: 'block'
-  //}
-
-  //const titleImg = 'https://png.pngtree.com/png-clipart/20210308/original/pngtree-red-pencil-and-notebook-clipart-png-image_5748128.jpg'
-  //<img src={titleImg} width='30' height='30' style={imgFlipStyle}></img>
-  const girly = '*'
-  const girly1 = '~'
-
-  const user = useSelector(state => state.userInfo)
-  //console.log(user, 'is user use selector userinfo in app')
 
   return (
     <Router>
@@ -189,10 +135,9 @@ const App = () => {
           <div style={vertLineStyle}>
             <div style={vertLineStyle1} className="container">
               <Menu />
-              <h1 style={titleStyle}>{girly1}{girly} List of Blogs {girly}{girly1}</h1>
+              <h1 style={titleStyle}>List of Blogs</h1>
               <hr style={hrTopStyle}></hr>
               <Notification />
-              {(user.length === 0 || typeof user.token === 'undefined') && loginForm()}
 
               <Routes>
                 <Route path="/" element={<BlogsList />} />

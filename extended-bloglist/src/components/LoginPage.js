@@ -1,4 +1,10 @@
 //import PropTypes from 'prop-types'
+import loginService from '../services/login'
+import { setNotif } from '../reducers/notifReducer'
+import { userData, userToken } from '../reducers/userReducer'
+import { useField } from '../hooks/index'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
 const newButtStyle = {
@@ -21,40 +27,50 @@ const textStyle = {
   textAlign: 'center'
 }
 
-const LoginPage = ({
-  handleSubmit,
-  handleUsernameChange,
-  handlePasswordChange,
-  username,
-  password
-}) => {
+const LoginPage = () => {
+
+  const username = useField('userNomen')
+  const password = useField('passing')
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const handleLogin = async (event) => {
+    event.preventDefault()
+
+    try {
+      const usering = await loginService.login({ username: username.value, password: password.value })
+      window.localStorage.setItem( 'loggedBlogAppUser', JSON.stringify(usering) )
+      //console.log(usering, 'is usering in handlelogin') <- this has value
+      dispatch(userData(usering))
+      dispatch(userToken(usering))
+      dispatch(setNotif({ msg: `Welcome ${usering.personName}!`, variant: 'success' }, 5))
+      navigate('/blogs')
+    } catch (exception) {
+      dispatch(setNotif({ msg: 'Error: Wrong username or password', variant: 'error' }, 5))
+      //console.log(exception, 'is exception')
+    }
+  }
+
 
   return (
     <div style={textStyle}>
-      <h2>Log in to the application</h2>
+      <h2>Log in</h2>
       <hr style={hrStyle}></hr>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleLogin}>
         <div>
-          <input
-            id='username'
-            value={username}
-            name="Username"
-            onChange={handleUsernameChange}
+          <input {...username}
             placeholder='Enter username'
           />
         </div>
         <hr style={hrStyle}></hr>
         <div>
-          <input
-            id='password'
-            value={password}
-            name="Password"
-            onChange={handlePasswordChange}
+          <input {...password}
             placeholder='Enter password'
           />
         </div>
         <hr style={hrStyle}></hr>
-        <Button id="login-button" type="submit" style={newButtStyle}>login</Button> <Button style={newButtStyle}>forgot password?</Button>
+        <Button type="submit" style={newButtStyle}>login</Button> <Button style={newButtStyle}>forgot password?</Button>
       </form>
     </div>
   )
