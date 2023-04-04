@@ -22,7 +22,6 @@ import { setNotif } from './reducers/notifReducer'
 import { userData, userToken } from './reducers/userReducer'
 import { initializeComms } from './reducers/commentReducer'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import gravService from './services/gravatar'
 
 const vertLineStyle = {
   // red line
@@ -174,9 +173,6 @@ const App = () => {
   //backgroundColor: '#DEDEDB',
   //display: 'block'
   //}
-
-  const results = gravService.getProfile('hannahmontana@disney.com')
-  console.log(results, 'is results of grav service in app')
 
   //const titleImg = 'https://png.pngtree.com/png-clipart/20210308/original/pngtree-red-pencil-and-notebook-clipart-png-image_5748128.jpg'
   //<img src={titleImg} width='30' height='30' style={imgFlipStyle}></img>

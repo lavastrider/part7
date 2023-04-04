@@ -1,22 +1,19 @@
 import axios from 'axios'
-import md5 from 'md5'
-const baseUrl = 'https://www.gravatar.com'
+//const baseUrl = 'https://www.gravatar.com'
 //const cors = require('cors')
 
-const getProfile = ( email ) => {
-  const emailCleanHash = md5(email.toLowerCase().trim())
-  console.log(email, 'is email before hashing in gravatar service in frontend')
-  const request = axios.get(`${baseUrl}/${emailCleanHash}`)
-  //const request = axios.get(baseUrl)
-  console.log(request.then(response => response.data), 'is request then response data in gravatar service in frontend')
-  return request.then(response => response.data)
-}
-
-const getImage = () => {
-
+const getImage = async ( id ) => {
+  console.log(id, 'is id in gravatar getimg. it should be the same as the user id')
+  const userImgData = await axios.get('/api/grav')
+  //console.log(userImgData, 'is user img data')
+  console.log(userImgData.data, 'is user img data in get img')
+  const userImgDataMap = userImgData.data.map((userInfo) => userInfo.id === id ? userInfo.thumbnail : null)
+  console.log(userImgDataMap, 'is user img data map')
+  const userImgFilter = userImgDataMap.filter((value) => value !== (null))
+  //console.log(userImgFilter, 'is filter')
+  return userImgFilter
 }
 
 export default {
-  getProfile,
   getImage
 }

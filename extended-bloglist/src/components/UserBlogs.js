@@ -1,6 +1,10 @@
 import Spinner from 'react-bootstrap/Spinner'
+import { useDispatch } from 'react-redux'
+import { initializeUsers } from '../reducers/userReducer'
 import { useParams, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import gravService from '../services/gravatar'
+import { useState, useEffect } from 'react'
 
 const textStyle = {
   fontFamily: 'Tillana'
@@ -30,21 +34,43 @@ const marginStyle1 = {
 }
 
 const UserBlogs = () => {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(initializeUsers())
+  }, [])
+
   const id = useParams().id
   console.log(id, 'is id in usersblogs')
+
+  const [userImg, setUserImg] = useState('')
 
   const bloggies = useSelector(state => state.blogs)
   console.log(bloggies, 'is bloggies')
 
+  const users= useSelector(state => state.userInfo.appendUsers)
+  console.log(users, 'is users in userblogs')
+
   //const nomen = User.findById(id)
   //or useSelector for state.userInfo where id matches useparams id
 
-  if (bloggies.length > 0) {
-    //find user that has same id as id
-    //save that user info to nomen
+  useEffect(() => {
+    const getDataWrapper = async () => {
+      const response = await gravService.getImage(id)
+      console.log(response, 'is img in userblogs')
+      setUserImg(response)
+    }
+    getDataWrapper()
+  }, [])
 
-    var nomen = ''
-    var nomenUse = ''
+
+
+  if (bloggies.length > 0 && users) {
+    const userInfo = users.map((info) => info.id === id ? ({ username: info.username, personName: info.personName }) : null)
+    const nomen = userInfo.filter((value) => value !== null)
+    console.log(nomen[0], 'is user info fil')
+
     const posterBlogs = []
     const blogObj = {
       title: '',
@@ -59,8 +85,6 @@ const UserBlogs = () => {
         //if the id of the blog poster is the same as the id from saved user
         if (bloggies[j].user.id === id) {
           //console.log(bloggies[j].user, 'is bloggies j user when the user id equals id from params')
-          nomen = bloggies[j].user.personName
-          nomenUse = bloggies[j].user.username
           const newBlogEntry = Object.create(blogObj)
           newBlogEntry.title = bloggies[j].title
           newBlogEntry.id = bloggies[j].id
@@ -70,21 +94,16 @@ const UserBlogs = () => {
     }
 
     //console.log(posterBlogs, 'is poster blogs')
-    //const phrases = anecdotes.find((words) => words.id=== Number(id))
-    //if do this don't think i can get nomen so not going to
-    //could do above for posterBlogs
-    //will decide later
-    //doesn't work if the user has posted zero blogs
 
     return (
       <div style={textStyle}>
-        <h1 style={marginStyle}>UserAvatar {nomen} <h3 style={smallerTextStyle}>aka {nomenUse}</h3></h1>
+        <h1 style={marginStyle}><img src={userImg}></img> {nomen[0].personName} <h3 style={smallerTextStyle}>aka {nomen[0].username}</h3></h1>
         <hr style={hrStyle}></hr>
-        <h3 style={marginStyle}>About {nomen}</h3>
+        <h3 style={marginStyle}>About {nomen[0].personName}</h3>
         <hr style={hrStyle}></hr>
-        {posterBlogs.length === 0 && <h3 style={marginStyle}>{nomen} has not posted a blog yet!</h3>}
+        {posterBlogs.length === 0 && <h3 style={marginStyle}>{nomen[0].personName} has not posted a blog yet!</h3>}
         {posterBlogs.length > 0 && <div>
-          <h3 style={marginStyle} >Here is the list of blogs {nomen} has posted:</h3>
+          <h3 style={marginStyle} >Here is the list of blogs {nomen[0].personName} has posted:</h3>
           {posterBlogs.map((posting, ind) => {
             return (
               <div style={marginStyle1} key={ind}>
