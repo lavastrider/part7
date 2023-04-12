@@ -1,5 +1,6 @@
 //import { useState, useEffect, useRef } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
+//import { useEffect } from 'react'
 //import { useSelector, useDispatch } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { useMediaQuery } from './hooks/index'
@@ -19,6 +20,7 @@ import { setNotif } from './reducers/notifReducer'
 import { userData, userToken } from './reducers/userReducer'
 import { initializeComms } from './reducers/commentReducer'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+//import 'animate.css'
 
 const vertLineStyle = {
   // red line
@@ -69,7 +71,8 @@ const hrTopStyle = {
   width: '100%',
   position: 'absolute',
   //marginLeft: '-100px',
-  marginLeft: '-12%',
+  //marginLeft: '-12%',
+  marginLeft: '-1%',
   //paddingRight: '100px'
 }
 
@@ -102,6 +105,21 @@ const Footer = () => {
 const App = () => {
 
   const dispatch = useDispatch()
+  const [isLoading, setLoading] = useState(true)
+
+  function fakeRequest() {
+    return new Promise(resolve => setTimeout(() => resolve(), 2500))
+  }
+
+  useEffect(() => {
+    fakeRequest().then(() => {
+      const loaderElement = document.querySelector('.loader-container')
+      if (loaderElement) {
+        loaderElement.remove()
+        setLoading(!isLoading)
+      }
+    })
+  })
 
   useEffect(() => {
     dispatch(initializeBlogs())
@@ -136,6 +154,10 @@ const App = () => {
     //fontSize: '45px'
     //fontSize: isPhoneTablet ? '6vw' : '8vw'
     fontSize: isPhoneTablet ? '35px' : '55px'
+  }
+
+  if (isLoading) {
+    return null
   }
 
   return (

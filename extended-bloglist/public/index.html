@@ -39,11 +39,30 @@
       #bg-color {
         background-color: #DEDEDB
       }
+      .loader {
+        width: 130px;
+        height: 130px;
+        animation: growth 2s linear infinite;
+        text-shadow: #ABCDEF;
+        font-family: Tillana;
+        text-align: center;
+        transform-origin: 50% 12.5em;
+      }
+      
+      @keyframes growth {
+        0% {transform: scale(50%); }
+        100% { transform: scale(100%); }
+      }
     </style>
   </head>
   <body id="bg-color">
-    <div id="root">
+    <div class="loader-container">
+      <div class="loader">
+        <p>Writing blogs...</p>
+      </div>
     </div>
+    <div id="root"></div>
+    
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
