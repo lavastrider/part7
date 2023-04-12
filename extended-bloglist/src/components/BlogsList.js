@@ -62,14 +62,16 @@ const BlogList = () => {
     backgroundColor: '#DEDEDB',
     lineHeight: 0.1,
     fontFamily: 'Tillana',
-    fontSize: isPhoneTablet ? '1.2vw' : '2vw'
+    //fontSize: isPhoneTablet ? '1.2vw' : '2vw'
+    fontSize: isPhoneTablet ? '12px' : '20px'
   }
 
   const headStyle = {
     fontFamily: 'Tillana',
     paddingLeft: '10px',
     lineHeight: 0.5,
-    fontSize: isPhoneTablet ? '3vw' : '4vw'
+    //fontSize: isPhoneTablet ? '3vw' : '4vw'
+    fontSize: isPhoneTablet ? '20px' : '30px'
     //fontSize: '2.15vw'
   }
 

@@ -52,6 +52,12 @@ const LoginPage = () => {
     }
   }
 
+  const forgotPass = (event) => {
+    event.preventDefault()
+    window.alert('Sorry, I warned you that your password cannot be recovered!')
+    navigate('/signup')
+  }
+
 
   return (
     <div style={textStyle}>
@@ -70,7 +76,7 @@ const LoginPage = () => {
           />
         </div>
         <hr style={hrStyle}></hr>
-        <Button type="submit" style={newButtStyle}>login</Button> <Button style={newButtStyle}>forgot password?</Button>
+        <Button type="submit" style={newButtStyle}>login</Button> <Button onClick={(event) => forgotPass(event)} style={newButtStyle}>forgot password?</Button>
       </form>
     </div>
   )

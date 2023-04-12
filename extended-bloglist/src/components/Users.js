@@ -13,25 +13,11 @@ const userHeadStyle = {
   fontFamily: 'Tillana'
 }
 
-//const imgFlipStyle = {
-//  transform: 'scaleX(-1)'
-//}
-
 const tableLineStyle = {
   fontFamily: 'Tillana',
   borderBottom: '1px solid #94B9F0',
   //lineHeight: '50px'
 }
-
-//const vertLineStyle = {
-//  borderLeft: '5px red double',
-//  //position: 'absolute',
-//  width: '100%',
-//  height: '100%',
-//  //float: 'left',
-//  display: 'inline-block',
-//  backgroundColor: '#DEDEDB'
-//}
 
 const spinnerStyle = {
   color: 'purple'
@@ -44,28 +30,13 @@ const textStyle = {
 const Users = () => {
 
   const dispatch = useDispatch()
-  //const [userImg, setUserImg] = useState('')
-  //const [id, setId] = useState('')
 
   useEffect(() => {
     dispatch(initializeUsers())
   }, [])
 
-  //useEffect(() => {
-  //  const getDataWrapper = async (id) => {
-  //    const response = await gravService.getImage(id)
-  //    console.log(response, 'is img in users')
-  //    setUserImg(response)
-  //  }
-  //  //getDataWrapper()
-  //}, [])
-
   const bloggiesUsers = useSelector(state => state.userInfo.appendUsers)
   console.log(bloggiesUsers, 'is bloggies users')
-
-  //const userArray = []
-  //const userAvi = {
-  //}
 
   if (bloggiesUsers) {
 
@@ -78,7 +49,7 @@ const Users = () => {
     const bloggiesUserMap = bloggiesUsers.map((posting, ind) => {
       return (
         <tr style={tableLineStyle} key={ind}>
-          <td><Link style={textStyle} to={`/users/${posting.posterId}`}>{posting.personName} ({posting.username})</Link></td>
+          <td><Link style={textStyle} to={`/users/${posting.id}`}>{posting.personName} ({posting.username})</Link></td>
           <td>{posting.blogs.length}</td>
         </tr>
       )

@@ -71,7 +71,7 @@ const Menu = () => {
   else {
     return (
       <div style={bgStyle}>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="light">
+        <Navbar collapseOnSelect expand="lg" variant="light">
           <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -84,9 +84,7 @@ const Menu = () => {
               <Nav.Link href="#" as='span'>
                 <Link style={paddingTextStyle} to="/blogs">list of blogs</Link>
               </Nav.Link>
-              <Nav.Link href="#" as='span'>
-                <em style={paddingTextStyle}>{user.loggedUser.personName} is logged in <Button onClick={() => logOut()} style={logOutStyle}>log out</Button></em>
-              </Nav.Link>
+              <p style={paddingTextStyle}> <strong>{user.loggedUser.personName}</strong> <Button onClick={() => logOut()} style={logOutStyle}>log out</Button> </p>
             </Nav>
           </Navbar.Collapse>
         </Navbar>

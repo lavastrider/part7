@@ -70,13 +70,16 @@ const SignUpPage = () => {
 
   const makeAcct = (event) => {
     event.preventDefault()
-    addAcct({
-      username: usernomen.value,
-      personName: personNomen.value,
-      emailAddress: address.value,
-      password: passing.value
-    })
-    console.log('we fired the makeacct function')
+    const agree = window.confirm('Did you save your password? It cannot be recovered or reset!')
+    if (agree) {
+      addAcct({
+        username: usernomen.value,
+        personName: personNomen.value,
+        emailAddress: address.value,
+        password: passing.value
+      })
+      console.log('we fired the makeacct function')
+    }
   }
 
   const message = 'Register below to post a blog to the list of blogs!'

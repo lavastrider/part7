@@ -85,14 +85,23 @@ const containerStyle = {
   marginRight: '20%'
 }
 
+const footStyle = {
+  fontFamily: 'Tillana',
+  lineHeight: 0.5
+}
+
+const Footer = () => {
+  return (
+    <div style={footStyle}>
+      <p>Backend code is located <a href='https://github.com/lavastrider/react_course_part4_bloglist'>here</a></p>
+      <p>Frontend code is located <a href='https://github.com/lavastrider/part7/tree/main/extended-bloglist'>here</a></p>
+    </div>
+  )
+}
 
 const App = () => {
 
   const dispatch = useDispatch()
-
-  //componentDidMount() {
-  //  console.log('now we remove the loading image')
-  //}
 
   useEffect(() => {
     dispatch(initializeBlogs())
@@ -125,7 +134,8 @@ const App = () => {
     //textShadow: '0 0 3px #FF0000, 0 0 5px #0000FF',
     fontFamily: 'Tillana',
     //fontSize: '45px'
-    fontSize: isPhoneTablet ? '6vw' : '8vw'
+    //fontSize: isPhoneTablet ? '6vw' : '8vw'
+    fontSize: isPhoneTablet ? '35px' : '55px'
   }
 
   return (
@@ -149,6 +159,7 @@ const App = () => {
                 <Route path="/signup" element={<SignUpPage />}/>
                 <Route path="/login" element={<LoginPage />}/>
               </Routes>
+              <Footer />
             </div>
           </div>
         </div>

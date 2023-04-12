@@ -93,7 +93,8 @@ const Blog = () => {
   const lineHeightAdjStyle = {
     fontFamily: 'Tillana',
     //lineHeight: 0.5,
-    fontSize: isPhoneTablet ? '2vw' : '4vw'
+    //fontSize: isPhoneTablet ? '2vw' : '4vw'
+    fontSize: isPhoneTablet ? '30px' : '40px'
   }
 
 

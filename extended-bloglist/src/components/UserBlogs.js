@@ -70,7 +70,7 @@ const UserBlogs = () => {
   if (bloggies.length > 0 && users) {
     const userInfo = users.map((info) => info.id === id ? ({ username: info.username, personName: info.personName }) : null)
     const nomen = userInfo.filter((value) => value !== null)
-    console.log(nomen[0], 'is user info fil')
+    console.log(nomen[0], 'is user info fil at nomen 0')
 
     const posterBlogs = []
     const blogObj = {
