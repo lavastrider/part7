@@ -10,6 +10,10 @@ const textStyle = {
   fontFamily: 'Tillana'
 }
 
+const linkStyle = {
+  cursor: 'move'
+}
+
 const smallerTextStyle = {
   fontSize: '20px',
   marginLeft: '1%'
@@ -112,7 +116,7 @@ const UserBlogs = () => {
           {posterBlogs.map((posting, ind) => {
             return (
               <div style={marginStyle1} key={ind}>
-                <Link to={`/blogs/${posting.id}`}>{posting.title}</Link>
+                <Link style={linkStyle} to={`/blogs/${posting.id}`}>{posting.title}</Link>
                 <hr style={hrStyle1}></hr>
               </div>
             )

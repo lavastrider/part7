@@ -19,6 +19,15 @@ const likeButtStyle = {
   borderRadius: 25
 }
 
+const linkStyle = {
+  color: 'black',
+  cursor: 'move'
+}
+
+const commBoxStyle = {
+  cursor: 'cell'
+}
+
 const delButtStyle = {
   fontFamily: 'Tillana',
   color: 'black',
@@ -161,8 +170,10 @@ const Blog = () => {
     if (displayBlog) {
 
       if (userLocalStorage) {
-        if (JSON.parse(userLocalStorage).username === displayBlog.user.username) {
-          sameUser = true
+        if (displayBlog.user) {
+          if (JSON.parse(userLocalStorage).username === displayBlog.user.username) {
+            sameUser = true
+          }
         }
       }
 
@@ -184,7 +195,7 @@ const Blog = () => {
             <hr style={hrStyle}></hr>
             <p style={lineHeightMargAdjStyle}>by {displayBlog.author}</p>
             <hr style={hrStyle}></hr>
-            <p style={lineHeightMargAdjStyle}>{displayBlog.url}</p>
+            <p style={lineHeightMargAdjStyle}><Link style={linkStyle} to={`${displayBlog.url}`}>{displayBlog.url}</Link></p>
             <hr style={hrStyle}></hr>
             <p style={lineHeightMargAdjStyle}>{displayBlog.likes} {label} <Button style={likeButtStyle} onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
             <hr style={hrStyle}></hr>
@@ -195,9 +206,10 @@ const Blog = () => {
             <p></p>
             <h3 style={margStyle}>comments</h3>
             <form style={margStyle1} onSubmit={postComment}>
-              <input type="text" name="comment"/> <Button style={commentButtStyle} type="submit">add comment</Button>
+              <input style={commBoxStyle} type="text" name="comment" placeholder="What are your thoughts?"/> <Button style={commentButtStyle} type="submit">add comment</Button>
             </form>
             <hr style={hrStyle}></hr>
+            <p></p>
             {comments}
           </div>
         )
@@ -205,18 +217,22 @@ const Blog = () => {
       else {
 
         return (
-          <div className="container">
-            <h1>{displayBlog.title}</h1>
+          <div>
+            <h1 style={lineHeightAdjStyle}><strong>{displayBlog.title}</strong></h1>
             <hr style={hrStyle}></hr>
-            <p>by {displayBlog.author}</p>
-            <p>{displayBlog.url}</p>
-            <p>{displayBlog.likes} {label} <Button style={likeButtStyle} onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
-            <p><Button onClick={() => navigate('/blogs')}>return to the list</Button></p>
-            <p>pee</p>
-            <h3>comments</h3>
-            <form onSubmit={postComment}>
-              <input type="text" name="comment"/> <Button type="submit">add comment</Button>
+            <p style={lineHeightMargAdjStyle}>by {displayBlog.author}</p>
+            <hr style={hrStyle}></hr>
+            <p style={lineHeightMargAdjStyle}><Link style={linkStyle} to={`${displayBlog.url}`}>{displayBlog.url}</Link></p>
+            <hr style={hrStyle}></hr>
+            <p style={lineHeightMargAdjStyle}>{displayBlog.likes} {label} <Button style={likeButtStyle} onClick={() => increaseLikes(displayBlog.id)}>like</Button></p>
+            <hr style={hrStyle}></hr>
+            <p style={lineHeightMargAdjStyle}><Button style={allButtStyle} onClick={() => navigate('/blogs')}>all blogs</Button></p>
+            <hr style={hrStyle}></hr>
+            <h3 style={margStyle}>comments</h3>
+            <form style={margStyle1} onSubmit={postComment}>
+              <input style={commBoxStyle} type="text" name="comment" placeholder="What are your thoughts?"/> <Button style={commentButtStyle} type="submit">add comment</Button>
             </form>
+            <p></p>
             {comments}
           </div>
         )

@@ -90,14 +90,19 @@ const containerStyle = {
 
 const footStyle = {
   fontFamily: 'Tillana',
-  lineHeight: 0.5
+  lineHeight: 0.5,
+}
+
+const linkStyle = {
+  color: 'black',
+  cursor: 'move'
 }
 
 const Footer = () => {
   return (
     <div style={footStyle}>
-      <p>Backend code is located <a href='https://github.com/lavastrider/react_course_part4_bloglist'>here</a></p>
-      <p>Frontend code is located <a href='https://github.com/lavastrider/part7/tree/main/extended-bloglist'>here</a></p>
+      <p>Backend code is located <a style={linkStyle} href='https://github.com/lavastrider/react_course_part4_bloglist'>here</a></p>
+      <p>Frontend code is located <a style={linkStyle} href='https://github.com/lavastrider/part7/tree/main/extended-bloglist'>here</a></p>
     </div>
   )
 }

@@ -24,7 +24,8 @@ const spinnerStyle = {
 }
 
 const textStyle = {
-  color: 'black'
+  color: 'black',
+  cursor: 'move'
 }
 
 const Users = () => {
@@ -39,12 +40,6 @@ const Users = () => {
   console.log(bloggiesUsers, 'is bloggies users')
 
   if (bloggiesUsers) {
-
-    //console.log(blogPosters, 'is blog posters')
-    //const avatar = 'https://static.vecteezy.com/system/resources/thumbnails/008/844/878/small/arrow-icon-design-free-png.png'
-    //useEffect(() => {
-
-    //}, [blogPosters])
 
     const bloggiesUserMap = bloggiesUsers.map((posting, ind) => {
       return (

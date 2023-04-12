@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-cursor: url('../public/cursor/quill_cursor1.png'), pointer;
+cursor: url('../public/cursor/quill_cursor1.png'), auto;
 }
 
 code {

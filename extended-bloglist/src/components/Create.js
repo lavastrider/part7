@@ -25,6 +25,10 @@ const hrStyle = {
   borderWidth: 2
 }
 
+const inputStyle = {
+  cursor: 'cell'
+}
+
 const Create = () => {
   const title = useField('title')
   const author = useField('author')
@@ -54,15 +58,24 @@ const Create = () => {
     <div className="container" style={textStyle}>
       <form onSubmit={createBlogObj}>
         <div>
-          <input {...title} placeholder="What's the title?"/>
+          <input {...title}
+            style={inputStyle}
+            placeholder="What's the title?"
+          />
         </div>
         <hr style={hrStyle}></hr>
         <div>
-          <input {...author} placeholder="Who wrote it?"/>
+          <input {...author}
+            style={inputStyle}
+            placeholder="Who wrote it?"
+          />
         </div>
         <hr style={hrStyle}></hr>
         <div>
-          <input {...site} placeholder="https://..."/>
+          <input {...site}
+            style={inputStyle}
+            placeholder="https://..."
+          />
         </div>
         <hr style={hrStyle}></hr>
         <Button type="submit" style={submitBlogStyle}>submit</Button>

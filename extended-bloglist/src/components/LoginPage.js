@@ -13,7 +13,8 @@ const newButtStyle = {
   borderRadius: 25,
   borderWidth: 3,
   color: 'black',
-  fontFamily: 'Tillana'
+  fontFamily: 'Tillana',
+  cursor: 'move'
 }
 
 const hrStyle = {
@@ -25,6 +26,10 @@ const hrStyle = {
 const textStyle = {
   fontFamily: 'Tillana',
   textAlign: 'center'
+}
+
+const inputStyle = {
+  cursor: 'cell'
 }
 
 const LoginPage = () => {
@@ -67,12 +72,14 @@ const LoginPage = () => {
         <div>
           <input {...username}
             placeholder='Enter username'
+            style={inputStyle}
           />
         </div>
         <hr style={hrStyle}></hr>
         <div>
           <input {...password}
             placeholder='Enter password'
+            style={inputStyle}
           />
         </div>
         <hr style={hrStyle}></hr>

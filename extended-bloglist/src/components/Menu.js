@@ -9,13 +9,21 @@ const paddingTextStyle = {
   color: 'black',
 }
 
+const paddingTextLinkStyle = {
+  paddingRight: 5,
+  fontFamily: 'Tillana',
+  color: 'black',
+  cursor: 'move'
+}
+
 const logOutStyle = {
   backgroundColor: '#C7C7C3',
   borderColor: 'black',
   borderRadius: 25,
   borderWidth: 3,
   color: 'black',
-  fontFamily: 'Tillana'
+  fontFamily: 'Tillana',
+  cursor: 'move'
 }
 
 const bgStyle = {
@@ -51,16 +59,16 @@ const Menu = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#" as='span'>
-                <Link style={paddingTextStyle} to="/users">users</Link>
+                <Link style={paddingTextLinkStyle} to="/users">users</Link>
               </Nav.Link>
               <Nav.Link href="#" as='span'>
-                <Link style={paddingTextStyle} to="/blogs">list of blogs</Link>
+                <Link style={paddingTextLinkStyle} to="/blogs">list of blogs</Link>
               </Nav.Link>
               <Nav.Link href="#" as='span'>
-                <Link style={paddingTextStyle} to="/signup">sign up</Link>
+                <Link style={paddingTextLinkStyle} to="/signup">sign up</Link>
               </Nav.Link>
               <Nav.Link href="#" as='span'>
-                <Link style={paddingTextStyle} to="/login">login</Link>
+                <Link style={paddingTextLinkStyle} to="/login">login</Link>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -76,13 +84,13 @@ const Menu = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#" as='span'>
-                <Link style={paddingTextStyle} to="/create">post a link</Link>
+                <Link style={paddingTextLinkStyle} to="/create">post a link</Link>
               </Nav.Link>
               <Nav.Link href="#" as='span'>
-                <Link style={paddingTextStyle} to="/users">users</Link>
+                <Link style={paddingTextLinkStyle} to="/users">users</Link>
               </Nav.Link>
               <Nav.Link href="#" as='span'>
-                <Link style={paddingTextStyle} to="/blogs">list of blogs</Link>
+                <Link style={paddingTextLinkStyle} to="/blogs">list of blogs</Link>
               </Nav.Link>
               <p style={paddingTextStyle}> <strong>{user.loggedUser.personName}</strong> <Button onClick={() => logOut()} style={logOutStyle}>log out</Button> </p>
             </Nav>

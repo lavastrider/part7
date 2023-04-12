@@ -27,7 +27,7 @@ import { useMediaQuery } from '../hooks/index'
 
 const linkStyle = {
   color: 'black',
-  //fontStyle: 'none'
+  cursor: 'move'
 }
 
 //const headStyle = {

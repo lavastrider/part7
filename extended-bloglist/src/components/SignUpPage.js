@@ -15,14 +15,19 @@ const submitStyle = {
   borderWidth: 3,
   //color: '#6F7378',
   color: '#5A5A5A',
-  fontFamily: 'Tillana'
+  fontFamily: 'Tillana',
+  cursor: 'move'
 }
 
 const textMarginStyle = {
   //marginLeft: '1%',
   fontFamily: 'Tillana',
   textAlign: 'center',
-  lineHeight: 0.8
+  lineHeight: 0.8,
+}
+
+const inputStyle = {
+  cursor: 'cell'
 }
 
 const hrStyle = {
@@ -89,19 +94,31 @@ const SignUpPage = () => {
       <hr style={hrStyle}></hr>
       <form style={textMarginStyle} onSubmit={makeAcct}>
         <div>
-          <input {...usernomen} placeholder='At least 3 characters'/>
+          <input {...usernomen}
+            style={inputStyle}
+            placeholder='At least 3 characters'
+          />
         </div>
         <hr style={hrStyle}></hr>
         <div>
-          <input {...personNomen} placeholder='Your name'/>
+          <input {...personNomen}
+            style={inputStyle}
+            placeholder='Your name'
+          />
         </div>
         <hr style={hrStyle}></hr>
         <div>
-          <input {...address} placeholder='Your email address'/>
+          <input {...address}
+            placeholder='Your email address'
+            style={inputStyle}
+          />
         </div>
         <hr style={hrStyle}></hr>
         <div>
-          <input {...passing} placeholder='At least 16 characters'/>
+          <input {...passing}
+            placeholder='At least 16 characters'
+            style={inputStyle}
+          />
           <p></p>
           <p>Save your password!</p>
           <p>It cannot be reset or recovered!</p>
